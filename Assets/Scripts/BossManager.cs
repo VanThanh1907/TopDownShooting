@@ -9,7 +9,9 @@ public class BossManager : MonoBehaviour
     void Start()
     {
         SpawnBoss();
+        
     }
+
 
 
 
