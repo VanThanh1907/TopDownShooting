@@ -11,13 +11,6 @@ public class BossManager : MonoBehaviour
         SpawnBoss();
         
     }
-
-
-
-
-
-
-
     void SpawnBoss()
     {
         if (bossDataToSpawn != null && bossDataToSpawn.bossPrefab != null)
