@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 public class WaveManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
@@ -10,7 +11,7 @@ public class WaveManager : MonoBehaviour
     public int enemiesPerWave = 5;
     public float spawnDelay = 0.5f;
     public int bossEveryXWave = 5;
-
+    public TMP_Text waveText;
     private int currentWave = 0;
     private bool spawning = false;
 
@@ -18,17 +19,20 @@ public class WaveManager : MonoBehaviour
     {
         StartCoroutine(StartNextWave());
     }
+
     private void Update()
     {
-        if (!spawning && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        if (!spawning && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 &&  !spawning && GameObject.FindGameObjectsWithTag("Boss").Length == 0 ) 
         {
             StartCoroutine(StartNextWave());
         }
     }
     IEnumerator StartNextWave()
     {
+
         spawning = true;
         currentWave++;
+        waveText.text = $"Wave {currentWave}";
 
         if (currentWave % bossEveryXWave == 0)
         {

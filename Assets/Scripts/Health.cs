@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     private HealthBarUI healthBarUI;
     public float CurrentPercent => currentHP / maxHP;
     public UnityEvent onDeath;
+    Animator animator;
 
     void Awake()
     {
@@ -43,11 +44,18 @@ public class Health : MonoBehaviour
     }
 
 
-    void Die()
+  public void Die()
+{
+    onDeath?.Invoke();
+    Animator animator = GetComponent<Animator>();
+    if (animator != null)
     {
-        onDeath?.Invoke();
-        Destroy(gameObject); // hoặc animation, disable...
+        animator.SetTrigger("Die"); // Tự động chạy đúng kiểu chết của loại enemy đó
     }
+
+    Destroy(gameObject, 1f); // Delay huỷ (có thể thay bằng Animation Event)
+}
+
 
     public float GetHPPercent()
     {

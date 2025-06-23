@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-       
+
     }
 
     protected virtual void Update()
@@ -24,9 +24,5 @@ public class EnemyController : MonoBehaviour
         transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
     }
 
-    protected virtual void OnDeath()
-    {
-        // Gọi animation chết ở subclass nếu có
-        Destroy(gameObject);
-    }
+   
 }

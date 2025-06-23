@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: -2673014583506473129}
   m_Layer: 8
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fba595d39e042648ad1020688eaa462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 9cbb2b5c0752ff4429e6fe8086f5a68e, type: 2}
+  data: {fileID: 0}
   firePoint: {fileID: 7660062193119032845}
   currentState: 2
 --- !u!114 &-2673014583506473129
