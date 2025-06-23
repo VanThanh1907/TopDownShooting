@@ -22,11 +22,14 @@ public class Health : MonoBehaviour
         if (healthBarPrefab != null)
         {
             GameObject ui = Instantiate(healthBarPrefab, transform.position, Quaternion.identity);
+
             ui.transform.SetParent(transform);
+            ui.transform.localScale = healthBarPrefab.transform.localScale; 
             healthBarUI = ui.GetComponent<HealthBarUI>();
             healthBarUI.SetTarget(transform);
             healthBarUI.SetFill(GetHPPercent());
         }
+
     }
 
     public void TakeDamage(float dmg)
@@ -44,17 +47,17 @@ public class Health : MonoBehaviour
     }
 
 
-  public void Die()
-{
-    onDeath?.Invoke();
-    Animator animator = GetComponent<Animator>();
-    if (animator != null)
+    public void Die()
     {
-        animator.SetTrigger("Die"); // Tự động chạy đúng kiểu chết của loại enemy đó
-    }
+        onDeath?.Invoke();
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("Die"); // Tự động chạy đúng kiểu chết của loại enemy đó
+        }
 
-    Destroy(gameObject, 1f); // Delay huỷ (có thể thay bằng Animation Event)
-}
+        Destroy(gameObject, 1f);
+    }
 
 
     public float GetHPPercent()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
-    public Image fillImage;
+   [SerializeField] private Image fillImage;
     public Vector3 offset = new Vector3(0, 5f, 0); // nằm phía trên quái
 
     private Transform target;
@@ -15,14 +15,20 @@ public class HealthBarUI : MonoBehaviour
         target = targetTransform;
     }
 
-    void LateUpdate()
+  void LateUpdate()
+{
+    if (target != null)
     {
-        if (target != null)
-        {
-            transform.position = target.position + offset;
-            transform.rotation = Quaternion.identity; // luôn thẳng
-        }
+        transform.position = target.position + offset;
+        transform.rotation = Quaternion.identity; // luôn giữ hướng
+
+        // 👉 Luôn giữ scale X > 0 để không bị lật
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x);
+        transform.localScale = scale;
     }
+}
+
 
     public void SetFill(float percent)
     {
