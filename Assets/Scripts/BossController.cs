@@ -28,6 +28,8 @@ public class BossController : MonoBehaviour
     private Health health;
 
     private float spiralAngle = 0f;
+    public bool isFlipped { get; private set; }
+
 
     public void Setup(BossData bossData)
     {
@@ -65,7 +67,7 @@ public class BossController : MonoBehaviour
                     Fire();
                     fireTimer = 0f;
                 }
-                
+
                 if (stateTimer <= 0)
                     ChangeState(BossState.MoveToPlayer, 3f);
                 break;
@@ -77,7 +79,19 @@ public class BossController : MonoBehaviour
     void MoveTowardsPlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
+
+        if (direction.x != 0)
+        {
+            isFlipped = direction.x < 0;
+
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * (isFlipped ? -1 : 1);
+            transform.localScale = scale;
+        }
+
+        // ✅ Di chuyển
         transform.position += (Vector3)(direction * currentPhase.moveSpeed * Time.deltaTime);
+
     }
 
     void Fire()
@@ -112,7 +126,7 @@ public class BossController : MonoBehaviour
 
     void CheckPhaseChange()
     {
-       
+
 
         float percent = health.CurrentPercent;
 

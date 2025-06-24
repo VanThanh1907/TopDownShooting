@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
             GameObject ui = Instantiate(healthBarPrefab, transform.position, Quaternion.identity);
 
             ui.transform.SetParent(transform);
-            ui.transform.localScale = healthBarPrefab.transform.localScale; 
+            ui.transform.localScale = healthBarPrefab.transform.localScale;
             healthBarUI = ui.GetComponent<HealthBarUI>();
             healthBarUI.SetTarget(transform);
             healthBarUI.SetFill(GetHPPercent());
@@ -50,6 +50,11 @@ public class Health : MonoBehaviour
     public void Die()
     {
         onDeath?.Invoke();
+        if (healthBarUI != null)
+        {
+            Destroy(healthBarUI.gameObject);
+            healthBarUI = null;
+        }
         Animator animator = GetComponent<Animator>();
         if (animator != null)
         {

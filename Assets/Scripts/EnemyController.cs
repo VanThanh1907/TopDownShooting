@@ -5,6 +5,7 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 2f;
     protected Transform player;
     protected Health health;
+    public bool isFlipped { get; private set; }
 
     protected virtual void Start()
     {
@@ -23,14 +24,15 @@ public class EnemyController : MonoBehaviour
 
         Vector2 dir = (player.position - transform.position).normalized;
         transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
-        //flip
+        // Flip scale + cập nhật biến trạng thái
         if (dir.x != 0)
         {
+            isFlipped = dir.x < 0;
+
             Vector3 scale = transform.localScale;
-            scale.x = Mathf.Abs(scale.x) * (dir.x > 0 ? 1 : -1);
+            scale.x = Mathf.Abs(scale.x) * (isFlipped ? -1 : 1);
             transform.localScale = scale;
         }
     }
-
 
 }

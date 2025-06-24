@@ -5,29 +5,34 @@ using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
-   [SerializeField] private Image fillImage;
+    [SerializeField] private Image fillImage;
     public Vector3 offset = new Vector3(0, 5f, 0); // nằm phía trên quái
-
     private Transform target;
-
+    private System.Func<bool> getFlip;
     public void SetTarget(Transform targetTransform)
     {
         target = targetTransform;
+
+        if (target.TryGetComponent(out EnemyController enemy))
+            getFlip = () => enemy.isFlipped;
+        else if (target.TryGetComponent(out BossController boss))
+            getFlip = () => boss.isFlipped;
     }
 
-  void LateUpdate()
-{
-    if (target != null)
+    void LateUpdate()
     {
-        transform.position = target.position + offset;
-        transform.rotation = Quaternion.identity; // luôn giữ hướng
-
-        // 👉 Luôn giữ scale X > 0 để không bị lật
-        Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x);
-        transform.localScale = scale;
+        if (target != null)
+        {
+            transform.position = target.position + offset;
+            transform.rotation = Quaternion.identity; // luôn giữ hướng
+                                                      // Nếu enemy bị lật → lật lại lần nữa
+            if (getFlip != null)
+            {
+                bool flipped = getFlip();
+                fillImage.rectTransform.localScale = new Vector3(flipped ? -1 : 1, 1, 1);
+            }
+        }
     }
-}
 
 
     public void SetFill(float percent)
