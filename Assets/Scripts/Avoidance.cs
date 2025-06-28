@@ -5,6 +5,7 @@ public class EnemyAvoidance : MonoBehaviour
     public float separationRadius = 1f;
     public float separationForce = 3f;
 
+
     void Update()
     {
         Collider2D[] others = Physics2D.OverlapCircleAll(transform.position, separationRadius);
