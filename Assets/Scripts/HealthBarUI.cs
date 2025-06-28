@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class HealthBarUI : MonoBehaviour
 {
     [SerializeField] private Image fillImage;
-    public Vector3 offset = new Vector3(0, 5f, 0); // nằm phía trên quái
+
+     [SerializeField] public Vector3 offset; // nằm phía trên quái
     private Transform target;
     private System.Func<bool> getFlip;
     public void SetTarget(Transform targetTransform)

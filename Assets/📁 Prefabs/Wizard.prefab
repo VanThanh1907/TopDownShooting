@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3047530324990261409}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.14, y: 0.47, z: 0}
+  m_LocalPosition: {x: 0.65, y: -0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 1814974623071899633}
   - component: {fileID: 5836847054966510850}
   - component: {fileID: 3357328248239575396}
+  - component: {fileID: 4064524321087570892}
+  - component: {fileID: 8531829435940318796}
   m_Layer: 8
   m_Name: Wizard
   m_TagString: Boss
@@ -220,7 +222,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1000
-  healthBarPrefab: {fileID: 5605162996321319377, guid: 74576c62bd9a83b49b56094fa74f08ec, type: 3}
+  healthBarPrefab: {fileID: 5605162996321319377, guid: 7f36f491eb75683428468183ba089592, type: 3}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &4064524321087570892
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063694350073281608}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 07ee4606018d44342b163c99aa1675b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8531829435940318796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063694350073281608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5061269301c984e8667b6f4c3f65b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  separationRadius: 1
+  separationForce: 3

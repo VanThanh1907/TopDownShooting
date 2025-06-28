@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4678302769129012898}
   - component: {fileID: 816678782245781836}
   - component: {fileID: 2472030036818533629}
+  - component: {fileID: 3353169246051729546}
+  - component: {fileID: 4360716796226674097}
   m_Layer: 8
   m_Name: MushRoom
   m_TagString: Enemy
@@ -212,3 +214,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3353169246051729546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131590151529221454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a81e9c7fc59c640b67c17a525bc657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  attackRange: 1.5
+  damage: 100
+  attackCooldown: 1.5
+--- !u!114 &4360716796226674097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131590151529221454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5061269301c984e8667b6f4c3f65b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  separationRadius: 1
+  separationForce: 3

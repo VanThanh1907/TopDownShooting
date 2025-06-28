@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1103944709075906765}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.26, y: -1.58, z: 0}
+  m_LocalPosition: {x: 0.28, y: -0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,8 +45,9 @@ GameObject:
   - component: {fileID: -1547478170174818664}
   - component: {fileID: -350202607694389075}
   - component: {fileID: -2673014583506473129}
+  - component: {fileID: 3530955912717250177}
   m_Layer: 8
-  m_Name: Boss
+  m_Name: Skeleton
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 5032314958307619106}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.7162, y: 4.3415, z: 0}
+  m_LocalPosition: {x: -7.7816, y: 2.6, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -179,18 +180,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.05719185, y: 0.05719185}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7, y: 12.875}
+    oldSize: {x: 2.24, y: 4.12}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7, y: 12.875}
+  m_Size: {x: 2.9965248, y: 5.2111998}
   m_EdgeRadius: 0
 --- !u!114 &-350202607694389075
 MonoBehaviour:
@@ -220,7 +221,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 5000
-  healthBarPrefab: {fileID: 5605162996321319377, guid: 74576c62bd9a83b49b56094fa74f08ec, type: 3}
+  healthBarPrefab: {fileID: 5605162996321319377, guid: 7f36f491eb75683428468183ba089592, type: 3}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3530955912717250177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032314958307619106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5061269301c984e8667b6f4c3f65b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  separationRadius: 1
+  separationForce: 3

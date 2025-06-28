@@ -30,12 +30,14 @@ public class BossController : MonoBehaviour
     private float spiralAngle = 0f;
     public bool isFlipped { get; private set; }
 
+    private Animator animator ;
 
     public void Setup(BossData bossData)
     {
         data = bossData;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         health = GetComponent<Health>(); // Gán health ở đây thay vì Start()
+        animator = GetComponent<Animator>();
 
         SwitchToPhase(0); // Khởi động phase đầu tiên
         ChangeState(BossState.Idle, 2f); // Đứng yên 2s
@@ -78,8 +80,8 @@ public class BossController : MonoBehaviour
 
     void MoveTowardsPlayer()
     {
+        
         Vector2 direction = (player.position - transform.position).normalized;
-
         if (direction.x != 0)
         {
             isFlipped = direction.x < 0;
@@ -122,6 +124,28 @@ public class BossController : MonoBehaviour
         currentState = newState;
         stateTimer = duration;
         fireTimer = 0f;
+          if (animator != null)
+    {
+        switch (newState)
+        {
+            case BossState.Idle:
+            case BossState.MoveToPlayer:
+                animator.SetBool("isMoving", true);
+                animator.SetBool("isAttacking", false);
+                break;
+
+            case BossState.Attack:
+                animator.SetBool("isAttacking", true);
+                animator.SetBool("isMoving", false);
+                break;
+
+            case BossState.Dead:
+                animator.SetTrigger("Die");
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isMoving", false);
+                break;
+        }
+    }
     }
 
     void CheckPhaseChange()
