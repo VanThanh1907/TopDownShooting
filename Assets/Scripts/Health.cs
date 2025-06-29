@@ -69,4 +69,14 @@ public class Health : MonoBehaviour
     {
         return currentHP / maxHP;
     }
+    public void SetFullHP()
+{
+    currentHP = maxHP;
+
+    if (healthBarUI != null)
+    {
+        healthBarUI.SetFill(1f); // 100%
+    }
+}
+
 }
