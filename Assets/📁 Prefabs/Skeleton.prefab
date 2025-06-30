@@ -225,6 +225,7 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  damagePopupPrefab: {fileID: 905265247560571831, guid: 447d4da26394d134d9c5709a713ea74a, type: 3}
 --- !u!114 &3530955912717250177
 MonoBehaviour:
   m_ObjectHideFlags: 0

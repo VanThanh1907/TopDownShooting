@@ -27,5 +27,6 @@ public class EnemyAvoidance : MonoBehaviour
 
         // Apply lực đẩy ra
         transform.position += (Vector3)(push * separationForce * Time.deltaTime);
+        
     }
 }

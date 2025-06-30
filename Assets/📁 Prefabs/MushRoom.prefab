@@ -189,10 +189,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 500
-  healthBarPrefab: {fileID: 5605162996321319377, guid: 96713b5eaf52d1346b9b53050031f48e, type: 3}
+  healthBarPrefab: {fileID: 0}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  damagePopupPrefab: {fileID: 3972640818786084274, guid: 447d4da26394d134d9c5709a713ea74a, type: 3}
 --- !u!95 &2472030036818533629
 Animator:
   serializedVersion: 5
@@ -226,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a81e9c7fc59c640b67c17a525bc657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 1
   attackRange: 1.5
   damage: 100
   attackCooldown: 1.5

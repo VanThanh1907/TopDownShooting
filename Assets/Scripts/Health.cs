@@ -11,7 +11,8 @@ public class Health : MonoBehaviour
     private HealthBarUI healthBarUI;
     public float CurrentPercent => currentHP / maxHP;
     public UnityEvent onDeath;
-    Animator animator;
+    [SerializeField] private GameObject damagePopupPrefab;
+    [SerializeField] private Vector3 popupOffset = Vector3.zero;
 
     void Awake()
     {
@@ -36,6 +37,12 @@ public class Health : MonoBehaviour
     {
         currentHP -= dmg;
         Debug.Log($"{gameObject.name} took {dmg} damage, {currentHP}/{maxHP}");
+
+       if (damagePopupPrefab != null)
+    {
+        GameObject popup = Instantiate(damagePopupPrefab, transform.position + popupOffset, Quaternion.identity);
+        popup.GetComponent<DamagePopup>().Setup(dmg);
+    }
 
         if (healthBarUI != null)
             healthBarUI.SetFill(GetHPPercent());
