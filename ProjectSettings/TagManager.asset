@@ -17,7 +17,7 @@ TagManager:
   - PlayerBullet
   - Enemy
   - EnemyBullet
-  - 
+  - BackGround
   - 
   - 
   - 
@@ -42,4 +42,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Backgound
+    uniqueID: 1235162619
+    locked: 0
+  - name: Map
+    uniqueID: 6171503
+    locked: 0
+  - name: Enemy
+    uniqueID: 2521817099
+    locked: 0
+  - name: Player
+    uniqueID: 877643325
+    locked: 0
+  - name: Bullet
+    uniqueID: 2902798361
+    locked: 0
+  - name: UI
+    uniqueID: 2697456641
     locked: 0

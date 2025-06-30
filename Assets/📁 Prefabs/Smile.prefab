@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1773150197
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1931893151, guid: 42dfd65ecb29c3149b303b34f56fc86a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,6 +194,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   damagePopupPrefab: {fileID: 3972640818786084274, guid: 447d4da26394d134d9c5709a713ea74a, type: 3}
+  popupOffset: {x: 0, y: 0, z: -1}
 --- !u!95 &3278068305644637163
 Animator:
   serializedVersion: 5

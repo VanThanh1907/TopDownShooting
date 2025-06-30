@@ -38,11 +38,14 @@ public class Health : MonoBehaviour
         currentHP -= dmg;
         Debug.Log($"{gameObject.name} took {dmg} damage, {currentHP}/{maxHP}");
 
-       if (damagePopupPrefab != null)
-    {
-        GameObject popup = Instantiate(damagePopupPrefab, transform.position + popupOffset, Quaternion.identity);
-        popup.GetComponent<DamagePopup>().Setup(dmg);
-    }
+        if (damagePopupPrefab != null)
+        {
+            Vector3 spawnPos = transform.position + popupOffset;
+            spawnPos.z = -1f;
+            GameObject popup = Instantiate(damagePopupPrefab, spawnPos, Quaternion.identity);
+            popup.GetComponent<DamagePopup>().Setup(dmg);
+            Debug.Log("🟢 Popup created at: " + spawnPos);
+        }
 
         if (healthBarUI != null)
             healthBarUI.SetFill(GetHPPercent());
@@ -77,13 +80,13 @@ public class Health : MonoBehaviour
         return currentHP / maxHP;
     }
     public void SetFullHP()
-{
-    currentHP = maxHP;
-
-    if (healthBarUI != null)
     {
-        healthBarUI.SetFill(1f); // 100%
+        currentHP = maxHP;
+
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetFill(1f); // 100%
+        }
     }
-}
 
 }
