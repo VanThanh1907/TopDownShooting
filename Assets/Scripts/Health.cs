@@ -44,7 +44,7 @@ public class Health : MonoBehaviour
             spawnPos.z = -1f;
             GameObject popup = Instantiate(damagePopupPrefab, spawnPos, Quaternion.identity);
             popup.GetComponent<DamagePopup>().Setup(dmg);
-            Debug.Log("🟢 Popup created at: " + spawnPos);
+            
         }
 
         if (healthBarUI != null)
