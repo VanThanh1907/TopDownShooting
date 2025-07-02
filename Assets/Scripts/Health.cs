@@ -57,22 +57,35 @@ public class Health : MonoBehaviour
     }
 
 
-    public void Die()
-    {
-        onDeath?.Invoke();
-        if (healthBarUI != null)
-        {
-            Destroy(healthBarUI.gameObject);
-            healthBarUI = null;
-        }
-        Animator animator = GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.SetTrigger("Die"); // Tự động chạy đúng kiểu chết của loại enemy đó
-        }
+   public void Die()
+{
+    onDeath?.Invoke();
 
-        Destroy(gameObject, 1f);
+    if (healthBarUI != null)
+    {
+        Destroy(healthBarUI.gameObject);
+        healthBarUI = null;
     }
+
+    // Check nếu là Spine
+    var skeletonAnim = GetComponent<Spine.Unity.SkeletonAnimation>();
+    if (skeletonAnim != null)
+    {
+        skeletonAnim.AnimationState.SetAnimation(0, "Dead", false); // gọi animation 'die'
+        Destroy(gameObject, 2f); // delay để cho animation chạy xong
+        return;
+    }
+
+    // Nếu không có Spine thì check Animator thường
+    Animator animator = GetComponent<Animator>();
+    if (animator != null)
+    {
+        animator.SetTrigger("Die");
+    }
+
+    Destroy(gameObject, 1f); // tự hủy sau khi chết
+}
+
 
 
     public float GetHPPercent()
