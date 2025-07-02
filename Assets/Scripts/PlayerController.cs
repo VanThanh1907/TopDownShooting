@@ -13,16 +13,21 @@ public class PlayerController : MonoBehaviour
     private float nextFireTime = 0f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    Animator animator;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        animator = GetComponentInChildren<Animator>();
+
     }
 
     void Update()
     {
+        
+        
         HandleMovementInput();
+
         // RotateToMouse();
         HandleShooting();
     }
@@ -30,11 +35,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+
     }
 
     void HandleMovementInput()
     {
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        if (moveInput.magnitude > 0)
+            animator.SetInteger("State", 1);
     }
 
     void Move()
