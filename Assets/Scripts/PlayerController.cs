@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleMovementInput();
-        RotateToMouse();
+        // RotateToMouse();
         HandleShooting();
     }
 
@@ -42,13 +42,13 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveInput * moveSpeed;
     }
 
-    void RotateToMouse()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 lookDir = mousePos - transform.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-    }
+    // void RotateToMouse()
+    // {
+    //     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     Vector2 lookDir = mousePos - transform.position;
+    //     float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+    //     transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+    // }
 
     void HandleShooting()
     {
