@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        health = GetComponent<Health>();
 
     }
 
@@ -20,6 +21,8 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Move()
     {
+         if (health != null && health.IsDead()) return;
+
         if (player == null) return;
 
         Vector2 dir = (player.position - transform.position).normalized;

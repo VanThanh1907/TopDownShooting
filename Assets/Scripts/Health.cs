@@ -14,7 +14,9 @@ public class Health : MonoBehaviour
     [SerializeField] private GameObject damagePopupPrefab;
     [SerializeField] private Vector3 popupOffset = Vector3.zero;
     Animator animator;
-   
+    private Collider2D col;
+    private bool isDead = false;
+
     Spine.Unity.SkeletonAnimation skeletonAnim;
 
 
@@ -23,6 +25,7 @@ public class Health : MonoBehaviour
         currentHP = maxHP;
         animator = GetComponentInChildren<Animator>();
         skeletonAnim = GetComponent<Spine.Unity.SkeletonAnimation>();
+        col = GetComponent<Collider2D>();
     }
     void Start()
     {
@@ -41,6 +44,8 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
+        if (isDead) return;
+
         currentHP -= dmg;
         Debug.Log($"{gameObject.name} took {dmg} damage, {currentHP}/{maxHP}");
 
@@ -56,7 +61,7 @@ public class Health : MonoBehaviour
         {
             animator.SetTrigger("Hit");
         }
-       
+
 
         if (healthBarUI != null)
             healthBarUI.SetFill(GetHPPercent());
@@ -70,8 +75,12 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
         onDeath?.Invoke();
 
+        if (col != null) col.enabled = false;
         if (healthBarUI != null)
         {
             Destroy(healthBarUI.gameObject);
@@ -87,6 +96,7 @@ public class Health : MonoBehaviour
             return;
         }
 
+
         if (animator != null)
         {
             animator.SetInteger("State", 6); // 6 = Dead
@@ -94,17 +104,14 @@ public class Health : MonoBehaviour
             return;
         }
 
-        // Nếu không có Spine thì check Animator thường
-
-       
     }
-
 
 
     public float GetHPPercent()
     {
         return currentHP / maxHP;
     }
+
     public void SetFullHP()
     {
         currentHP = maxHP;
@@ -113,6 +120,11 @@ public class Health : MonoBehaviour
         {
             healthBarUI.SetFill(1f); // 100%
         }
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 
 }
