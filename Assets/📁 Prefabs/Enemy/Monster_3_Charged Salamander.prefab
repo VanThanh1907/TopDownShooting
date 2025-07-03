@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5631322660674823959}
   - component: {fileID: 6130571544879219913}
   - component: {fileID: 800356884963450972}
+  - component: {fileID: -4336287875048672635}
   m_Layer: 8
   m_Name: Monster_3_Charged Salamander
   m_TagString: Enemy
@@ -86,7 +87,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1773150197
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4341440336981221880
@@ -233,3 +234,30 @@ MonoBehaviour:
   attackRange: 1.5
   damage: 100
   attackCooldown: 1.5
+--- !u!50 &-4336287875048672635
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849839673299584384}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
