@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     Animator animator;
+    private bool isStanding;
 
     void Awake()
     {
@@ -24,7 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        
+        if (moveInput.magnitude > 0 && !isStanding)
+            animator.SetInteger("State", 0);
         
         HandleMovementInput();
 
@@ -42,7 +44,10 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         if (moveInput.magnitude > 0)
+        {
+            isStanding = false;
             animator.SetInteger("State", 1);
+        }
     }
 
     void Move()
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
             nextFireTime = Time.time + 1f / weaponData.fireRate;
+            animator.Play("PumpShotgun");
         }
     }
 

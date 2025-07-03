@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 6009855829588857956}
   - component: {fileID: 1841114365614904003}
   - component: {fileID: 2321122806673342451}
-  m_Layer: 0
+  - component: {fileID: 2408174109466620419}
+  m_Layer: 8
   m_Name: Monster_81_Ghoul
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -33,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.42, y: 2.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,7 +123,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: Idle
+  _animationName: Walk
   loop: 1
   timeScale: 1
 --- !u!114 &6744911531704587926
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfab250b86991034a84f5648f7b2bde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 1
 --- !u!114 &6009855829588857956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,3 +217,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   separationRadius: 1
   separationForce: 3
+--- !u!114 &2408174109466620419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7880858132256456451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a81e9c7fc59c640b67c17a525bc657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  attackRange: 1.5
+  damage: 100
+  attackCooldown: 1.5

@@ -9,14 +9,17 @@ public class MeleeEnemy : EnemyController
     public float attackCooldown = 1.5f;
 
     private float lastAttackTime;
-    private Animator animator;
-
     
+    Spine.Unity.SkeletonAnimation skeletonAnim;
+
+
+
 
     protected override void Start()
     {
         base.Start();
-        animator = GetComponent<Animator>();
+        skeletonAnim = GetComponent<Spine.Unity.SkeletonAnimation>();
+        
     }
 
     protected override void Update()
@@ -32,8 +35,8 @@ public class MeleeEnemy : EnemyController
             lastAttackTime = Time.time;
 
             // Gọi animation đánh
-            animator.SetBool("isAttacking", true);
-            animator.SetBool("isRunning", false);
+            skeletonAnim.AnimationState.SetAnimation(0, "Attack", false);
+           
             // Gây damage sau 0.3s (giả định tay vung trúng)
             Invoke(nameof(ApplyDamage), 0.3f);
             // Tắt trạng thái đánh sau thời gian (giả định thời gian animation)
@@ -51,8 +54,7 @@ public class MeleeEnemy : EnemyController
 
     void EndAttack()
     {
-        animator.SetBool("isAttacking", false);
-        animator.SetBool("isRunning", true); 
+        skeletonAnim.AnimationState.SetAnimation(0, "Walk", true);
     }
 }
 

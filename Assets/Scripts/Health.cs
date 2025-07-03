@@ -14,15 +14,14 @@ public class Health : MonoBehaviour
     [SerializeField] private GameObject damagePopupPrefab;
     [SerializeField] private Vector3 popupOffset = Vector3.zero;
     Animator animator;
-    Animator animator1;
+   
     Spine.Unity.SkeletonAnimation skeletonAnim;
 
 
     void Awake()
     {
         currentHP = maxHP;
-        animator = GetComponent<Animator>();
-        animator1 = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         skeletonAnim = GetComponent<Spine.Unity.SkeletonAnimation>();
     }
     void Start()
@@ -53,6 +52,11 @@ public class Health : MonoBehaviour
             popup.GetComponent<DamagePopup>().Setup(dmg);
 
         }
+        if (animator != null)
+        {
+            animator.SetTrigger("Hit");
+        }
+       
 
         if (healthBarUI != null)
             healthBarUI.SetFill(GetHPPercent());
@@ -83,21 +87,16 @@ public class Health : MonoBehaviour
             return;
         }
 
-        if (animator1 != null)
+        if (animator != null)
         {
-            animator1.SetInteger("State", 6); // 6 = Dead
+            animator.SetInteger("State", 6); // 6 = Dead
             Destroy(gameObject, 1f);
             return;
         }
 
         // Nếu không có Spine thì check Animator thường
 
-        if (animator != null)
-        {
-            animator.SetTrigger("Die");
-
-            Destroy(gameObject, 1f); // tự hủy sau khi chết
-        }
+       
     }
 
 
