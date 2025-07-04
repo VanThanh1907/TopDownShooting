@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (!spawning && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !spawning && GameObject.FindGameObjectsWithTag("Boss").Length == 0)
+        if (!spawning && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("Boss").Length == 0)
         {
             StartCoroutine(StartNextWave());
         }

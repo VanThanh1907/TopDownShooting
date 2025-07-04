@@ -40,7 +40,7 @@ public class MeleeEnemy : EnemyController
             // Gây damage sau 0.3s (giả định tay vung trúng)
             Invoke(nameof(ApplyDamage), 0.3f);
             // Tắt trạng thái đánh sau thời gian (giả định thời gian animation)
-            Invoke(nameof(EndAttack), 0.6f);
+            Invoke(nameof(Walk), 0.6f);
         }
     }
 
@@ -52,7 +52,7 @@ public class MeleeEnemy : EnemyController
         }
     }
 
-    void EndAttack()
+    void Walk()
     {
         skeletonAnim.AnimationState.SetAnimation(0, "Walk", true);
     }
