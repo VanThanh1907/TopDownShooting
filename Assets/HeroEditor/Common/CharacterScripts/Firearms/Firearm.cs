@@ -26,28 +26,28 @@ namespace Assets.HeroEditor.Common.CharacterScripts.Firearms
 
         public void Start()
         {
-            if (AnimationEvents != null) AnimationEvents.OnCustomEvent += OnAnimationEvent;
+            // if (AnimationEvents != null) AnimationEvents.OnCustomEvent += OnAnimationEvent;
         }
 
         public void OnDestroy()
         {
-            if (AnimationEvents != null) AnimationEvents.OnCustomEvent -= OnAnimationEvent;
+            // if (AnimationEvents != null) AnimationEvents.OnCustomEvent -= OnAnimationEvent;
         }
 
-        private void OnAnimationEvent(string eventName)
-        {
-            AudioClip clip;
+        // private void OnAnimationEvent(string eventName)
+        // {
+        //     AudioClip clip;
 
-            switch (eventName)
-            {
-                case "ClipOut": clip = Params.SoundClipOut; break;
-                case "ClipIn": clip = Params.SoundClipIn; break;
-                case "Load": clip = Params.SoundLoad; break;
-                case "Pump": clip = Params.SoundPump; break;
-                default: return;
-            }
+        //     switch (eventName)
+        //     {
+        //         case "ClipOut": clip = Params.SoundClipOut; break;
+        //         case "ClipIn": clip = Params.SoundClipIn; break;
+        //         case "Load": clip = Params.SoundLoad; break;
+        //         case "Pump": clip = Params.SoundPump; break;
+        //         default: return;
+        //     }
 
-            GetComponent<AudioSource>().PlayOneShot(clip, 0.5f);
-        }
+        //     GetComponent<AudioSource>().PlayOneShot(clip, 0.5f);
+        // }
     }
 }
