@@ -27,6 +27,7 @@ public class MeleeEnemy : EnemyController
         base.Update();
          if ( player == null)
             return;
+        if (health != null && health.IsDead()) return;
         float distance = Vector2.Distance(transform.position, player.position);
 
         // Nếu trong tầm và cooldown xong
