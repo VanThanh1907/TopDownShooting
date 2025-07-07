@@ -80,6 +80,7 @@ public class Health : MonoBehaviour
 
         isDead = true;
         onDeath?.Invoke();
+        GetComponent<ItemDropper>()?.TryDropItem();
 
         if (col != null) col.enabled = false;
         if (healthBarUI != null)

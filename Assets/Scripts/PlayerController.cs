@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveInput.magnitude > 0 && !isStanding)
             animator.SetInteger("State", 0);
-        
+
         HandleMovementInput();
 
         // RotateToMouse();
@@ -88,4 +88,14 @@ public class PlayerController : MonoBehaviour
         if (weaponData.shootSFX)
             AudioSource.PlayClipAtPoint(weaponData.shootSFX, transform.position);
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        ItemBase item = other.GetComponent<ItemBase>();
+        if (item != null)
+        {
+            item.Apply(this); // Gọi xử lý item
+            Destroy(other.gameObject); // Xoá item sau khi nhặt
+        }
+    }
+
 }
