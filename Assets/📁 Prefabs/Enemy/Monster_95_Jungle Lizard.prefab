@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3260729577212871966}
   - component: {fileID: 5895236129866420366}
   - component: {fileID: -8329029395355242565}
+  - component: {fileID: 6348889263354458104}
   m_Layer: 8
   m_Name: Monster_95_Jungle Lizard
   m_TagString: Enemy
@@ -261,3 +262,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &6348889263354458104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999328295456957278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b20ce6628b6cfb4ab60e54788ff8106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItems:
+  - {fileID: 28187716722784669, guid: 59ebbe31f68faba4db4a869de829b5b3, type: 3}
+  - {fileID: 1996240812778623074, guid: d9c77425186f7934aab0a4751007035a, type: 3}
+  - {fileID: 5132114170179952563, guid: 92094e202402a0d4ab4eaadb45ecb1c2, type: 3}
+  - {fileID: 3419964556672190230, guid: 5e48ce4e3ca952f428b5c472d316da96, type: 3}
+  dropChance: 1
