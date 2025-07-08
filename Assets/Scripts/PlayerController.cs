@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     private bool isStanding;
 
+    public bool isRight = true; 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("State", 0);
 
         HandleMovementInput();
-
+        FlipToMouseDirection();
         // RotateToMouse();
         HandleShooting();
     }
@@ -55,13 +56,25 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveInput * moveSpeed;
     }
 
-    // void RotateToMouse()
-    // {
-    //     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //     Vector2 lookDir = mousePos - transform.position;
-    //     float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
-    //     transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-    // }
+    void FlipToMouseDirection()
+{
+    Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    float dir = mouseWorld.x - transform.position.x;
+
+    Vector3 scale = transform.localScale;
+        if (dir > 0)
+        {
+            scale.x = Mathf.Abs(scale.x); // mặt phải
+            isRight = true;
+        }
+        else if (dir < 0)
+        {
+            scale.x = -Mathf.Abs(scale.x); // mặt trái
+            isRight = false;
+        }
+
+    transform.localScale = scale;
+}
 
     void HandleShooting()
     {
