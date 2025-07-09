@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2499189753415032589}
   - component: {fileID: 5150015493512861741}
   - component: {fileID: 8886264513429439278}
-  - component: {fileID: 5904535416913418991}
   - component: {fileID: -6295729447650618896}
-  - component: {fileID: -4304704062150140470}
+  - component: {fileID: 5680493475742943273}
   m_Layer: 0
   m_Name: icon_equip_shoes
   m_TagString: Untagged
@@ -133,19 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &5904535416913418991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 28187716722784669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c1606be999656f47af03f6342fd0837, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusDamage: 10
 --- !u!114 &-6295729447650618896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +151,7 @@ MonoBehaviour:
   swingSpeed: 0.2
   pulseScale: 1.3
   pulseSpeed: 5
---- !u!114 &-4304704062150140470
+--- !u!114 &5680493475742943273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,8 +160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 28187716722784669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 575454aa13230ad409f9500ada19f952, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e0994b76d260dd46b51bf66af1f554d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auraEffectPrefab: {fileID: 1343647572869336659, guid: 691316220bf107743b55dca1d47b52cc, type: 3}
-  duration: 10
+  bonusSpeed: 5
+  duration: 60
+  speedEffectPrefab: {fileID: 1343647572869336659, guid: 691316220bf107743b55dca1d47b52cc, type: 3}
+  offset: {x: 0, y: 1, z: 0}

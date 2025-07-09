@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8827132238304033648}
   - component: {fileID: 1341531367216040986}
   - component: {fileID: 5565372590607390478}
-  - component: {fileID: -247129913076996049}
   - component: {fileID: -8687175707654828743}
+  - component: {fileID: 1364247478653728878}
   m_Layer: 0
   m_Name: icon_lightning_yellow
   m_TagString: Untagged
@@ -132,19 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &-247129913076996049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996240812778623074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c1606be999656f47af03f6342fd0837, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusDamage: 10
 --- !u!114 &-8687175707654828743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +151,19 @@ MonoBehaviour:
   swingSpeed: 0.2
   pulseScale: 1.3
   pulseSpeed: 5
+--- !u!114 &1364247478653728878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996240812778623074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddaedf86be0c0674fa986aa55a98e93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusFireRate: 3
+  duration: 30
+  fireRateEffectPrefab: {fileID: 5897004452990349816, guid: 26c64149edc56cd4eb4590f3c7ab428c, type: 3}
+  offset: {x: 0, y: 1, z: 0}

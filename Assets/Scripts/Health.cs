@@ -77,18 +77,17 @@ public class Health : MonoBehaviour
     public void Die()
     {
         if (isDead) return;
-
         isDead = true;
         onDeath?.Invoke();
         GetComponent<ItemDropper>()?.TryDropItem();
 
         if (col != null) col.enabled = false;
+        
         if (healthBarUI != null)
         {
             Destroy(healthBarUI.gameObject);
             healthBarUI = null;
         }
-
         // Check nếu là Spine
 
         if (skeletonAnim != null)
@@ -97,7 +96,6 @@ public class Health : MonoBehaviour
             Destroy(gameObject, 2f); // delay để cho animation chạy xong
             return;
         }
-
 
         if (animator != null)
         {
@@ -114,6 +112,7 @@ public class Health : MonoBehaviour
         return currentHP / maxHP;
     }
 
+
     public void SetFullHP()
     {
         currentHP = maxHP;
@@ -124,10 +123,20 @@ public class Health : MonoBehaviour
         }
     }
 
+
     public bool IsDead()
     {
         return isDead;
     }
-   
+
+
+    public void Heal(float amount)
+    {
+        currentHP = Mathf.Min(currentHP + amount, maxHP);
+        if (healthBarUI != null)
+            healthBarUI.SetFill(GetHPPercent());
+    }
+
+
 
 }
