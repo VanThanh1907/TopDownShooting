@@ -10,5 +10,6 @@ public class WeaponData : ScriptableObject
     public float damage;
     public GameObject bulletPrefab;
     public AudioClip shootSFX;
+
 }
 

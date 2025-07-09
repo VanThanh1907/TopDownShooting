@@ -15,8 +15,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     Animator animator;
     private bool isStanding;
+    [SerializeField] private ParticleSystem shootVFX;
 
-    public bool isRight = true; 
+    public bool isRight = true;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,11 +58,11 @@ public class PlayerController : MonoBehaviour
     }
 
     void FlipToMouseDirection()
-{
-    Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    float dir = mouseWorld.x - transform.position.x;
+    {
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dir = mouseWorld.x - transform.position.x;
 
-    Vector3 scale = transform.localScale;
+        Vector3 scale = transform.localScale;
         if (dir > 0)
         {
             scale.x = Mathf.Abs(scale.x); // mặt phải
@@ -73,8 +74,8 @@ public class PlayerController : MonoBehaviour
             isRight = false;
         }
 
-    transform.localScale = scale;
-}
+        transform.localScale = scale;
+    }
 
     void HandleShooting()
     {
@@ -97,6 +98,14 @@ public class PlayerController : MonoBehaviour
             bullet.SetDirection(shootDir);
             bullet.damage = weaponData.damage;
         }
+
+        if (shootVFX != null)
+        {
+            float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
+            shootVFX.transform.rotation = Quaternion.Euler(0, 0, angle+90);
+            shootVFX.Play();
+        }
+
 
         if (weaponData.shootSFX)
             AudioSource.PlayClipAtPoint(weaponData.shootSFX, transform.position);
