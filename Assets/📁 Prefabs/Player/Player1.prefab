@@ -26298,6 +26298,7 @@ MonoBehaviour:
   moveSpeed: 5
   weaponData: {fileID: 11400000, guid: 2bb17630dfa28cd47b3da5bb591fc7ad, type: 2}
   firePoint: {fileID: 1018864329536064604}
+  isRight: 1
 --- !u!61 &8975599659222016835
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26375,6 +26376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponTransform: {fileID: 7560584974406120852}
+  player: {fileID: 0}
 --- !u!1 &7538389206673062105
 GameObject:
   m_ObjectHideFlags: 0
