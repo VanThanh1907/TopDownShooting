@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool isStanding;
     [SerializeField] private ParticleSystem shootVFX;
 
-    public bool isRight = true;
+    public bool isFlipped = true;
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -70,12 +71,12 @@ public class PlayerController : MonoBehaviour
         if (dir > 0)
         {
             scale.x = Mathf.Abs(scale.x); // mặt phải
-            isRight = true;
+            isFlipped = true;
         }
         else if (dir < 0)
         {
             scale.x = -Mathf.Abs(scale.x); // mặt trái
-            isRight = false;
+            isFlipped = false;
         }
 
         transform.localScale = scale;

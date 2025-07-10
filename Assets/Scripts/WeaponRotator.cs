@@ -17,7 +17,7 @@ public class WeaponRotator : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePos - weaponTransform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        if (!player.isRight)
+        if (!player.isFlipped)
             angle -= 180;
         weaponTransform.rotation = Quaternion.Euler(0, 0, angle);
     }

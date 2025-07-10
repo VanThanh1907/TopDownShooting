@@ -18,6 +18,8 @@ public class HealthBarUI : MonoBehaviour
             getFlip = () => enemy.isFlipped;
         else if (target.TryGetComponent(out BossController boss))
             getFlip = () => boss.isFlipped;
+        else if (target.TryGetComponent(out PlayerController player))
+            getFlip = () => !player.isFlipped;    
     }
 
     void LateUpdate()
