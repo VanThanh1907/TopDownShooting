@@ -11,8 +11,8 @@ public class DamageUpItem : ItemBase
 
     public override void Apply(PlayerController player)
     {
-        player.weaponData.damage += bonusDamage;
-        Debug.Log("Tăng damage lên: " + player.weaponData.damage);
+        player.runtimeWeaponData.damage += bonusDamage;
+        Debug.Log("Tăng damage lên: " + player.runtimeWeaponData.damage);
 
         if (auraEffectPrefab != null)
         {

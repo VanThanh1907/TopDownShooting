@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public WeaponData weaponData;
     public Transform firePoint;
 
+    [HideInInspector]
+    public WeaponData runtimeWeaponData;
+
     private float nextFireTime = 0f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        runtimeWeaponData = Instantiate(weaponData);
 
     }
 
@@ -82,33 +86,33 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             Shoot();
-            nextFireTime = Time.time + 1f / weaponData.fireRate;
+            nextFireTime = Time.time + 1f / runtimeWeaponData.fireRate;
             animator.Play("PumpShotgun");
         }
     }
 
     void Shoot()
     {
-        GameObject bulletGO = Instantiate(weaponData.bulletPrefab, firePoint.position, Quaternion.identity);
+        GameObject bulletGO = Instantiate(runtimeWeaponData.bulletPrefab, firePoint.position, Quaternion.identity);
         Vector2 shootDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
 
         BulletController bullet = bulletGO.GetComponent<BulletController>();
         if (bullet != null)
         {
             bullet.SetDirection(shootDir);
-            bullet.damage = weaponData.damage;
+            bullet.damage = runtimeWeaponData.damage;
         }
 
         if (shootVFX != null)
         {
             float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
-            shootVFX.transform.rotation = Quaternion.Euler(0, 0, angle+90);
+            shootVFX.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
             shootVFX.Play();
         }
 
 
-        if (weaponData.shootSFX)
-            AudioSource.PlayClipAtPoint(weaponData.shootSFX, transform.position);
+        if (runtimeWeaponData.shootSFX)
+            AudioSource.PlayClipAtPoint(runtimeWeaponData.shootSFX, transform.position);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

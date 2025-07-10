@@ -12,7 +12,7 @@ public class SpeedRateItem : ItemBase
     {
         Debug.Log("Tăng tốc độ bắn!");
 
-        player.weaponData.fireRate *= bonusFireRate;
+        player.runtimeWeaponData.fireRate *= bonusFireRate;
 
         if (fireRateEffectPrefab != null)
         {
@@ -27,7 +27,7 @@ public class SpeedRateItem : ItemBase
     private IEnumerator RevertFireRate(PlayerController player)
     {
         yield return new WaitForSeconds(duration);
-        player.weaponData.fireRate /= bonusFireRate;
+        player.runtimeWeaponData.fireRate /= bonusFireRate;
         Debug.Log("Hết hiệu lực tăng tốc độ bắn.");
     }
 }

@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class ItemDrop
+{
+    public GameObject prefab;
+    [Range(0f, 1f)]
+    public float chance;
+}
+
+
 public class ItemDropper : MonoBehaviour
 {
-    [Tooltip("Prefab item sẽ rơi")]
-    public GameObject[] dropItems;
-
-    [Tooltip("Tỉ lệ rơi (0 = không bao giờ, 1 = luôn luôn)")]
-    [Range(0f, 1f)]
-    public float dropChance = 0.2f;
+    [Tooltip("Danh sách item kèm tỉ lệ rơi")]
+    public List<ItemDrop> dropItems;
 
     public void TryDropItem()
     {
-        if (dropItems.Length == 0) return;
-
-        if (Random.value <= dropChance)
+        foreach (var item in dropItems)
         {
-            int randIndex = Random.Range(0, dropItems.Length);
-            Instantiate(dropItems[randIndex], transform.position, Quaternion.identity);
+            if (item.prefab != null && Random.value <= item.chance)
+            {
+                Instantiate(item.prefab, transform.position, Quaternion.identity);
+                break; // nếu chỉ muốn rơi 1 item
+            }
         }
     }
 }
