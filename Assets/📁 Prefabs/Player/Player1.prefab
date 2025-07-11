@@ -26300,7 +26300,7 @@ MonoBehaviour:
   firePoint: {fileID: 1018864329536064604}
   runtimeWeaponData: {fileID: 0}
   shootVFX: {fileID: 0}
-  isRight: 1
+  isFlipped: 1
 --- !u!61 &8975599659222016835
 BoxCollider2D:
   m_ObjectHideFlags: 0
