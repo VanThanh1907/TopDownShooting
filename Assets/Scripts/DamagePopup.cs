@@ -36,14 +36,14 @@ public class DamagePopup : MonoBehaviour
 
     void Update()
     {
-        // ✅ Rơi xuống do "trọng lực"
+        //  Rơi xuống do "trọng lực"
         velocity += Vector3.down * gravity * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
 
-        // ✅ Scale nhỏ dần
+        //  Scale nhỏ dần
         transform.localScale = Vector3.Lerp(transform.localScale, originalScale, 5f * Time.deltaTime);
 
-        // ✅ Fade mờ dần
+        //  Fade mờ dần
         float fade = Mathf.Clamp01(1 - (timer / duration));
         text.color = new Color(startColor.r, startColor.g, startColor.b, fade);
 

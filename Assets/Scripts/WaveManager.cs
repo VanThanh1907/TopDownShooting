@@ -67,13 +67,13 @@ public class WaveManager : MonoBehaviour
             GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
             Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-            GameObject enemy = Instantiate(prefab, point.position, Quaternion.identity);
+            GameObject enemy = MyPoolManager.Instance.Get(prefab, point.position);
 
             // ✅ Gán stats tăng theo thời gian
             var health = enemy.GetComponent<Health>();
             if (health != null)
             {
-                health.maxHP *= difficultyMultiplier;
+                health.ResetState(health.maxHP * difficultyMultiplier); 
                 health.SetFullHP(); // ✅ gọi hàm đặt lại HP đầy và cập nhật UI
             }
             yield return new WaitForSeconds(spawnDelay);
@@ -81,12 +81,18 @@ public class WaveManager : MonoBehaviour
     }
 
 
-    void SpawnBoss()
+  void SpawnBoss()
     {
         int index = Random.Range(0, bossList.Length);
         BossData data = bossList[index];
 
-        GameObject boss = Instantiate(data.bossPrefab, GetRandomSpawnPoint(), Quaternion.identity);
+        GameObject boss = MyPoolManager.Instance.Get(data.bossPrefab, GetRandomSpawnPoint());
+        var health = boss.GetComponent<Health>();
+        if (health != null)
+        {
+            health.ResetState(health.maxHP); // Reset với HP từ BossData
+             health.SetFullHP();
+        }
         boss.GetComponent<BossController>().Setup(data);
     }
 

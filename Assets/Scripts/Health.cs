@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
     }
     void Start()
     {
-        if (healthBarPrefab != null)
+        if (healthBarPrefab != null && healthBarUI == null)
         {
             GameObject ui = Instantiate(healthBarPrefab, transform.position, Quaternion.identity);
 
@@ -42,6 +42,28 @@ public class Health : MonoBehaviour
         }
 
     }
+      public void ResetState(float newMaxHP)
+    {
+        maxHP = newMaxHP;
+        currentHP = maxHP;
+        isDead = false;
+        if (col != null) col.enabled = true; // Bật lại Collider
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetFill(1f); // Reset UI
+        }
+        else if (healthBarPrefab != null)
+        {
+            GameObject ui = Instantiate(healthBarPrefab, transform.position, Quaternion.identity);
+            ui.transform.SetParent(transform);
+            ui.transform.localScale = healthBarPrefab.transform.localScale;
+            healthBarUI = ui.GetComponent<HealthBarUI>();
+            healthBarUI.SetTarget(transform);
+            healthBarUI.SetFill(1f);
+        }
+        if (animator != null) animator.Rebind(); // Reset animation
+        if (skeletonAnim != null) skeletonAnim.Initialize(true); // Reset SkeletonAnimation
+    }
 
     public void TakeDamage(float dmg)
     {
@@ -50,7 +72,7 @@ public class Health : MonoBehaviour
         currentHP -= dmg;
         Debug.Log($"{gameObject.name} took {dmg} damage, {currentHP}/{maxHP}");
 
-       if (damagePopupPrefab != null)
+        if (damagePopupPrefab != null)
         {
             Vector3 spawnPos = transform.position + popupOffset;
             spawnPos.z = -1f;
@@ -105,19 +127,28 @@ public class Health : MonoBehaviour
         if (skeletonAnim != null)
         {
             skeletonAnim.AnimationState.SetAnimation(0, "Dead", false); // gọi animation 'die'
-            Destroy(gameObject, 2f); // delay để cho animation chạy xong
+            StartCoroutine(DisableAfterAnimation(3f)); // delay cho ani chay xong.
             return;
         }
 
         if (animator != null)
         {
             animator.SetInteger("State", 6); // 6 = Dead
-            Destroy(gameObject, 1f);
+            StartCoroutine(DisableAfterAnimation(1f));
             return;
         }
 
     }
-
+private IEnumerator DisableAfterAnimation(float delay)
+    {
+      Debug.Log($"{gameObject.name} waiting to disable for {delay} seconds");
+        yield return new WaitForSeconds(delay);
+        if (gameObject != null) // Kiểm tra null để tránh lỗi
+        {
+            gameObject.SetActive(false);
+            Debug.Log($"{gameObject.name} disabled after animation");
+        }
+    }
 
     public float GetHPPercent()
     {
