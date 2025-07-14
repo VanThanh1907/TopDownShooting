@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 public class WaveManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
@@ -17,6 +18,8 @@ public class WaveManager : MonoBehaviour
     private float timeSurvived = 0f;
     public TMP_Text timerText;
 
+    private List<GameObject> activeEnemies = new List<GameObject>();
+    private List<GameObject> activeBosses = new List<GameObject>();
 
     void Start()
     {
@@ -32,17 +35,16 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (!spawning && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("Boss").Length == 0)
+        if (!spawning && activeEnemies.Count == 0 && activeBosses.Count == 0)
         {
             StartCoroutine(StartNextWave());
         }
-        // ⏱️ Cập nhật thời gian sống
         timeSurvived += Time.deltaTime;
         UpdateTimerUI();
     }
+
     IEnumerator StartNextWave()
     {
-
         spawning = true;
         currentWave++;
         waveText.text = $"Wave {currentWave}";
@@ -62,37 +64,41 @@ public class WaveManager : MonoBehaviour
     IEnumerator SpawnEnemies()
     {
         float difficultyMultiplier = 1f + Mathf.Sqrt(timeSurvived / 60f) * 0.5f;
+        Debug.Log($"Spawning enemies with difficultyMultiplier: {difficultyMultiplier}");
         for (int i = 0; i < enemiesPerWave; i++)
         {
             GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
             Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
             GameObject enemy = MyPoolManager.Instance.Get(prefab, point.position);
-
-            // ✅ Gán stats tăng theo thời gian
             var health = enemy.GetComponent<Health>();
             if (health != null)
             {
-                health.ResetState(health.maxHP * difficultyMultiplier); 
-                health.SetFullHP(); // ✅ gọi hàm đặt lại HP đầy và cập nhật UI
+                float initialMaxHP = health.maxHP; // Lấy HP ban đầu từ prefab
+                health.ResetState(initialMaxHP * difficultyMultiplier); // Reset với HP mới
+                health.SetFullHP(); // Đảm bảo HP đầy
+                health.onDeath.AddListener(() => activeEnemies.Remove(enemy)); // Xóa khi chết
             }
+            activeEnemies.Add(enemy);
             yield return new WaitForSeconds(spawnDelay);
         }
     }
 
-
-  void SpawnBoss()
+    void SpawnBoss()
     {
         int index = Random.Range(0, bossList.Length);
         BossData data = bossList[index];
+        float difficultyMultiplier = 1f + Mathf.Sqrt(timeSurvived / 60f) * 0.5f;
+        Debug.Log($"Spawning boss with difficultyMultiplier: {difficultyMultiplier}");
 
         GameObject boss = MyPoolManager.Instance.Get(data.bossPrefab, GetRandomSpawnPoint());
         var health = boss.GetComponent<Health>();
         if (health != null)
         {
-            health.ResetState(health.maxHP); // Reset với HP từ BossData
-             health.SetFullHP();
+            health.ResetState(health.maxHP * difficultyMultiplier); // Reset với HP mới
+            health.onDeath.AddListener(() => activeBosses.Remove(boss)); // Xóa khi chết
         }
+        activeBosses.Add(boss);
         boss.GetComponent<BossController>().Setup(data);
     }
 

@@ -1520,7 +1520,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09c6371dcdb139040a7245ec62f45b37, type: 2}
   enemiesPerWave: 5
   spawnDelay: 5
-  bossEveryXWave: 10
+  bossEveryXWave: 2
   waveText: {fileID: 939997887}
   timerText: {fileID: 103021314}
 --- !u!4 &567378973
