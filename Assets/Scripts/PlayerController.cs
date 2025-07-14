@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bulletGO = Instantiate(runtimeWeaponData.bulletPrefab, firePoint.position, Quaternion.identity);
+        GameObject bulletGO = MyPoolManager.Instance.Get(runtimeWeaponData.bulletPrefab, firePoint.position);
         Vector2 shootDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
 
         BulletController bullet = bulletGO.GetComponent<BulletController>();

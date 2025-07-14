@@ -50,13 +50,17 @@ public class Health : MonoBehaviour
         currentHP -= dmg;
         Debug.Log($"{gameObject.name} took {dmg} damage, {currentHP}/{maxHP}");
 
-        if (damagePopupPrefab != null)
+       if (damagePopupPrefab != null)
         {
             Vector3 spawnPos = transform.position + popupOffset;
             spawnPos.z = -1f;
-            GameObject popup = Instantiate(damagePopupPrefab, spawnPos, Quaternion.identity);
-            popup.GetComponent<DamagePopup>().Setup(dmg);
-
+            GameObject popup = MyPoolManager.Instance.Get(damagePopupPrefab, spawnPos);
+            DamagePopup dp = popup.GetComponent<DamagePopup>();
+            if (dp != null)
+            {
+                dp.Setup(dmg);
+                StartCoroutine(DisablePopupAfterDelay(popup, dp.duration)); // Trả popup về pool sau thời gian hiển thị
+            }
         }
         if (animator != null)
         {
@@ -72,6 +76,14 @@ public class Health : MonoBehaviour
             Die();
         }
     }
+     private IEnumerator DisablePopupAfterDelay(GameObject popup, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (popup != null)
+        {
+            popup.SetActive(false); // Trả về pool
+        }
+    }
 
 
     public void Die()
@@ -82,7 +94,7 @@ public class Health : MonoBehaviour
         GetComponent<ItemDropper>()?.TryDropItem();
 
         if (col != null) col.enabled = false;
-        
+
         if (healthBarUI != null)
         {
             Destroy(healthBarUI.gameObject);

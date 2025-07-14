@@ -3,7 +3,6 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float speed = 10f;
-    public float lifeTime = 3f;
     public float damage = 5f;
 
     private Vector2 direction;
@@ -14,6 +13,7 @@ public class BulletController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+  
     public void SetDirection(Vector2 dir)
     {
         direction = dir.normalized;
@@ -22,8 +22,16 @@ public class BulletController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
         rb.velocity = direction * speed;
+    }
 
-        Destroy(gameObject, lifeTime);
+    void Update()
+    {
+        // Kiểm tra nếu đạn ra khỏi màn hình
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
+        if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
+        {
+            gameObject.SetActive(false); // Trả đạn về pool
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -32,7 +40,7 @@ public class BulletController : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(damage);
-            Destroy(gameObject);
+            gameObject.SetActive(false); // Trả đạn về pool
         }
     }
 }

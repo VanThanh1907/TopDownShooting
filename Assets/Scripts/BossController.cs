@@ -143,6 +143,7 @@ public class BossController : MonoBehaviour
                 animator.SetTrigger("Die");
                 animator.SetBool("isAttacking", false);
                 animator.SetBool("isMoving", false);
+                MyPoolManager.Instance.ClearPool(currentPhase.bulletPrefab);
                 break;
         }
     }
@@ -173,7 +174,7 @@ public class BossController : MonoBehaviour
 
     private void SpawnBullet(Vector2 dir)
     {
-        GameObject bullet = Instantiate(currentPhase.bulletPrefab, firePoint.position, Quaternion.identity);
+        GameObject bullet = MyPoolManager.Instance.Get(currentPhase.bulletPrefab, firePoint.position);
         BulletController bc = bullet.GetComponent<BulletController>();
         if (bc != null)
         {
@@ -189,7 +190,7 @@ public class BossController : MonoBehaviour
 
     private void ShootCircle()
     {
-        int bulletCount = 8;
+        int bulletCount = 5;
         for (int i = 0; i < bulletCount; i++)
         {
             float angle = i * (360f / bulletCount);

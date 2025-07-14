@@ -13,10 +13,11 @@ public class ReturnToMyPool : MonoBehaviour
 
 public class MyPool
 {
-    private Stack<GameObject> stack = new Stack<GameObject>();
+    public Stack<GameObject> stack = new Stack<GameObject>();
     private GameObject baseObj;
     private GameObject tmp;
     private ReturnToMyPool returnPool;
+    private int maxPoolSize = 50;
 
     public MyPool(GameObject baseObj)
     {
@@ -32,7 +33,8 @@ public class MyPool
             {
                 tmp.SetActive(true);
                 return tmp;
-            } else
+            }
+            else
             {
                 Debug.LogWarning($"game object with key {baseObj.name} has been destroyed!");
             }
@@ -45,7 +47,16 @@ public class MyPool
 
     public void AddToPool(GameObject obj)
     {
-        stack.Push(obj);
+        if (stack.Count < maxPoolSize)
+        {
+            stack.Push(obj);
+            Debug.Log($"Pool size for {baseObj.name}: {stack.Count}");
+        }
+        else
+        {
+            GameObject.Destroy(obj);
+            Debug.LogWarning($"Pool for {baseObj.name} is full. Destroying excess object.");
+        }
     }
 }
 
@@ -85,4 +96,25 @@ public class MyPoolManager : MonoBehaviour
         tmp.transform.position = position;
         return tmp.GetComponent<T>();
     }
+     public void ClearPool(GameObject prefab)
+    {
+        if (dicPools.ContainsKey(prefab))
+        {
+            foreach (var obj in dicPools[prefab].stack)
+            {
+                if (obj != null)
+                {
+                    GameObject.Destroy(obj);
+                }
+            }
+            dicPools[prefab].stack.Clear();
+            Debug.Log($"Cleared pool for {prefab.name}. Remaining objects: 0");
+        }
+        else
+        {
+            Debug.LogWarning($"No pool found for prefab {prefab.name}.");
+        }
+    }
+
+    
 }

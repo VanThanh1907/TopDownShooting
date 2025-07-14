@@ -50,7 +50,14 @@ public class DamagePopup : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= duration)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+    }
+     void OnEnable()
+    {
+        // Reset trạng thái khi được lấy từ pool
+        timer = 0f;
+        text.color = startColor; // Reset màu về ban đầu
+        transform.localScale = originalScale * 1.5f; // Reset scale ban đầu
     }
 }
