@@ -9,7 +9,7 @@ public class MeleeEnemy : EnemyController
     public float attackCooldown = 1.5f;
 
     private float lastAttackTime;
-    
+
     Spine.Unity.SkeletonAnimation skeletonAnim;
 
 
@@ -19,13 +19,13 @@ public class MeleeEnemy : EnemyController
     {
         base.Start();
         skeletonAnim = GetComponent<Spine.Unity.SkeletonAnimation>();
-        
+
     }
 
     protected override void Update()
     {
         base.Update();
-         if ( player == null)
+        if (player == null)
             return;
         if (health != null && health.IsDead()) return;
         float distance = Vector2.Distance(transform.position, player.position);
@@ -37,7 +37,7 @@ public class MeleeEnemy : EnemyController
 
             // Gọi animation đánh
             skeletonAnim.AnimationState.SetAnimation(0, "Attack", false);
-           
+
             // Gây damage sau 0.3s (giả định tay vung trúng)
             Invoke(nameof(ApplyDamage), 0.3f);
             // Tắt trạng thái đánh sau thời gian (giả định thời gian animation)
@@ -56,6 +56,12 @@ public class MeleeEnemy : EnemyController
     void Walk()
     {
         skeletonAnim.AnimationState.SetAnimation(0, "Walk", true);
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red; 
+        Gizmos.DrawWireSphere(transform.position, attackRange); 
     }
 }
 

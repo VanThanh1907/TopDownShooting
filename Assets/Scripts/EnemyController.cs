@@ -21,9 +21,15 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Move()
     {
-         if (health != null && health.IsDead()) return;
-
+        if (health != null && health.IsDead()) return;
         if (player == null) return;
+        
+        // Kiểm tra nếu là ShootingEnemy và đang trong tầm
+        ShootingEnemy shootingEnemy = GetComponent<ShootingEnemy>();
+        if (shootingEnemy != null && shootingEnemy.isInRange)
+        {
+            return; // Không di chuyển nếu trong tầm
+        }
 
         Vector2 dir = (player.position - transform.position).normalized;
         transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
