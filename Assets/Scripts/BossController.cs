@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Spine.Unity;
 using UnityEngine;
 
 public enum BossState
@@ -31,13 +32,14 @@ public class BossController : MonoBehaviour
     public bool isFlipped { get; private set; }
 
     private Animator animator ;
+    Spine.Unity.SkeletonAnimation skeletonAnim;
 
     public void Setup(BossData bossData)
     {
         data = bossData;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         health = GetComponent<Health>(); // Gán health ở đây thay vì Start()
-        animator = GetComponent<Animator>();
+        skeletonAnim = GetComponent<SkeletonAnimation>();
 
         SwitchToPhase(0); // Khởi động phase đầu tiên
         ChangeState(BossState.Idle, 2f); // Đứng yên 2s
@@ -124,25 +126,21 @@ public class BossController : MonoBehaviour
         currentState = newState;
         stateTimer = duration;
         fireTimer = 0f;
-          if (animator != null)
+          if (skeletonAnim != null)
     {
         switch (newState)
         {
             case BossState.Idle:
             case BossState.MoveToPlayer:
-                animator.SetBool("isMoving", true);
-                animator.SetBool("isAttacking", false);
+                skeletonAnim.AnimationState.SetAnimation(0, "Walk", true);
                 break;
 
             case BossState.Attack:
-                animator.SetBool("isAttacking", true);
-                animator.SetBool("isMoving", false);
+                skeletonAnim.AnimationState.SetAnimation(0, "Attack", true);
                 break;
 
             case BossState.Dead:
-                animator.SetTrigger("Die");
-                animator.SetBool("isAttacking", false);
-                animator.SetBool("isMoving", false);
+                skeletonAnim.AnimationState.SetAnimation(0, "Die", false);
                 MyPoolManager.Instance.ClearPool(currentPhase.bulletPrefab);
                 break;
         }
