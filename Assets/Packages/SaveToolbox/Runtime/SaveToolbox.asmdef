@@ -1,0 +1,44 @@
+{
+    "name": "SaveToolbox",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:593a5b492d29ac6448b1ebf7f035ef33",
+        "GUID:69448af7b92c7f342b298e06a37122aa",
+        "GUID:21b0c8d1703a94250bfac916590cea4f",
+        "GUID:ea715009a4efd4c6cbc85be3ae097dd3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.inputsystem",
+            "expression": "",
+            "define": "STB_HAS_INPUT_SYSTEM"
+        },
+        {
+            "name": "com.unity.textmeshpro",
+            "expression": "",
+            "define": "STB_HAS_TMP"
+        },
+        {
+            "name": "com.unity.addressables",
+            "expression": "",
+            "define": "STB_HAS_ADDRESSABLES"
+        },
+        {
+            "name": "com.unity.visualscripting",
+            "expression": "",
+            "define": "STB_HAS_VISUAL_SCRIPTING"
+        }
+    ],
+    "noEngineReferences": false
+}

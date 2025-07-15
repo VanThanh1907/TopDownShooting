@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4579175134841995609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8407558271052742141}
+  - component: {fileID: 1320359515725727009}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8407558271052742141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4579175134841995609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.233345, y: 0.9096763, z: 5.726912}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1320359515725727009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4579175134841995609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2149f94e1b507640a8a11df26fd5409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 7849839673299584384, guid: e82daa1310325fb499e4f63db32f009b, type: 3}
+  - {fileID: 7880858132256456451, guid: ed967a8ff860034419cef2a0b66beeea, type: 3}
+  - {fileID: 8365463645118127179, guid: fdfb7cec49d3f124080b11c082d0bcfb, type: 3}
+  - {fileID: 8447246364149855538, guid: 679f2e50e33185c4b8ca1e0742620584, type: 3}
+  - {fileID: 7999328295456957278, guid: 90e26e1b4f304a14eae6badfd1bd71c5, type: 3}
+  - {fileID: 8262138819920655539, guid: 894dc07cab482ab42b948319ad59a9d2, type: 3}
+  - {fileID: 8614612281205811774, guid: e3af7cf1df03d27478f0a91559fec2c8, type: 3}
+  - {fileID: 6978718628979785169, guid: 776cdf381b95d1742be8218cd24547fd, type: 3}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bossList:
+  - {fileID: 11400000, guid: 09c6371dcdb139040a7245ec62f45b37, type: 2}
+  - {fileID: 11400000, guid: bc117e42eaef78e4690af9c7aee5ef01, type: 2}
+  enemiesPerWave: 5
+  spawnDelay: 5
+  bossEveryXWave: 2
+  waveText: {fileID: 0}
+  timerText: {fileID: 0}
