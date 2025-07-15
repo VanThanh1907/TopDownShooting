@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b593f6f32965b3f4dbbef36538d078ae, type: 3}
   m_Name: phase2_ghost1 1
   m_EditorClassIdentifier: 
-  triggerAtPercent: 1
+  triggerAtPercent: 0.5
   moveSpeed: 5
-  fireRate: 1
-  bulletPrefab: {fileID: 0}
-  pattern: 0
+  fireRate: 6
+  bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
+  pattern: 4

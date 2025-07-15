@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Ghost_1
   m_EditorClassIdentifier: 
   bossName: Ghost_v1
-  bossPrefab: {fileID: 0}
-  phases: []
+  bossPrefab: {fileID: 6421641846013699434, guid: 4def45a0323f0d24c8e821942d0bbe53, type: 3}
+  phases:
+  - {fileID: 11400000, guid: f8e2d63268fcdb24aa1bb757d3781810, type: 2}
+  - {fileID: 11400000, guid: 20dcb256a91b50d4296ebb229bb473db, type: 2}
