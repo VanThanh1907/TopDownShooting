@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
-  bulletPrefab: {fileID: 7608620304227204254, guid: 5eca0bf63989b17459c88296b6164f6e, type: 3}
+  bulletPrefab: {fileID: 3812479836365807000, guid: 034cd5df7cac3384a8166057664aade2, type: 3}
   fireRate: 1
-  attackRange: 15
+  attackRange: 10
   delayAnima: 0.5
   isInRange: 0
 --- !u!114 &5213660601684274780

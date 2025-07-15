@@ -101,7 +101,8 @@ public class ShootingEnemy : EnemyController
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red; 
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange); 
+        Gizmos.DrawWireSphere(transform.position, attackRange+4); 
     }
 }
