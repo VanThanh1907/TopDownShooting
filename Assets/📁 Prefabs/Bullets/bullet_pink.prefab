@@ -4883,6 +4883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   damage: 100
+  hitVFX: {fileID: 1862546671279240, guid: c7652840ac054dd428fadb028b9d2cf9, type: 3}
 --- !u!50 &862689800168049882
 Rigidbody2D:
   serializedVersion: 4

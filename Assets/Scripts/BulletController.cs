@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
     public float speed = 10f;
     public float damage = 5f;
+    public GameObject hitVFX;
 
     private Vector2 direction;
     private Rigidbody2D rb;
@@ -13,7 +15,7 @@ public class BulletController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-  
+
     public void SetDirection(Vector2 dir)
     {
         direction = dir.normalized;
@@ -39,8 +41,38 @@ public class BulletController : MonoBehaviour
         Health health = other.GetComponent<Health>();
         if (health != null)
         {
+
             health.TakeDamage(damage);
+            if (hitVFX != null)
+            {
+                GameObject vfx = MyPoolManager.Instance.Get(hitVFX, transform.position);
+                if (vfx != null)
+                {
+                    ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
+                    if (ps != null)
+                    {
+                        // Đặt rotation cho VFX dựa trên hướng đạn (tuỳ chọn)
+                        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                        vfx.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                        ps.Play();
+                        // Tắt VFX sau khi phát xong
+                        StartCoroutine(DisableObjectAfterDuration(vfx, ps.main.duration));
+                    }
+                }
+            }
             gameObject.SetActive(false); // Trả đạn về pool
+        }
+    }
+    private IEnumerator DisableObjectAfterDuration(GameObject obj, float duration)
+    {
+        if (obj != null)
+        {
+            yield return new WaitForSeconds(duration);
+            if (obj != null) // Kiểm tra null để tránh lỗi
+            {
+                obj.SetActive(false); // Tắt để trả về pool
+            }
         }
     }
 }

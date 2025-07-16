@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fb787218436904dacc90464da3043a, type: 3}
+  m_Name: electronic
+  m_EditorClassIdentifier: 
+  weaponName: Basic
+  fireRate: 7
+  damage: 100
+  bulletPrefab: {fileID: 2812448503498501423, guid: a72137a75781cda42aa7708d1f054b98, type: 3}
+  shootVFX: {fileID: 1351045683517926, guid: 97168fe28b3477b42895c650078ec8ef, type: 3}
+  shootSFX: {fileID: 8300000, guid: 1e974562b0e2836418a30b875c45517e, type: 3}

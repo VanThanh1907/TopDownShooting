@@ -150,8 +150,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         ItemBase item = other.GetComponent<ItemBase>();
