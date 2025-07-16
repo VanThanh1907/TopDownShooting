@@ -16,4 +16,5 @@ MonoBehaviour:
   fireRate: 7
   damage: 100
   bulletPrefab: {fileID: 2213696120233282084, guid: 9acb4adfbb24865459da58230da5139c, type: 3}
+  shootVFX: {fileID: 1348736127023102, guid: 7db49d362a00d5b4f8a1629451be4ec4, type: 3}
   shootSFX: {fileID: 8300000, guid: 1e974562b0e2836418a30b875c45517e, type: 3}

@@ -1,5 +1,7 @@
-﻿using Assets.HeroEditor.Common.CommonScripts;
+﻿using System.Collections;
+using Assets.HeroEditor.Common.CommonScripts;
 using UnityEngine;
+
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     Animator animator;
     private bool isStanding;
-    [SerializeField] private ParticleSystem shootVFX;
+
     private Health health;
 
     public bool isFlipped = true;
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         if (health != null && health.IsDead())
         {
-            rb.velocity = Vector2.zero; 
+            rb.velocity = Vector2.zero;
             return;
         }
 
@@ -114,17 +116,42 @@ public class PlayerController : MonoBehaviour
             bullet.damage = runtimeWeaponData.damage;
         }
 
-        if (shootVFX != null)
+        // Sử dụng shootVFX từ WeaponData
+        if (runtimeWeaponData.shootVFX != null)
         {
-            float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
-            shootVFX.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
-            shootVFX.Play();
+            GameObject muzzleVFX = MyPoolManager.Instance.Get(runtimeWeaponData.shootVFX, firePoint.position);
+
+            if (muzzleVFX != null)
+            {
+
+                ParticleSystem ps = muzzleVFX.GetComponentInChildren<ParticleSystem>();
+                if (ps != null)
+                {
+                    float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
+                    muzzleVFX.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+                    ps.Play();
+                    StartCoroutine(DisableObjectAfterDuration(muzzleVFX, 1f));
+                }
+            }
         }
-
-
         if (runtimeWeaponData.shootSFX)
             AudioSource.PlayClipAtPoint(runtimeWeaponData.shootSFX, transform.position);
     }
+    private IEnumerator DisableObjectAfterDuration(GameObject obj, float duration)
+    {
+        if (obj != null)
+        {
+            yield return new WaitForSeconds(duration);
+            if (obj != null) // Kiểm tra null để tránh lỗi
+            {
+                obj.SetActive(false); // Tắt để trả về pool
+            }
+        }
+    }
+
+
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         ItemBase item = other.GetComponent<ItemBase>();
