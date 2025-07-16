@@ -9,7 +9,10 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (player != null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         health = GetComponent<Health>();
 
     }

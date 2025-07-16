@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.HeroEditor.Common.CommonScripts;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -19,19 +20,21 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     private bool isStanding;
     [SerializeField] private ParticleSystem shootVFX;
+    private Health health;
 
     public bool isFlipped = true;
-    
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         runtimeWeaponData = Instantiate(weaponData);
-
+        health = GetComponent<Health>();
     }
 
     void Update()
     {
+        if (health != null && health.IsDead()) return;
         if (moveInput.magnitude > 0 && !isStanding)
             animator.SetInteger("State", 0);
 
@@ -43,12 +46,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
 
+        Move();
     }
 
     void HandleMovementInput()
     {
+
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         if (moveInput.magnitude > 0)
         {
@@ -59,6 +63,12 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        if (health != null && health.IsDead())
+        {
+            rb.velocity = Vector2.zero; 
+            return;
+        }
+
         rb.velocity = moveInput * moveSpeed;
     }
 

@@ -134,7 +134,7 @@ public class Health : MonoBehaviour
         if (animator != null)
         {
             animator.SetInteger("State", 6); // 6 = Dead
-            StartCoroutine(DisableAfterAnimation(1f));
+            StartCoroutine(DisableAfterAnimation(3f));
             return;
         }
 
