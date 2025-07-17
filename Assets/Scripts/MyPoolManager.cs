@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -96,7 +97,7 @@ public class MyPoolManager : MonoBehaviour
         tmp.transform.position = position;
         return tmp.GetComponent<T>();
     }
-     public void ClearPool(GameObject prefab)
+    public void ClearPool(GameObject prefab)
     {
         if (dicPools.ContainsKey(prefab))
         {
@@ -114,6 +115,10 @@ public class MyPoolManager : MonoBehaviour
         {
             Debug.LogWarning($"No pool found for prefab {prefab.name}.");
         }
+    }
+    public Coroutine StartCoroutinePool(IEnumerator routine)
+    {
+        return base.StartCoroutine(routine);
     }
 
     

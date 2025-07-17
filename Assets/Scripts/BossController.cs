@@ -31,18 +31,18 @@ public class BossController : MonoBehaviour
     private float spiralAngle = 0f;
     public bool isFlipped { get; private set; }
 
-    private Animator animator ;
+    
     Spine.Unity.SkeletonAnimation skeletonAnim;
 
     public void Setup(BossData bossData)
     {
         data = bossData;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        health = GetComponent<Health>(); // Gán health ở đây thay vì Start()
+        health = GetComponent<Health>(); // Gán health 
         skeletonAnim = GetComponent<SkeletonAnimation>();
 
         SwitchToPhase(0); // Khởi động phase đầu tiên
-        ChangeState(BossState.Idle, 2f); // Đứng yên 2s
+        ChangeState(BossState.Idle, currentPhase.idleDuration); // Đứng yên 2s
     }
 
     void Update()
@@ -55,13 +55,13 @@ public class BossController : MonoBehaviour
         {
             case BossState.Idle:
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, 3f);
+                    ChangeState(BossState.MoveToPlayer, currentPhase.moveDuration);
                 break;
 
             case BossState.MoveToPlayer:
                 MoveTowardsPlayer();
                 if (stateTimer <= 0)
-                    ChangeState(BossState.Attack, 6f);
+                    ChangeState(BossState.Attack, currentPhase.attackDuration);
                 break;
 
             case BossState.Attack:
@@ -73,7 +73,7 @@ public class BossController : MonoBehaviour
                 }
 
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, 3f);
+                    ChangeState(BossState.MoveToPlayer, currentPhase.moveDuration);
                 break;
         }
 
@@ -149,8 +149,6 @@ public class BossController : MonoBehaviour
 
     void CheckPhaseChange()
     {
-
-
         float percent = health.CurrentPercent;
 
         for (int i = data.phases.Count - 1; i >= 0; i--)

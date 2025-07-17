@@ -48,7 +48,7 @@ public class BulletController : MonoBehaviour
                 GameObject vfx = MyPoolManager.Instance.Get(hitVFX, transform.position);
                 if (vfx != null)
                 {
-                    ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
+                    ParticleSystem ps = vfx.GetComponentInChildren<ParticleSystem>();
                     if (ps != null)
                     {
                         // Đặt rotation cho VFX dựa trên hướng đạn (tuỳ chọn)
@@ -57,19 +57,19 @@ public class BulletController : MonoBehaviour
 
                         ps.Play();
                         // Tắt VFX sau khi phát xong
-                        StartCoroutine(DisableObjectAfterDuration(vfx, ps.main.duration));
+                        MyPoolManager.Instance.StartCoroutinePool(DisableObjectAfterDuration(vfx, ps.main.duration));
                     }
                 }
             }
             gameObject.SetActive(false); // Trả đạn về pool
         }
     }
-    private IEnumerator DisableObjectAfterDuration(GameObject obj, float duration)
+   private IEnumerator DisableObjectAfterDuration(GameObject obj, float duration)
     {
         if (obj != null)
         {
             yield return new WaitForSeconds(duration);
-            if (obj != null) // Kiểm tra null để tránh lỗi
+            if (obj != null)
             {
                 obj.SetActive(false); // Tắt để trả về pool
             }

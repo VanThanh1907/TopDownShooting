@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: phase1_ghost1
   m_EditorClassIdentifier: 
   triggerAtPercent: 1
-  moveSpeed: 5
-  fireRate: 8
+  moveSpeed: 2
+  fireRate: 3
   bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
   pattern: 0
+  idleDuration: 2
+  moveDuration: 3
+  attackDuration: 6
