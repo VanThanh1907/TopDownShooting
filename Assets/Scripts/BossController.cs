@@ -42,11 +42,12 @@ public class BossController : MonoBehaviour
         skeletonAnim = GetComponent<SkeletonAnimation>();
 
         SwitchToPhase(0); // Khởi động phase đầu tiên
-        ChangeState(BossState.Idle, currentPhase.idleDuration); // Đứng yên 2s
+        ChangeState(BossState.Idle, Random.Range(1,2)); // Đứng yên 2s
     }
 
     void Update()
     {
+        if (health != null && health.IsDead()) return;
         if (data == null || player == null || currentState == BossState.Dead) return;
 
         stateTimer -= Time.deltaTime;
@@ -55,13 +56,13 @@ public class BossController : MonoBehaviour
         {
             case BossState.Idle:
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, currentPhase.moveDuration);
+                    ChangeState(BossState.MoveToPlayer, Random.Range(2f,3f));
                 break;
 
             case BossState.MoveToPlayer:
                 MoveTowardsPlayer();
                 if (stateTimer <= 0)
-                    ChangeState(BossState.Attack, currentPhase.attackDuration);
+                    ChangeState(BossState.Attack, Random.Range(1.5f,3.5f));
                 break;
 
             case BossState.Attack:
@@ -73,7 +74,7 @@ public class BossController : MonoBehaviour
                 }
 
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, currentPhase.moveDuration);
+                    ChangeState(BossState.MoveToPlayer, Random.Range(2f,3f));
                 break;
         }
 
@@ -100,7 +101,21 @@ public class BossController : MonoBehaviour
 
     void Fire()
     {
-        switch (currentPhase.pattern)
+        // Randomly select a fire pattern from the list
+        if (currentPhase.patterns == null || currentPhase.patterns.Count == 0) return;
+
+        BossPhaseData.FirePattern selectedPattern;
+        if (currentPhase.patterns.Count > 1)
+        {
+            int randomIndex = Random.Range(0, currentPhase.patterns.Count);
+            selectedPattern = currentPhase.patterns[randomIndex];
+        }
+        else
+        {
+            selectedPattern = currentPhase.patterns[0];
+        }
+
+        switch (selectedPattern)
         {
             case BossPhaseData.FirePattern.TargetPlayer:
                 ShootAtPlayer();
@@ -165,7 +180,6 @@ public class BossController : MonoBehaviour
     {
         currentPhaseIndex = index;
         currentPhase = data.phases[index];
-        Debug.Log($"[Boss] Switch to Phase {index + 1}: {currentPhase.pattern}");
     }
 
     private void SpawnBullet(Vector2 dir)

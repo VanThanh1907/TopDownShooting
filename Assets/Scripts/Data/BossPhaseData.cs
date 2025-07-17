@@ -9,10 +9,7 @@ public class BossPhaseData : ScriptableObject
     public float moveSpeed = 5f;
     public float fireRate = 1f;
     public GameObject bulletPrefab;
-    public FirePattern pattern; // Enum chiêu thức
-    public float idleDuration = 2f; // Thời gian đứng yên
-    public float moveDuration = 3f; // Thời gian di chuyển
-    public float attackDuration = 6f; // Thời gian tấn công
+     public List<FirePattern> patterns; // List of possible fire patterns
 
     public enum FirePattern
     {
