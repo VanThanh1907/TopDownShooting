@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2149f94e1b507640a8a11df26fd5409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveConfigs: []
   enemyPrefabs:
   - {fileID: 7849839673299584384, guid: e82daa1310325fb499e4f63db32f009b, type: 3}
   - {fileID: 7880858132256456451, guid: ed967a8ff860034419cef2a0b66beeea, type: 3}
@@ -53,15 +54,11 @@ MonoBehaviour:
   - {fileID: 8262138819920655539, guid: 894dc07cab482ab42b948319ad59a9d2, type: 3}
   - {fileID: 8614612281205811774, guid: e3af7cf1df03d27478f0a91559fec2c8, type: 3}
   - {fileID: 6978718628979785169, guid: 776cdf381b95d1742be8218cd24547fd, type: 3}
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spawnRadius: 6
+  spawnDelay: 2
+  bossEveryXWave: 5
+  waveText: {fileID: 0}
   bossList:
   - {fileID: 11400000, guid: bc117e42eaef78e4690af9c7aee5ef01, type: 2}
-  enemiesPerWave: 1
-  spawnDelay: 5
-  bossEveryXWave: 2
-  waveText: {fileID: 0}
+  bossWarningDuration: 2.5
   timerText: {fileID: 0}

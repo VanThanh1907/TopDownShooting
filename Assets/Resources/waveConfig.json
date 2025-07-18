@@ -1,0 +1,44 @@
+{
+  "waves": [
+    {
+      "waveNumber": 1,
+      "enemies": [
+        { "enemyPrefabName": "bat_v1", "spawnCount": 3 },
+        { "enemyPrefabName": "dinosaur_c1", "spawnCount": 2 },
+        { "enemyPrefabName": "Elephant", "spawnCount": 2 },
+        { "enemyPrefabName": "Zoombie", "spawnCount": 2 }
+
+      ]
+    },
+    {
+      "waveNumber": 2,
+      "enemies": [
+        { "enemyPrefabName": "bat_v2", "spawnCount": 4 },
+        { "enemyPrefabName": "bat_v3", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 3,
+      "enemies": [
+        { "enemyPrefabName": "bat_v3", "spawnCount": 3 },
+        { "enemyPrefabName": "Zoombie", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 4,
+      "enemies": [
+        { "enemyPrefabName": "Zoombie", "spawnCount": 5 }
+     
+      ]
+    },
+    {
+      "waveNumber": 5,
+      "enemies": [
+        { "enemyPrefabName": "bat_v3", "spawnCount": 4 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 2 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 2 }
+
+      ]
+    }
+  ]
+}

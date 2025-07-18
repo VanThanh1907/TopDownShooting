@@ -2,43 +2,82 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class WaveManager : MonoBehaviour
 {
     [System.Serializable]
     public struct EnemySpawnConfig
     {
-        public GameObject enemyPrefab;
+        public string enemyPrefabName;
         public int spawnCount;
     }
 
     [System.Serializable]
     public struct WaveConfig
     {
-        public EnemySpawnConfig[] enemies; // Danh sách enemy và số lượng cho wave này
+        public int waveNumber;
+        public EnemySpawnConfig[] enemies;
     }
 
-    public WaveConfig[] waveConfigs; // Cấu hình cho từng wave
-    public float spawnRadius = 15f; // Khoảng cách spawn ngoài màn hình
+    [SerializeField]
+    private WaveConfig[] waveConfigs;
+    public GameObject[] enemyPrefabs; // Thêm mảng enemyPrefabs
+    public float spawnRadius = 15f;
     public float spawnDelay = 0.5f;
     public int bossEveryXWave = 10;
     public TMP_Text waveText;
     public BossData[] bossList;
-    public float bossWarningDuration = 2.5f; // Thời gian hiển thị cảnh báo boss
+    public float bossWarningDuration = 2.5f;
 
     private int currentWave = 0;
     private bool spawning = false;
     private float timeSurvived = 0f;
     public TMP_Text timerText;
     private Camera mainCamera;
+    private Dictionary<string, GameObject> prefabLookup;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
     private List<GameObject> activeBosses = new List<GameObject>();
 
     void Start()
     {
+        LoadWaveConfigs();
         mainCamera = Camera.main;
+        prefabLookup = new Dictionary<string, GameObject>();
+        // Thêm prefab từ bossList
+        foreach (BossData boss in bossList)
+        {
+            if (boss.bossPrefab != null)
+                prefabLookup[boss.bossPrefab.name] = boss.bossPrefab;
+        }
+        // Thêm prefab từ enemyPrefabs
+        foreach (GameObject prefab in enemyPrefabs)
+        {
+            if (prefab != null)
+                prefabLookup[prefab.name] = prefab;
+        }
         StartCoroutine(StartNextWave());
+    }
+
+    private void LoadWaveConfigs()
+    {
+        TextAsset jsonText = Resources.Load<TextAsset>("waveConfig");
+        if (jsonText != null)
+        {
+            WaveConfigWrapper wrapper = JsonUtility.FromJson<WaveConfigWrapper>(jsonText.text);
+            waveConfigs = wrapper.waves;
+        }
+        else
+        {
+            Debug.LogError("Không tìm thấy file waveConfig.json trong Resources! Kiểm tra tên và đường dẫn.");
+        }
+    }
+
+    [System.Serializable]
+    private class WaveConfigWrapper
+    {
+        public WaveConfig[] waves;
     }
 
     private void UpdateTimerUI()
@@ -64,7 +103,6 @@ public class WaveManager : MonoBehaviour
         currentWave++;
         waveText.text = $"Wave {currentWave}";
 
-        // Nếu không có cấu hình cho wave này, dùng wave cuối cùng trong danh sách
         int waveIndex = Mathf.Min(currentWave - 1, waveConfigs.Length - 1);
 
         if (currentWave % bossEveryXWave == 0)
@@ -89,13 +127,11 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnWaveWithBoss(int waveIndex)
     {
-        // Spawn enemies bình thường
         yield return StartCoroutine(SpawnEnemies(waveIndex));
         
-        // Spawn boss
         int index = Random.Range(0, bossList.Length);
         BossData data = bossList[index];
-        float difficultyMultiplier = 1f + (currentWave * 0.1f); // Tăng độ khó 10% mỗi wave
+        float difficultyMultiplier = 1f + (currentWave * 0.1f);
 
         GameObject boss = MyPoolManager.Instance.Get(data.bossPrefab, GetRandomSpawnPointOutsideScreen());
         var health = boss.GetComponent<Health>();
@@ -110,37 +146,42 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnEnemies(int waveIndex)
     {
-        float difficultyMultiplier = 1f + (currentWave * 0.1f); // Tăng độ khó 10% mỗi wave
+        float difficultyMultiplier = 1f + (currentWave * 0.1f);
         Debug.Log($"Spawning enemies with difficultyMultiplier: {difficultyMultiplier}");
 
         WaveConfig wave = waveConfigs[waveIndex];
         foreach (EnemySpawnConfig config in wave.enemies)
         {
-            for (int i = 0; i < config.spawnCount; i++)
+            if (prefabLookup.TryGetValue(config.enemyPrefabName, out GameObject prefab))
             {
-                GameObject enemy = MyPoolManager.Instance.Get(config.enemyPrefab, GetRandomSpawnPointOutsideScreen());
-                var health = enemy.GetComponent<Health>();
-                if (health != null)
+                for (int i = 0; i < config.spawnCount; i++)
                 {
-                    float initialMaxHP = health.maxHP;
-                    health.ResetState(initialMaxHP * difficultyMultiplier);
-                    health.SetFullHP();
-                    health.onDeath.AddListener(() => activeEnemies.Remove(enemy));
+                    GameObject enemy = MyPoolManager.Instance.Get(prefab, GetRandomSpawnPointOutsideScreen());
+                    var health = enemy.GetComponent<Health>();
+                    if (health != null)
+                    {
+                        float initialMaxHP = health.maxHP;
+                        health.ResetState(initialMaxHP * difficultyMultiplier);
+                        health.SetFullHP();
+                        health.onDeath.AddListener(() => activeEnemies.Remove(enemy));
+                    }
+                    activeEnemies.Add(enemy);
+                    yield return new WaitForSeconds(spawnDelay);
                 }
-                activeEnemies.Add(enemy);
-                yield return new WaitForSeconds(spawnDelay);
+            }
+            else
+            {
+                Debug.LogWarning($"Prefab {config.enemyPrefabName} không được tìm thấy trong prefabLookup! Danh sách prefab: {string.Join(", ", prefabLookup.Keys)}");
             }
         }
     }
 
     Vector3 GetRandomSpawnPointOutsideScreen()
     {
-        // Lấy kích thước màn hình trong world coordinates
         float camHeight = mainCamera.orthographicSize;
         float camWidth = camHeight * mainCamera.aspect;
         
-        // Random chọn một trong bốn hướng (trên, dưới, trái, phải)
-        int side = Random.Range(0, 4);
+        int side = Random.Range(0, 8);
         Vector3 spawnPos = Vector3.zero;
         Vector3 cameraPos = mainCamera.transform.position;
 
@@ -168,6 +209,30 @@ public class WaveManager : MonoBehaviour
                 spawnPos = new Vector3(
                     cameraPos.x + camWidth + spawnRadius,
                     cameraPos.y + Random.Range(-camHeight, camHeight),
+                    0);
+                break;
+            case 4: // Trên trái
+                spawnPos = new Vector3(
+                    cameraPos.x - camWidth - spawnRadius,
+                    cameraPos.y + camHeight + spawnRadius,
+                    0);
+                break;
+            case 5: // Trên phải
+                spawnPos = new Vector3(
+                    cameraPos.x + camWidth + spawnRadius,
+                    cameraPos.y + camHeight + spawnRadius,
+                    0);
+                break;
+            case 6: // Dưới trái
+                spawnPos = new Vector3(
+                    cameraPos.x - camWidth - spawnRadius,
+                    cameraPos.y - camHeight - spawnRadius,
+                    0);
+                break;
+            case 7: // Dưới phải
+                spawnPos = new Vector3(
+                    cameraPos.x + camWidth + spawnRadius,
+                    cameraPos.y - camHeight - spawnRadius,
                     0);
                 break;
         }
