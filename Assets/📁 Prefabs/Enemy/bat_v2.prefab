@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23a3d4b48cb87a4fb973dcb4bbc757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 300
+  maxHP: 3000
   healthBarPrefab: {fileID: 0}
   onDeath:
     m_PersistentCalls:
