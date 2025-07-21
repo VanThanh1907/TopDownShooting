@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7940472934997079845}
   - component: {fileID: 3913039486203830984}
   - component: {fileID: 5250348938513729835}
+  - component: {fileID: 2989531777276878664}
   m_Layer: 0
   m_Name: dameup_50
   m_TagString: Untagged
@@ -167,3 +168,17 @@ MonoBehaviour:
   auraEffectPrefab: {fileID: 4427490090579394548, guid: 62083a76ba5a04d4b9969cff1fe72299, type: 3}
   duration: 1
   vt: {x: 0, y: 1, z: 0}
+--- !u!114 &2989531777276878664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852112169719748127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5061269301c984e8667b6f4c3f65b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  separationRadius: 3
+  separationForce: 3

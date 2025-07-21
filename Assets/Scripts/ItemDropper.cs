@@ -23,7 +23,7 @@ public class ItemDropper : MonoBehaviour
             if (item.prefab != null && Random.value <= item.chance)
             {
                 Instantiate(item.prefab, transform.position, Quaternion.identity);
-                break; // nếu chỉ muốn rơi 1 item
+                // break;     // nếu chỉ muốn rơi 1 item
             }
         }
     }
