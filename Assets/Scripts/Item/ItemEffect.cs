@@ -58,9 +58,8 @@ public class ItemEffect : MonoBehaviour
         }
         else if (currentState == State.Idle)
         {
-            // Lắc trái phải nhẹ
-            float swing = Mathf.Sin(Time.time * swingSpeed) * swingAmount;
-            transform.position = endPos + new Vector3(swing, 0f, 0f);
+           
+            transform.position = endPos;
         }
     }
 

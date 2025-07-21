@@ -10,11 +10,13 @@ public class ItemDrop
     public float chance;
 }
 
-
 public class ItemDropper : MonoBehaviour
 {
     [Tooltip("Danh sách item kèm tỉ lệ rơi")]
     public List<ItemDrop> dropItems;
+    
+    
+    public float spreadRadius = 2f; 
 
     public void TryDropItem()
     {
@@ -22,8 +24,11 @@ public class ItemDropper : MonoBehaviour
         {
             if (item.prefab != null && Random.value <= item.chance)
             {
-                Instantiate(item.prefab, transform.position, Quaternion.identity);
-                // break;     // nếu chỉ muốn rơi 1 item
+                
+                Vector2 randomCircle = Random.insideUnitCircle * spreadRadius;
+                Vector3 spawnPosition = transform.position + new Vector3(randomCircle.x, randomCircle.y, 0);
+                Instantiate(item.prefab, spawnPosition, Quaternion.identity);
+                
             }
         }
     }
