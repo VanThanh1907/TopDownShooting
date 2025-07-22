@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
 
     private Vector2 direction;
     private Rigidbody2D rb;
+   
 
     void Awake()
     {

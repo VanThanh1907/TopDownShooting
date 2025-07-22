@@ -148,7 +148,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: maxHP
-      value: 10000
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: healthBarPrefab
@@ -824,6 +824,18 @@ PrefabInstance:
       propertyPath: bossEveryXWave
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
+      propertyPath: bossList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
+      propertyPath: bossList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a22c4f22549beee4691cc0828f6e516c, type: 2}
+    - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
+      propertyPath: bossList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a22c4f22549beee4691cc0828f6e516c, type: 2}
     - target: {fileID: 4299205316294171615, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: m_Name
       value: WaveManager

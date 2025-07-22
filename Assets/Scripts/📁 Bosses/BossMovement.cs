@@ -26,11 +26,4 @@ public class BossMovement : MonoBehaviour
         transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
     }
 
-    public void Teleport(Transform player, float maxDistance)
-    {
-        // Tạo vị trí ngẫu nhiên trong khoảng cách maxDistance quanh người chơi
-        Vector2 randomOffset = Random.insideUnitCircle * maxDistance;
-        Vector3 newPosition = player.position + (Vector3)randomOffset;
-        transform.position = newPosition;
-    }
 }

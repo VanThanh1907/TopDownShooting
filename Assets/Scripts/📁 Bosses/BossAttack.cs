@@ -8,11 +8,14 @@ public class BossAttack : MonoBehaviour
     private float fireTimer;
     private float spiralAngle;
     public float specialSkillCooldown = 10f;
+    private float lastAttackTime;
+    [SerializeField] private float attackCooldown = 1.5f;
 
     public void Setup(BossPhaseData phase, Transform firePoint)
     {
         this.phaseData = phase;
         this.firePoint = firePoint;
+        lastAttackTime = -attackCooldown;
     }
     public bool CanPerformMeleeAttack(Transform player)
     {
@@ -30,14 +33,35 @@ public class BossAttack : MonoBehaviour
 
     public void PerformMeleeAttack(Transform player)
     {
-        // Kiểm tra khoảng cách để tấn công cận chiến
-        float distance = Vector2.Distance(player.position, transform.position);
-        if (distance <= phaseData.meleeRange)
+        float distance = Vector2.Distance(player.position, transform.position + new Vector3(0, 1, 0));
+        if (distance <= phaseData.meleeRange && Time.time >= lastAttackTime + attackCooldown)
         {
-            // Gây sát thương trực tiếp cho người chơi
+            lastAttackTime = Time.time;
+
+            // Gọi animation đánh
+            BossAnimation anim = GetComponent<BossAnimation>();
+            if (anim != null)
+            {
+                anim.PlayAnimation("Attack", false);
+                Debug.Log("Triggered Attack animation for melee");
+            }
+
+           // Gây damage tại giữa animation (0.7s)
+            Invoke(nameof(ApplyMeleeDamage), 0.7f);
+           
+        }
+    }
+    private void ApplyMeleeDamage()
+    {
+        Transform player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player != null)
+        {
             Health playerHealth = player.GetComponent<Health>();
             if (playerHealth != null)
+            {
                 playerHealth.TakeDamage(phaseData.meleeDamage);
+                Debug.Log($"Applied {phaseData.meleeDamage} melee damage to player");
+            }
         }
     }
 
@@ -53,6 +77,7 @@ public class BossAttack : MonoBehaviour
 
     public void PerformSpecialSkill(Transform player)
     {
+        Debug.LogWarning($"Performing Special Skill at {Time.time}");
         if (phaseData.specialSkills == null || phaseData.specialSkills.Count == 0)
         {
             Debug.LogWarning("No special skills configured for this phase!");
@@ -69,7 +94,7 @@ public class BossAttack : MonoBehaviour
                 CreateIceZone(player);
                 break;
             case BossPhaseData.SpecialSkill.Teleport:
-                GetComponent<BossMovement>().Teleport(player, 5f);
+                Teleport(player, 2f);
                 break;
         }
     }
@@ -172,4 +197,19 @@ public class BossAttack : MonoBehaviour
         GameObject iceZone = MyPoolManager.Instance.Get(phaseData.iceZonePrefab, player.position);
         // Cấu hình vùng băng (làm chậm, sát thương, v.v.)
     }
+
+    private void Teleport(Transform player, float maxDistance)
+    {
+        if (player == null) return;
+        Vector2 randomOffset = Random.insideUnitCircle * maxDistance;
+        Vector3 newPosition = player.position + (Vector3)randomOffset;
+        transform.position = newPosition;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        // Gizmos.DrawWireSphere(transform.position, phaseData.meleeRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0, 1, 0), phaseData.meleeRange);
+    }
 }
+       

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Spine.Unity;
+using Unity.VisualScripting;
 
 public enum BossState
 {
@@ -25,6 +26,7 @@ public class BossController : MonoBehaviour
     private BossState currentState = BossState.Idle;
     private float stateTimer;
     private float specialSkillTimer;
+    private bool hasPerformedSpecialSkill = false;
 
 
     public void Setup(BossData bossData)
@@ -44,7 +46,7 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
-        if (health.IsDead() || player == null || currentState == BossState.Dead) return;
+        if (health.IsDead() || player == null) return;
 
         stateTimer -= Time.deltaTime;
         specialSkillTimer -= Time.deltaTime;
@@ -53,41 +55,38 @@ public class BossController : MonoBehaviour
         switch (currentState)
         {
             case BossState.Idle:
-                bossAnimation.PlayAnimation("Idle", true);
-                if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, Random.Range(2f, 3f));
-                break;
-
             case BossState.MoveToPlayer:
-                movement.MoveToPlayer(player);
                 bossAnimation.PlayAnimation("Walk", true);
+                movement.MoveToPlayer(player);
                 if (stateTimer <= 0)
                     ChooseAttackState();
                 break;
 
             case BossState.AttackMelee:
                 attack.PerformMeleeAttack(player);
-                bossAnimation.PlayAnimation("Attack", true);
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, Random.Range(2f, 3f));
+                    ChangeState(BossState.MoveToPlayer, Random.Range(0.1f, 0.3f));
                 break;
 
             case BossState.AttackRanged:
-                attack.PerformRangedAttack(player);
                 bossAnimation.PlayAnimation("Attack", true);
+                attack.PerformRangedAttack(player);
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, Random.Range(2f, 3f));
+                    ChangeState(BossState.MoveToPlayer, Random.Range(1f, 3f));
                 break;
 
             case BossState.SpecialSkill:
-                attack.PerformSpecialSkill(player);
-                bossAnimation.PlayAnimation("Dead", false);
+                bossAnimation.PlayAnimation("Dead", false); // Sử dụng hoạt ảnh phù hợp
+                if (!hasPerformedSpecialSkill) // Chỉ gọi một lần
+                {
+                    attack.PerformSpecialSkill(player);
+                    hasPerformedSpecialSkill = true;
+                    Debug.Log($"Performed Special Skill at {Time.time}");
+                }
                 if (stateTimer <= 0)
-                    ChangeState(BossState.MoveToPlayer, Random.Range(2f, 3f));
-                break;
-
-            case BossState.Dead:
-                bossAnimation.PlayAnimation("Dead", false);
+                {
+                    ChangeState(BossState.Idle, 1f); // Chuyển sang Idle để đứng yên
+                }
                 break;
         }
     }
@@ -96,20 +95,32 @@ public class BossController : MonoBehaviour
     {
         currentState = newState;
         stateTimer = duration;
+        if (newState != BossState.SpecialSkill)
+        {
+            hasPerformedSpecialSkill = false; // Đặt lại cờ khi rời trạng thái SpecialSkill
+        }
     }
 
-   void ChooseAttackState()
+    void ChooseAttackState()
     {
         // Danh sách các trạng thái khả dụng
+        BossPhaseData currentPhase = phaseManager.GetCurrentPhase();
         List<BossState> availableStates = new List<BossState>();
 
         // Kiểm tra các trạng thái khả dụng
-        if (attack != null && attack.CanPerformMeleeAttack(player))
+        if (currentPhase.meleeRange > 0 && attack != null && attack.CanPerformMeleeAttack(player))
         {
             availableStates.Add(BossState.AttackMelee);
             Debug.Log("MeleeAttack is available");
         }
-        availableStates.Add(BossState.AttackRanged); // Tấn công tầm xa luôn khả dụng
+        else
+        {
+            // Add ranged attack as a fallback
+            availableStates.Add(BossState.AttackRanged);
+            Debug.Log("RangedAttack is available");
+        }
+
+        // Check for special skill availability
         if (attack != null && attack.HasSpecialSkill() && specialSkillTimer <= 0)
         {
             availableStates.Add(BossState.SpecialSkill);
@@ -138,4 +149,5 @@ public class BossController : MonoBehaviour
             specialSkillTimer = attack.specialSkillCooldown;
         }
     }
+   
 }
