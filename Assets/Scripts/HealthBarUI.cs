@@ -16,7 +16,7 @@ public class HealthBarUI : MonoBehaviour
 
         if (target.TryGetComponent(out EnemyController enemy))
             getFlip = () => enemy.isFlipped;
-        else if (target.TryGetComponent(out BossController boss))
+        else if (target.TryGetComponent(out BossMovement boss))
             getFlip = () => boss.isFlipped;
         else if (target.TryGetComponent(out PlayerController player))
             getFlip = () => !player.isFlipped;    

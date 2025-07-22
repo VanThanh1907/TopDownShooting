@@ -56,9 +56,9 @@ MonoBehaviour:
   - {fileID: 6978718628979785169, guid: 776cdf381b95d1742be8218cd24547fd, type: 3}
   spawnRadius: 6
   spawnDelay: 2
-  bossEveryXWave: 5
+  bossEveryXWave: 2
   waveText: {fileID: 0}
   bossList:
-  - {fileID: 11400000, guid: bc117e42eaef78e4690af9c7aee5ef01, type: 2}
+  - {fileID: 11400000, guid: d126e01d98c2288419349bb95cb91ecc, type: 2}
   bossWarningDuration: 2.5
   timerText: {fileID: 0}

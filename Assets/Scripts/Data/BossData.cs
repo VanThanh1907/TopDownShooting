@@ -5,9 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewBossData", menuName = "ScriptableObjects/BossData")]
 public class BossData : ScriptableObject
 {
-    public string bossName;
     public GameObject bossPrefab;
     public List<BossPhaseData> phases;
 }
 
+[System.Serializable]
+public class BossPhaseData
+{
+    public float triggerAtPercent; // % máu để kích hoạt pha
+    public float moveSpeed; // Tốc độ di chuyển
+    public float fireRate; // Tốc độ bắn đạn
+    public GameObject bulletPrefab; // Prefab đạn
+    public float meleeRange; // Tầm đánh cận chiến
+    public float meleeDamage; // Sát thương cận chiến
+    public GameObject fireZonePrefab; // Prefab vùng lửa
+    public GameObject iceZonePrefab; // Prefab vùng băng
+    public List<FirePattern> patterns; // Danh sách mẫu bắn
+    public List<SpecialSkill> specialSkills; // Danh sách kỹ năng đặc biệt
+
+    public enum FirePattern
+    {
+        TargetPlayer,
+        CircleSpread,
+        Spiral,
+        ShootDoubleSpiral,
+        ShootBurstAtPlayer
+    }
+
+    public enum SpecialSkill
+    {
+        FireZone,
+        IceZone,
+        Teleport
+    }
+}
 
