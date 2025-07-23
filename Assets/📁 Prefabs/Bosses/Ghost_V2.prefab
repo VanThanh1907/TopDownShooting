@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23a3d4b48cb87a4fb973dcb4bbc757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 2000
+  maxHP: 10000
   healthBarPrefab: {fileID: 5605162996321319377, guid: 7f36f491eb75683428468183ba089592, type: 3}
   onDeath:
     m_PersistentCalls:
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 3167239817379898966}
-  specialSkillCooldown: 3
+  specialSkillCooldown: 20
   attackCooldown: 2
 --- !u!114 &1417887516701964030
 MonoBehaviour:

@@ -41,7 +41,7 @@ public class BossController : MonoBehaviour
 
         phaseManager.Setup(data);
         specialSkillTimer = 0f;
-        ChangeState(BossState.Idle, Random.Range(1f, 2f));
+        ChangeState(BossState.MoveToPlayer, Random.Range(6f, 7f));
     }
 
     void Update()

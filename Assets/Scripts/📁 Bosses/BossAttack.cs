@@ -46,9 +46,9 @@ public class BossAttack : MonoBehaviour
         {
             lastAttackTime = Time.time;
             bossAnimation.PlayAnimation("Attack", false);
-           // Gây damage tại giữa animation (0.7s)
+            // Gây damage tại giữa animation (0.7s)
             Invoke(nameof(ApplyMeleeDamage), 0.7f);
-           
+
         }
     }
     private void ApplyMeleeDamage()
@@ -94,7 +94,7 @@ public class BossAttack : MonoBehaviour
                 CreateIceZone(player);
                 break;
             case BossPhaseData.SpecialSkill.Teleport:
-                StartCoroutine( Teleport(player, 2f));
+                StartCoroutine(Teleport(player, 2f));
                 break;
         }
     }
@@ -184,11 +184,41 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-    private void CreateFireZone(Transform player)
+   private void CreateFireZone(Transform player)
     {
-        // Tạo vùng lửa quanh người chơi
-        GameObject fireZone = MyPoolManager.Instance.Get(phaseData.fireZonePrefab, player.position);
-        // Cấu hình vùng lửa (sát thương theo thời gian, thời gian tồn tại, v.v.)
+        if (player == null || phaseData.fireZonePrefab == null)
+        {
+            Debug.LogWarning("Cannot create FireZone: Player or fireZonePrefab is null!");
+            return;
+        }
+
+        // Cấu hình vòng tròn lửa
+        int fireZoneCount = 30; // Số lượng vùng lửa trong vòng tròn
+        float circleRadius = phaseData.fireZoneRadius * 2f; // Bán kính vòng tròn (lớn hơn bán kính mỗi vùng lửa)
+        Vector3 center = player.position; // Tâm vòng tròn là vị trí người chơi
+
+        for (int i = 0; i < fireZoneCount; i++)
+        {
+            // Tính góc cho mỗi vùng lửa
+            float angle = i * (360f / fireZoneCount);
+            Vector3 offset = Quaternion.Euler(0, 0, angle) * Vector3.right * circleRadius;
+            Vector3 fireZonePosition = center + offset;
+
+            // Tạo vùng lửa từ pool
+            GameObject fireZone = MyPoolManager.Instance.Get(phaseData.fireZonePrefab, fireZonePosition);
+            FireZoneController fireZoneController = fireZone.GetComponent<FireZoneController>();
+            if (fireZoneController != null)
+            {
+                fireZoneController.Setup(phaseData.fireZoneDamage, phaseData.fireZoneDuration, phaseData.fireZoneRadius);
+                Debug.Log($"Created FireZone {i + 1} at {fireZonePosition} with damage {phaseData.fireZoneDamage}, duration {phaseData.fireZoneDuration}, radius {phaseData.fireZoneRadius}");
+            }
+            else
+            {
+                Debug.LogWarning("FireZoneController component not found on fireZonePrefab!");
+            }
+        }
+
+        Debug.Log($"Created {fireZoneCount} FireZones in a circle around player at {center}");
     }
 
     private void CreateIceZone(Transform player)
@@ -204,7 +234,7 @@ public class BossAttack : MonoBehaviour
         bossAnimation.PlayAnimation("Dead", false);
 
         yield return new WaitForSeconds(2);
-        
+
         Vector2 randomOffset = Random.insideUnitCircle * distanceToPlayer;
         Vector3 newPosition = player.position + (Vector3)randomOffset;
         transform.position = newPosition;
@@ -218,4 +248,4 @@ public class BossAttack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + new Vector3(0, 1, 0), phaseData.meleeRange);
     }
 }
-       
+
