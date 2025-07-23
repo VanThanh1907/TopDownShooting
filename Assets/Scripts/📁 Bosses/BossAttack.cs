@@ -1,9 +1,13 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class BossAttack : MonoBehaviour
 {
     private BossPhaseData phaseData;
+    private BossAnimation bossAnimation;
     public Transform firePoint;
     private float fireTimer;
     private float spiralAngle;
@@ -11,6 +15,10 @@ public class BossAttack : MonoBehaviour
     private float lastAttackTime;
     [SerializeField] private float attackCooldown = 1.5f;
 
+    public void Awake()
+    {
+        bossAnimation = GetComponent<BossAnimation>();
+    }
     public void Setup(BossPhaseData phase, Transform firePoint)
     {
         this.phaseData = phase;
@@ -37,15 +45,7 @@ public class BossAttack : MonoBehaviour
         if (distance <= phaseData.meleeRange && Time.time >= lastAttackTime + attackCooldown)
         {
             lastAttackTime = Time.time;
-
-            // Gọi animation đánh
-            BossAnimation anim = GetComponent<BossAnimation>();
-            if (anim != null)
-            {
-                anim.PlayAnimation("Attack", false);
-                Debug.Log("Triggered Attack animation for melee");
-            }
-
+            bossAnimation.PlayAnimation("Attack", false);
            // Gây damage tại giữa animation (0.7s)
             Invoke(nameof(ApplyMeleeDamage), 0.7f);
            
@@ -94,7 +94,7 @@ public class BossAttack : MonoBehaviour
                 CreateIceZone(player);
                 break;
             case BossPhaseData.SpecialSkill.Teleport:
-                Teleport(player, 2f);
+                StartCoroutine( Teleport(player, 2f));
                 break;
         }
     }
@@ -198,12 +198,18 @@ public class BossAttack : MonoBehaviour
         // Cấu hình vùng băng (làm chậm, sát thương, v.v.)
     }
 
-    private void Teleport(Transform player, float maxDistance)
+    private IEnumerator Teleport(Transform player, float distanceToPlayer)
     {
-        if (player == null) return;
-        Vector2 randomOffset = Random.insideUnitCircle * maxDistance;
+        if (player == null) yield break;
+        bossAnimation.PlayAnimation("Dead", false);
+
+        yield return new WaitForSeconds(2);
+        
+        Vector2 randomOffset = Random.insideUnitCircle * distanceToPlayer;
         Vector3 newPosition = player.position + (Vector3)randomOffset;
         transform.position = newPosition;
+        PerformMeleeAttack(player);
+
     }
     private void OnDrawGizmosSelected()
     {

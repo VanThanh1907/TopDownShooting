@@ -76,8 +76,9 @@ public class BossController : MonoBehaviour
                 break;
 
             case BossState.SpecialSkill:
-                bossAnimation.PlayAnimation("Dead", false); // Sử dụng hoạt ảnh phù hợp
-                if (!hasPerformedSpecialSkill) // Chỉ gọi một lần
+            
+                
+                if (!hasPerformedSpecialSkill)
                 {
                     attack.PerformSpecialSkill(player);
                     hasPerformedSpecialSkill = true;
@@ -85,7 +86,7 @@ public class BossController : MonoBehaviour
                 }
                 if (stateTimer <= 0)
                 {
-                    ChangeState(BossState.Idle, 1f); // Chuyển sang Idle để đứng yên
+                    ChangeState(BossState.MoveToPlayer, 0.1f); 
                 }
                 break;
         }
@@ -130,7 +131,7 @@ public class BossController : MonoBehaviour
         // Nếu không có trạng thái nào khả dụng, chuyển về Idle
         if (availableStates.Count == 0)
         {
-            Debug.Log("No states available, switching to Idle");
+            Debug.LogWarning("No states available, switching to Idle");
             ChangeState(BossState.Idle, Random.Range(1f, 2f));
             return;
         }
