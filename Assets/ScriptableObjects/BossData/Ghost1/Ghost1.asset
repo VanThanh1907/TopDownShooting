@@ -21,8 +21,8 @@ MonoBehaviour:
     meleeRange: 0
     meleeDamage: 0
     fireZonePrefab: {fileID: 7314518845203641595, guid: a52373af3e026cf42988d982401d4853, type: 3}
-    fireZoneDamage: 99
-    fireZoneDuration: 10
+    fireZoneDamage: 1000
+    fireZoneDuration: 20
     fireZoneRadius: 4
     iceZonePrefab: {fileID: 0}
     patterns: 00000000
