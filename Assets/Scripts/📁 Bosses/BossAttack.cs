@@ -213,38 +213,41 @@ public class BossAttack : MonoBehaviour
         }
     }
     
-  private void CreateIceZone(Transform player)
+ private void CreateIceZone(Transform player)
     {
         if (player == null || phaseData.iceZonePrefab == null)
         {
             return;
         }
 
-        // Cấu hình các vùng băng ngẫu nhiên
-        int iceZoneCount = 5; // Số lượng vùng băng
-        float minRadius = 5f; // Tăng khoảng cách tối thiểu để tạo vùng an toàn lớn hơn
-        float maxRadius = phaseData.iceZoneRadius * 5f; // Tăng bán kính tối đa để phân bố rộng hơn
-        float minDistanceBetweenZones = phaseData.iceZoneRadius * 2f; // Khoảng cách tối thiểu giữa các vùng băng
+        // Cấu hình các vùng băng bao quanh người chơi
+        int iceZoneCount = 6; // Số lượng vùng băng (chẵn để tạo khoảng trống đều)
+        float minRadius = phaseData.iceZoneRadius * 5f; // Khoảng cách tối thiểu từ người chơi
+        float maxRadius = phaseData.iceZoneRadius * 10f; // Khoảng cách tối đa
+        float minDistanceBetweenZones = phaseData.iceZoneRadius * 2f; // Khoảng cách tối thiểu giữa các vùng
         Vector3 center = player.position; // Tâm là vị trí người chơi
         List<Vector3> placedPositions = new List<Vector3>(); // Lưu các vị trí đã đặt
 
         for (int i = 0; i < iceZoneCount; i++)
         {
-            Vector3 iceZonePosition = center; 
+            Vector3 iceZonePosition = Vector3.zero; // Gán giá trị mặc định
             bool validPosition = false;
             int attempts = 0;
             const int maxAttempts = 30;
 
-            // Thử tạo vị trí ngẫu nhiên cho đến khi tìm được vị trí hợp lệ
+            // Tính góc đều cho mỗi vùng
+            float angle = i * (360f / iceZoneCount);
+            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+            Vector3 basePosition = center + new Vector3(direction.x * minRadius, direction.y * minRadius, 0);
+
+            // Thử tạo vị trí ngẫu nhiên trong phạm vi minRadius đến maxRadius
             while (!validPosition && attempts < maxAttempts)
             {
-                Vector2 randomOffset = Random.insideUnitCircle.normalized * Random.Range(minRadius, maxRadius);
-                iceZonePosition = center + new Vector3(randomOffset.x, randomOffset.y, 0);
+                float randomRadius = Random.Range(minRadius, maxRadius);
+                iceZonePosition = center + new Vector3(direction.x * randomRadius, direction.y * randomRadius, 0);
 
-                // Kiểm tra khoảng cách với người chơi và các vùng khác
-                bool tooCloseToPlayer = Vector3.Distance(iceZonePosition, center) < minRadius;
+                // Kiểm tra khoảng cách với các vùng khác
                 bool tooCloseToOtherZones = false;
-
                 foreach (Vector3 pos in placedPositions)
                 {
                     if (Vector3.Distance(iceZonePosition, pos) < minDistanceBetweenZones)
@@ -254,7 +257,7 @@ public class BossAttack : MonoBehaviour
                     }
                 }
 
-                if (!tooCloseToPlayer && !tooCloseToOtherZones)
+                if (!tooCloseToOtherZones)
                 {
                     validPosition = true;
                 }

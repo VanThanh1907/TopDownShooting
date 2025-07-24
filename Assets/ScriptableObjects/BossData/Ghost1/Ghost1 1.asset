@@ -25,11 +25,8 @@ MonoBehaviour:
     fireZoneDuration: 20
     fireZoneRadius: 4
     iceZonePrefab: {fileID: 8449353974220439396, guid: 6440500b264040b49a13c23490ce5c8b, type: 3}
-    iceZoneDamage: 100
-    iceZoneDuration: 20
     iceZoneRadius: 1
-    iceZoneSlowAmount: 0.5
-    iceZoneSlowDuration: 10
+    iceZoneDuration: 20
     patterns: 00000000
     specialSkills: 01000000
   - triggerAtPercent: 0.2
@@ -43,10 +40,7 @@ MonoBehaviour:
     fireZoneDuration: 5
     fireZoneRadius: 3
     iceZonePrefab: {fileID: 0}
-    iceZoneDamage: 5
-    iceZoneDuration: 5
-    iceZoneRadius: 3
-    iceZoneSlowAmount: 0.5
-    iceZoneSlowDuration: 2
+    iceZoneRadius: 0
+    iceZoneDuration: 0
     patterns: 000000000200000004000000
     specialSkills: 02000000

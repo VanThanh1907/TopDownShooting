@@ -26296,8 +26296,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  freezeImmunityTimer: 0
   weaponData: {fileID: 11400000, guid: 248cb517fb992134c801d7c43fcb0ca4, type: 2}
   firePoint: {fileID: 1018864329536064604}
+  freezeEffectPrefab: {fileID: 0}
   runtimeWeaponData: {fileID: 0}
   isFlipped: 1
 --- !u!61 &8975599659222016835
