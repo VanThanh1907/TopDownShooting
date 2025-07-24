@@ -831,7 +831,7 @@ PrefabInstance:
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d126e01d98c2288419349bb95cb91ecc, type: 2}
+      objectReference: {fileID: 11400000, guid: 8a476c8073aa43d45b4021f21119aad2, type: 2}
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossList.Array.data[1]
       value: 

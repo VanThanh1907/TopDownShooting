@@ -188,7 +188,6 @@ public class BossAttack : MonoBehaviour
     {
         if (player == null || phaseData.fireZonePrefab == null)
         {
-            Debug.LogWarning("Cannot create FireZone: Player or fireZonePrefab is null!");
             return;
         }
 
@@ -210,23 +209,73 @@ public class BossAttack : MonoBehaviour
             if (fireZoneController != null)
             {
                 fireZoneController.Setup(phaseData.fireZoneDamage, phaseData.fireZoneDuration, phaseData.fireZoneRadius);
-                Debug.Log($"Created FireZone {i + 1} at {fireZonePosition} with damage {phaseData.fireZoneDamage}, duration {phaseData.fireZoneDuration}, radius {phaseData.fireZoneRadius}");
-            }
-            else
-            {
-                Debug.LogWarning("FireZoneController component not found on fireZonePrefab!");
             }
         }
-
-        Debug.Log($"Created {fireZoneCount} FireZones in a circle around player at {center}");
     }
-
-    private void CreateIceZone(Transform player)
+    
+  private void CreateIceZone(Transform player)
     {
-        // Tạo vùng băng quanh người chơi
-        GameObject iceZone = MyPoolManager.Instance.Get(phaseData.iceZonePrefab, player.position);
-        // Cấu hình vùng băng (làm chậm, sát thương, v.v.)
+        if (player == null || phaseData.iceZonePrefab == null)
+        {
+            return;
+        }
+
+        // Cấu hình các vùng băng ngẫu nhiên
+        int iceZoneCount = 5; // Số lượng vùng băng
+        float minRadius = 5f; // Tăng khoảng cách tối thiểu để tạo vùng an toàn lớn hơn
+        float maxRadius = phaseData.iceZoneRadius * 5f; // Tăng bán kính tối đa để phân bố rộng hơn
+        float minDistanceBetweenZones = phaseData.iceZoneRadius * 2f; // Khoảng cách tối thiểu giữa các vùng băng
+        Vector3 center = player.position; // Tâm là vị trí người chơi
+        List<Vector3> placedPositions = new List<Vector3>(); // Lưu các vị trí đã đặt
+
+        for (int i = 0; i < iceZoneCount; i++)
+        {
+            Vector3 iceZonePosition = center; 
+            bool validPosition = false;
+            int attempts = 0;
+            const int maxAttempts = 30;
+
+            // Thử tạo vị trí ngẫu nhiên cho đến khi tìm được vị trí hợp lệ
+            while (!validPosition && attempts < maxAttempts)
+            {
+                Vector2 randomOffset = Random.insideUnitCircle.normalized * Random.Range(minRadius, maxRadius);
+                iceZonePosition = center + new Vector3(randomOffset.x, randomOffset.y, 0);
+
+                // Kiểm tra khoảng cách với người chơi và các vùng khác
+                bool tooCloseToPlayer = Vector3.Distance(iceZonePosition, center) < minRadius;
+                bool tooCloseToOtherZones = false;
+
+                foreach (Vector3 pos in placedPositions)
+                {
+                    if (Vector3.Distance(iceZonePosition, pos) < minDistanceBetweenZones)
+                    {
+                        tooCloseToOtherZones = true;
+                        break;
+                    }
+                }
+
+                if (!tooCloseToPlayer && !tooCloseToOtherZones)
+                {
+                    validPosition = true;
+                }
+
+                attempts++;
+            }
+
+            if (validPosition)
+            {
+                // Tạo vùng băng từ pool chỉ khi vị trí hợp lệ
+                GameObject iceZone = MyPoolManager.Instance.Get(phaseData.iceZonePrefab, iceZonePosition);
+                IceZoneController iceZoneController = iceZone.GetComponent<IceZoneController>();
+                if (iceZoneController != null)
+                {
+                    iceZoneController.Setup(phaseData.iceZoneDuration, phaseData.iceZoneRadius, 0f);
+                }
+                placedPositions.Add(iceZonePosition);
+            }
+        }
     }
+
 
     private IEnumerator Teleport(Transform player, float distanceToPlayer)
     {
@@ -244,7 +293,6 @@ public class BossAttack : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        // Gizmos.DrawWireSphere(transform.position, phaseData.meleeRange);
         Gizmos.DrawWireSphere(transform.position + new Vector3(0, 1, 0), phaseData.meleeRange);
     }
 }

@@ -57,6 +57,13 @@ public class BossDataEditor : Editor
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("fireZoneDuration"), new GUIContent("Fire Zone Duration"));
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("fireZoneRadius"), new GUIContent("Fire Zone Radius"));
             }
+            if (phase.FindPropertyRelative("iceZonePrefab").objectReferenceValue != null)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Ice Zone Settings", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZoneDuration"), new GUIContent("Ice Zone Duration"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZoneRadius"), new GUIContent("Ice Zone Radius"));
+            }
 
             EditorGUILayout.Space();
         }

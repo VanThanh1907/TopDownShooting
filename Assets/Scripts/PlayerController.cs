@@ -8,10 +8,15 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    private bool isFrozen = false; // Trạng thái đóng băng
+    public float freezeImmunityTimer = 0f; // Thời gian miễn nhiễm sau khi bị đóng băng
+    private float freezeImmunityDuration = 2f;  // 2 giây miễn nhiễm
+   
 
     [Header("Weapon")]
     public WeaponData weaponData;
     public Transform firePoint;
+    [SerializeField] private GameObject freezeEffectPrefab;
 
     [HideInInspector]
     public WeaponData runtimeWeaponData;
@@ -32,17 +37,25 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         runtimeWeaponData = Instantiate(weaponData);
         health = GetComponent<Health>();
+        
     }
 
     void Update()
     {
         if (health != null && health.IsDead()) return;
+        if (isFrozen) return;
+       
+     // Giảm thời gian miễn nhiễm
+        if (freezeImmunityTimer > 0)
+        {
+            freezeImmunityTimer -= Time.deltaTime;
+        }
+
         if (moveInput.magnitude > 0 && !isStanding)
             animator.SetInteger("State", 0);
 
         HandleMovementInput();
         FlipToMouseDirection();
-        // RotateToMouse();
         HandleShooting();
     }
 
@@ -65,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (health != null && health.IsDead())
+        if (health != null && health.IsDead() )
         {
             rb.velocity = Vector2.zero;
             return;
@@ -137,6 +150,26 @@ public class PlayerController : MonoBehaviour
         if (runtimeWeaponData.shootSFX)
             AudioSource.PlayClipAtPoint(runtimeWeaponData.shootSFX, transform.position);
     }
+
+    public void Freeze(float freezeDuration)
+    {
+        if (freezeImmunityTimer > 0) return; 
+        isFrozen = true; 
+        rb.velocity = Vector2.zero; // Đặt vận tốc về 0 ngay lập tức
+        rb.constraints = RigidbodyConstraints2D.FreezePosition; // Khóa vị trí Rigidbody
+        StartCoroutine(FreezeCoroutine(freezeDuration));
+    }
+
+    private IEnumerator FreezeCoroutine(float freezeDuration)
+    {
+        yield return new WaitForSeconds(freezeDuration);
+        // Kết thúc trạng thái đóng băng
+        isFrozen = false;
+        rb.constraints = RigidbodyConstraints2D.None;
+        // Kích hoạt miễn nhiễm 2 giây
+        freezeImmunityTimer = freezeImmunityDuration;
+    }
+
     private IEnumerator DisableObjectAfterDuration(GameObject obj, float duration)
     {
         if (obj != null)
@@ -148,7 +181,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+      public bool CanBeFrozen()
+    {
+        return freezeImmunityTimer <= 0; 
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -159,5 +195,7 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject); // Xoá item sau khi nhặt
         }
     }
+    
+    
 
 }

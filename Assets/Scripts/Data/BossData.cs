@@ -16,13 +16,20 @@ public class BossPhaseData
     public float moveSpeed; // Tốc độ di chuyển
     public float fireRate; // Tốc độ bắn đạn
     public GameObject bulletPrefab; // Prefab đạn
+    
     public float meleeRange; // Tầm đánh cận chiến
     public float meleeDamage; // Sát thương cận chiến
+
     public GameObject fireZonePrefab; // Prefab vùng lửa
     public float fireZoneDamage = 10f; // Sát thương mỗi giây khi chạm vòng lửa
     public float fireZoneDuration = 5f; // Thời gian tồn tại của vòng lửa
     public float fireZoneRadius = 3f; // Bán kính Lửa
+
     public GameObject iceZonePrefab; // Prefab vùng băng
+    public float iceZoneRadius; // Bán băng
+    public float iceZoneDuration ; // Thơi gian băng tồn tại
+    
+
     public List<FirePattern> patterns; // Danh sách mẫu bắn
     public List<SpecialSkill> specialSkills; // Danh sách kỹ năng đặc biệt
 
