@@ -93,6 +93,9 @@ public class BossAttack : MonoBehaviour
             case BossPhaseData.SpecialSkill.IceZone:
                 CreateIceZone(player);
                 break;
+            case BossPhaseData.SpecialSkill.PoisonZone:
+                CreatePoisonZone(player);
+                break;
             case BossPhaseData.SpecialSkill.Teleport:
                 StartCoroutine(Teleport(player, 2f));
                 break;
@@ -238,7 +241,6 @@ public class BossAttack : MonoBehaviour
             // Tính góc đều cho mỗi vùng
             float angle = i * (360f / iceZoneCount);
             Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-            Vector3 basePosition = center + new Vector3(direction.x * minRadius, direction.y * minRadius, 0);
 
             // Thử tạo vị trí ngẫu nhiên trong phạm vi minRadius đến maxRadius
             while (!validPosition && attempts < maxAttempts)
@@ -277,6 +279,79 @@ public class BossAttack : MonoBehaviour
                 placedPositions.Add(iceZonePosition);
             }
         }
+    }
+    
+    private void CreatePoisonZone(Transform player)
+    {
+        if (player == null || phaseData.poisonZonePrefab == null)
+        {
+            Debug.LogWarning("Cannot create PoisonZone: Player or poisonZonePrefab is null!");
+            return;
+        }
+
+        // Cấu hình các vùng độc bao quanh người chơi
+        int poisonZoneCount = 6; // Số lượng vùng độc
+        float minRadius = phaseData.poisonZoneRadius * 5f; // Khoảng cách tối thiểu từ người chơi
+        float maxRadius = phaseData.poisonZoneRadius * 10f; // Khoảng cách tối đa
+        float minDistanceBetweenZones = phaseData.poisonZoneRadius * 2f; // Khoảng cách tối thiểu giữa các vùng
+        Vector3 center = player.position; // Tâm là vị trí người chơi
+        List<Vector3> placedPositions = new List<Vector3>(); // Lưu các vị trí đã đặt
+
+        for (int i = 0; i < poisonZoneCount; i++)
+        {
+            Vector3 poisonZonePosition = Vector3.zero;
+            bool validPosition = false;
+            int attempts = 0;
+            const int maxAttempts = 30;
+
+            // Tính góc đều cho mỗi vùng
+            float angle = i * (360f / poisonZoneCount);
+            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+
+            // Thử tạo vị trí ngẫu nhiên trong phạm vi minRadius đến maxRadius
+            while (!validPosition && attempts < maxAttempts)
+            {
+                float randomRadius = Random.Range(minRadius, maxRadius);
+                poisonZonePosition = center + new Vector3(direction.x * randomRadius, direction.y * randomRadius, 0);
+
+                // Kiểm tra khoảng cách với các vùng khác
+                bool tooCloseToOtherZones = false;
+                foreach (Vector3 pos in placedPositions)
+                {
+                    if (Vector3.Distance(poisonZonePosition, pos) < minDistanceBetweenZones)
+                    {
+                        tooCloseToOtherZones = true;
+                        break;
+                    }
+                }
+
+                if (!tooCloseToOtherZones)
+                {
+                    validPosition = true;
+                }
+
+                attempts++;
+            }
+
+            if (validPosition)
+            {
+                // Tạo vùng độc từ pool chỉ khi vị trí hợp lệ
+                GameObject poisonZone = MyPoolManager.Instance.Get(phaseData.poisonZonePrefab, poisonZonePosition);
+                PoisonZoneController poisonZoneController = poisonZone.GetComponent<PoisonZoneController>();
+                if (poisonZoneController != null)
+                {
+                    poisonZoneController.Setup(phaseData.poisonZoneDamage, phaseData.poisonZoneDuration, phaseData.poisonZoneRadius);
+                    Debug.Log($"Created PoisonZone {i + 1} at {poisonZonePosition} with damage {phaseData.poisonZoneDamage}, duration {phaseData.poisonZoneDuration}, radius {phaseData.poisonZoneRadius}");
+                }
+                else
+                {
+                    Debug.LogWarning("PoisonZoneController component not found on poisonZonePrefab!");
+                }
+                placedPositions.Add(poisonZonePosition);
+            }
+        }
+
+        Debug.Log($"Created {poisonZoneCount} PoisonZones in a circle around player at {center}");
     }
 
 

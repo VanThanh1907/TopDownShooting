@@ -20,14 +20,21 @@ public class BossPhaseData
     public float meleeRange; // Tầm đánh cận chiến
     public float meleeDamage; // Sát thương cận chiến
 
-    public GameObject fireZonePrefab; // Prefab vùng lửa
-    public float fireZoneDamage = 10f; // Sát thương mỗi giây khi chạm vòng lửa
-    public float fireZoneDuration = 5f; // Thời gian tồn tại của vòng lửa
-    public float fireZoneRadius = 3f; // Bán kính Lửa
-
-    public GameObject iceZonePrefab; // Prefab vùng băng
-    public float iceZoneRadius; // Bán băng
+    //FireZone
+    public GameObject fireZonePrefab; 
+    public float fireZoneDamage ; // Sát thương mỗi giây khi chạm vòng lửa
+    public float fireZoneDuration ; // Thời gian tồn tại của vòng lửa
+    public float fireZoneRadius ; // Bán kính Lửa
+    //IceZone
+    public GameObject iceZonePrefab; 
+    public float iceZoneRadius; // Bán kính băng
     public float iceZoneDuration ; // Thơi gian băng tồn tại
+
+    // PoisonZone
+    public GameObject poisonZonePrefab;
+    public float poisonZoneDamage;  // Sát thương mỗi 0.5s
+    public float poisonZoneDuration; // Thời gian tồn tại vùng độc
+    public float poisonZoneRadius; //Bán kính độc
     
 
     public List<FirePattern> patterns; // Danh sách mẫu bắn
@@ -46,6 +53,7 @@ public class BossPhaseData
     {
         FireZone,
         IceZone,
+        PoisonZone,
         Teleport
     }
 }

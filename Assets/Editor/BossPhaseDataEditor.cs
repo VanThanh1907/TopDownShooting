@@ -45,6 +45,7 @@ public class BossDataEditor : Editor
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("meleeDamage"), new GUIContent("Melee Damage"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("fireZonePrefab"), new GUIContent("Fire Zone Prefab"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZonePrefab"), new GUIContent("Ice Zone Prefab"));
+            EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZonePrefab"), new GUIContent("Poison Zone Prefab"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("patterns"), new GUIContent("Fire Patterns"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("specialSkills"), new GUIContent("Special Skills"));
 
@@ -63,6 +64,14 @@ public class BossDataEditor : Editor
                 EditorGUILayout.LabelField("Ice Zone Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZoneDuration"), new GUIContent("Ice Zone Duration"));
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZoneRadius"), new GUIContent("Ice Zone Radius"));
+            }
+             if (phase.FindPropertyRelative("poisonZonePrefab").objectReferenceValue != null)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Poison Zone Settings", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZoneDamage"), new GUIContent("Poison Zone Dame"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZoneDuration"), new GUIContent("Poison Zone Duration"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZoneRadius"), new GUIContent("Poison Zone Radius"));
             }
 
             EditorGUILayout.Space();
