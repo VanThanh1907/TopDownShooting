@@ -96,6 +96,9 @@ public class BossAttack : MonoBehaviour
             case BossPhaseData.SpecialSkill.PoisonZone:
                 CreatePoisonZone(player);
                 break;
+            case BossPhaseData.SpecialSkill.Summon:
+                CreateSummonZone(player);
+                break;
             case BossPhaseData.SpecialSkill.Teleport:
                 StartCoroutine(Teleport(player, 2f));
                 break;
@@ -216,7 +219,7 @@ public class BossAttack : MonoBehaviour
         }
     }
     
- private void CreateIceZone(Transform player)
+   private void CreateIceZone(Transform player)
     {
         if (player == null || phaseData.iceZonePrefab == null)
         {
@@ -280,8 +283,8 @@ public class BossAttack : MonoBehaviour
             }
         }
     }
-    
-    private void CreatePoisonZone(Transform player)
+
+   private void CreatePoisonZone(Transform player)
     {
         if (player == null || phaseData.poisonZonePrefab == null)
         {
@@ -354,6 +357,79 @@ public class BossAttack : MonoBehaviour
         Debug.Log($"Created {poisonZoneCount} PoisonZones in a circle around player at {center}");
     }
 
+private void CreateSummonZone(Transform player)
+    {
+        if (player == null || phaseData.summonZonePrefab == null || phaseData.minionPrefab == null)
+        {
+            Debug.LogWarning("Cannot create SummonZone: Player, summonZonePrefab, or minionPrefab is null!");
+            return;
+        }
+
+        int summonZoneCount = 4; // Số lượng vùng summon
+        float minRadius = phaseData.summonZoneRadius * 5f; // Khoảng cách tối thiểu từ người chơi
+        float maxRadius = phaseData.summonZoneRadius * 10f; // Khoảng cách tối đa
+        float minDistanceBetweenZones = phaseData.summonZoneRadius * 2f; // Khoảng cách tối thiểu giữa các vùng
+        Vector3 center = player.position; // Tâm là vị trí người chơi
+        List<Vector3> placedPositions = new List<Vector3>(); // Lưu các vị trí đã đặt
+
+        for (int i = 0; i < summonZoneCount; i++)
+        {
+            Vector3 summonZonePosition = Vector3.zero;
+            bool validPosition = false;
+            int attempts = 0;
+            const int maxAttempts = 30;
+
+            float angle = i * (360f / summonZoneCount);
+            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+
+            while (!validPosition && attempts < maxAttempts)
+            {
+                float randomRadius = Random.Range(minRadius, maxRadius);
+                summonZonePosition = center + new Vector3(direction.x * randomRadius, direction.y * randomRadius, 0);
+
+                bool tooCloseToOtherZones = false;
+                foreach (Vector3 pos in placedPositions)
+                {
+                    if (Vector3.Distance(summonZonePosition, pos) < minDistanceBetweenZones)
+                    {
+                        tooCloseToOtherZones = true;
+                        break;
+                    }
+                }
+
+                if (!tooCloseToOtherZones)
+                {
+                    validPosition = true;
+                }
+
+                attempts++;
+            }
+
+            if (validPosition)
+            {
+                GameObject summonZone = MyPoolManager.Instance.Get(phaseData.summonZonePrefab, summonZonePosition);
+                SummonZoneController summonZoneController = summonZone.GetComponent<SummonZoneController>();
+                if (summonZoneController != null)
+                {
+                    summonZoneController.Setup(
+                        phaseData.minionPrefab,
+                        phaseData.minionCount,
+                        phaseData.summonZoneDuration,
+                        phaseData.summonZoneRadius
+                    );
+                    Debug.Log($"Created SummonZone {i + 1} at {summonZonePosition} with {phaseData.minionCount} minions");
+                }
+                else
+                {
+                    Debug.LogWarning("SummonZoneController component not found on summonZonePrefab!");
+                }
+                placedPositions.Add(summonZonePosition);
+            }
+        }
+
+        Debug.Log($"Created {placedPositions.Count} SummonZones around player at {center}");
+    }
+
 
     private IEnumerator Teleport(Transform player, float distanceToPlayer)
     {
@@ -368,6 +444,11 @@ public class BossAttack : MonoBehaviour
         PerformMeleeAttack(player);
 
     }
+
+
+
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

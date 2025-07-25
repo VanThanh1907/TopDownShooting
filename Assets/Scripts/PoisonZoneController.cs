@@ -115,7 +115,7 @@ public class PoisonZoneController : MonoBehaviour
 
     private IEnumerator ApplyLingeringPoison(Health playerHealth)
     {
-        float lingeringDuration = Random.Range(5f, 10f); // Thời gian độc kéo dài 5-10s
+        float lingeringDuration = 5f; // Thời gian độc kéo dài 5s
         float lingeringTimer = 0f;
         float lingeringDamageInterval = damageInterval; // Giữ cùng tần suất sát thương
         float lastLingeringParticleTime = -particleInterval; // Thời điểm sinh particle trong hiệu ứng kéo dài

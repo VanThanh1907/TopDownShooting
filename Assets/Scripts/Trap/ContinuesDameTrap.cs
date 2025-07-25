@@ -35,11 +35,20 @@ public class ContinuesDameTrap : MonoBehaviour
     {
         Health health = other.GetComponent<Health>();
         if (health == null || !burnCoroutines.ContainsKey(health)) return;
+        if (burnCoroutines.ContainsKey(health)) return;
 
-        // Đổi sang đốt sau khi ra khỏi vùng
-        StopCoroutine(burnCoroutines[health]);
-        Coroutine routine = StartCoroutine(BurnRoutine(health, false));
-        burnCoroutines[health] = routine;
+        if (burnCoroutines[health] != null)
+        {
+            StopCoroutine(burnCoroutines[health]);
+            burnCoroutines[health] = null; // Đặt lại để tránh truy cập lại
+        }
+
+        // Khởi động coroutine đốt giới hạn thời gian sau khi ra khỏi vùng
+        if (health != null && health.gameObject != null) // Kiểm tra GameObject còn tồn tại
+        {
+            Coroutine routine = StartCoroutine(BurnRoutine(health, false));
+            burnCoroutines[health] = routine;
+        }
     }
 
     private IEnumerator BurnRoutine(Health health, bool infinite)
@@ -47,6 +56,11 @@ public class ContinuesDameTrap : MonoBehaviour
         float timer = 0f;
         while (health != null && !health.IsDead() && (infinite || timer < burnDurationAfterExit))
         {
+            if (health.gameObject == null) 
+            {
+                Cleanup(health);
+                yield break;
+            }
             health.TakeDamage(damage);
             timer += damageInterval;
             yield return new WaitForSeconds(damageInterval);
@@ -57,6 +71,7 @@ public class ContinuesDameTrap : MonoBehaviour
 
     private void Cleanup(Health health)
     {
+        if (health == null) return;
         if (burnCoroutines.ContainsKey(health))
         {
             burnCoroutines.Remove(health);

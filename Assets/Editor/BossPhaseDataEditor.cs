@@ -46,6 +46,7 @@ public class BossDataEditor : Editor
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("fireZonePrefab"), new GUIContent("Fire Zone Prefab"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZonePrefab"), new GUIContent("Ice Zone Prefab"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZonePrefab"), new GUIContent("Poison Zone Prefab"));
+            EditorGUILayout.PropertyField(phase.FindPropertyRelative("summonZonePrefab"), new GUIContent("Summon Zone Prefab"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("patterns"), new GUIContent("Fire Patterns"));
             EditorGUILayout.PropertyField(phase.FindPropertyRelative("specialSkills"), new GUIContent("Special Skills"));
 
@@ -65,13 +66,23 @@ public class BossDataEditor : Editor
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZoneDuration"), new GUIContent("Ice Zone Duration"));
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("iceZoneRadius"), new GUIContent("Ice Zone Radius"));
             }
-             if (phase.FindPropertyRelative("poisonZonePrefab").objectReferenceValue != null)
+            if (phase.FindPropertyRelative("poisonZonePrefab").objectReferenceValue != null)
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Poison Zone Settings", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZoneDamage"), new GUIContent("Poison Zone Dame"));
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZoneDuration"), new GUIContent("Poison Zone Duration"));
                 EditorGUILayout.PropertyField(phase.FindPropertyRelative("poisonZoneRadius"), new GUIContent("Poison Zone Radius"));
+            }
+            if (phase.FindPropertyRelative("summonZonePrefab").objectReferenceValue != null)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Summon Zone Settings", EditorStyles.boldLabel);
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("minionPrefab"), new GUIContent("Minion Monster Prefab"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("minionCount"), new GUIContent("Minion Count"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("summonZoneDuration"), new GUIContent("Summon Zone Duration"));
+                EditorGUILayout.PropertyField(phase.FindPropertyRelative("summonZoneRadius"), new GUIContent("Summon Zone Darius"));
+
             }
 
             EditorGUILayout.Space();

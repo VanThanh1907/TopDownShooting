@@ -31,8 +31,13 @@ MonoBehaviour:
     poisonZoneDamage: 50
     poisonZoneDuration: 20
     poisonZoneRadius: 1
+    summonZonePrefab: {fileID: 1352571807994098172, guid: aabf4ba7a48601445935989ed7da141b, type: 3}
+    minionPrefab: {fileID: 8614612281205811774, guid: e3af7cf1df03d27478f0a91559fec2c8, type: 3}
+    minionCount: 1
+    summonZoneDuration: 2
+    summonZoneRadius: 1
     patterns: 00000000
-    specialSkills: 02000000
+    specialSkills: 04000000
   - triggerAtPercent: 0.2
     moveSpeed: 2
     fireRate: 3
@@ -50,5 +55,10 @@ MonoBehaviour:
     poisonZoneDamage: 0
     poisonZoneDuration: 0
     poisonZoneRadius: 0
+    summonZonePrefab: {fileID: 0}
+    minionPrefab: {fileID: 0}
+    minionCount: 4
+    summonZoneDuration: 2
+    summonZoneRadius: 2
     patterns: 000000000200000004000000
     specialSkills: 02000000
