@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e9ed15af02d4c4b8884b15295b0137, type: 3}
+  m_Name: Dragon_Poison
+  m_EditorClassIdentifier: 
+  bossPrefab: {fileID: 1036528860516062066, guid: 619480ce35e4c6247b421442dbb217a1, type: 3}
+  phases:
+  - triggerAtPercent: 1
+    moveSpeed: 3
+    fireRate: 3
+    bulletPrefab: {fileID: 7608620304227204254, guid: a4887645c7765fa4d87df24edde1e2e0, type: 3}
+    meleeRange: 0
+    meleeDamage: 0
+    fireZonePrefab: {fileID: 0}
+    fireZoneDamage: 0
+    fireZoneDuration: 0
+    fireZoneRadius: 0
+    iceZonePrefab: {fileID: 0}
+    iceZoneRadius: 0
+    iceZoneDuration: 0
+    poisonZonePrefab: {fileID: 1410384230752796200, guid: 648540efcb2f0fc438d29e0d8d92541a, type: 3}
+    poisonZoneDamage: 50
+    poisonZoneDuration: 15
+    poisonZoneRadius: 1
+    summonZonePrefab: {fileID: 0}
+    minionPrefab: {fileID: 0}
+    minionCount: 0
+    summonZoneDuration: 0
+    summonZoneRadius: 0
+    patterns: 0000000002000000
+    specialSkills: 02000000
+  - triggerAtPercent: 0.5
+    moveSpeed: 3
+    fireRate: 3
+    bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
+    meleeRange: 0
+    meleeDamage: 0
+    fireZonePrefab: {fileID: 0}
+    fireZoneDamage: 0
+    fireZoneDuration: 0
+    fireZoneRadius: 0
+    iceZonePrefab: {fileID: 0}
+    iceZoneRadius: 0
+    iceZoneDuration: 0
+    poisonZonePrefab: {fileID: 1410384230752796200, guid: 648540efcb2f0fc438d29e0d8d92541a, type: 3}
+    poisonZoneDamage: 50
+    poisonZoneDuration: 15
+    poisonZoneRadius: 1
+    summonZonePrefab: {fileID: 1352571807994098172, guid: aabf4ba7a48601445935989ed7da141b, type: 3}
+    minionPrefab: {fileID: 7999328295456957278, guid: 90e26e1b4f304a14eae6badfd1bd71c5, type: 3}
+    minionCount: 1
+    summonZoneDuration: 2
+    summonZoneRadius: 1
+    patterns: 0000000002000000
+    specialSkills: 0200000004000000

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e9ed15af02d4c4b8884b15295b0137, type: 3}
+  m_Name: Dragon_Fire
+  m_EditorClassIdentifier: 
+  bossPrefab: {fileID: 6521128498293189065, guid: a07e9e2b9a87a3644868ca045d6507ce, type: 3}
+  phases:
+  - triggerAtPercent: 1
+    moveSpeed: 2
+    fireRate: 3
+    bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
+    meleeRange: 0
+    meleeDamage: 0
+    fireZonePrefab: {fileID: 0}
+    fireZoneDamage: 999
+    fireZoneDuration: 15
+    fireZoneRadius: 4
+    iceZonePrefab: {fileID: 0}
+    iceZoneRadius: 0
+    iceZoneDuration: 0
+    poisonZonePrefab: {fileID: 0}
+    poisonZoneDamage: 0
+    poisonZoneDuration: 0
+    poisonZoneRadius: 0
+    summonZonePrefab: {fileID: 0}
+    minionPrefab: {fileID: 0}
+    minionCount: 4
+    summonZoneDuration: 2
+    summonZoneRadius: 2
+    patterns: 0400000002000000
+    specialSkills: 
+  - triggerAtPercent: 0.5
+    moveSpeed: 3
+    fireRate: 3
+    bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
+    meleeRange: 0
+    meleeDamage: 0
+    fireZonePrefab: {fileID: 7314518845203641595, guid: a52373af3e026cf42988d982401d4853, type: 3}
+    fireZoneDamage: 999
+    fireZoneDuration: 15
+    fireZoneRadius: 4
+    iceZonePrefab: {fileID: 0}
+    iceZoneRadius: 0
+    iceZoneDuration: 0
+    poisonZonePrefab: {fileID: 0}
+    poisonZoneDamage: 0
+    poisonZoneDuration: 0
+    poisonZoneRadius: 0
+    summonZonePrefab: {fileID: 0}
+    minionPrefab: {fileID: 0}
+    minionCount: 4
+    summonZoneDuration: 2
+    summonZoneRadius: 2
+    patterns: 040000000200000003000000
+    specialSkills: 00000000
