@@ -17,7 +17,7 @@ MonoBehaviour:
   - triggerAtPercent: 1
     moveSpeed: 3
     fireRate: 3
-    bulletPrefab: {fileID: 7608620304227204254, guid: a4887645c7765fa4d87df24edde1e2e0, type: 3}
+    bulletPrefab: {fileID: 2812448503498501423, guid: 4fdeadc1d3f97144dbd75838f10e94c6, type: 3}
     meleeRange: 0
     meleeDamage: 0
     fireZonePrefab: {fileID: 0}
@@ -36,6 +36,7 @@ MonoBehaviour:
     minionCount: 0
     summonZoneDuration: 0
     summonZoneRadius: 0
+    teleportEffectPrefab: {fileID: 0}
     patterns: 0000000002000000
     specialSkills: 02000000
   - triggerAtPercent: 0.9
@@ -60,5 +61,6 @@ MonoBehaviour:
     minionCount: 1
     summonZoneDuration: 2
     summonZoneRadius: 1
+    teleportEffectPrefab: {fileID: 0}
     patterns: 0000000002000000
     specialSkills: 0200000004000000
