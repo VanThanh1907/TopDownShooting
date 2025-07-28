@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 3167239817379898966}
-  specialSkillCooldown: 10
+  specialSkillCooldown: 1
   attackCooldown: 2
 --- !u!114 &1417887516701964030
 MonoBehaviour:

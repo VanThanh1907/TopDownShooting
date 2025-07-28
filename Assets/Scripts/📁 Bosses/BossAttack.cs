@@ -8,6 +8,7 @@ public class BossAttack : MonoBehaviour
 {
     private BossPhaseData phaseData;
     private BossAnimation bossAnimation;
+    private BossMovement bossMove;
     public Transform firePoint;
     private float fireTimer;
     private float spiralAngle;
@@ -18,6 +19,7 @@ public class BossAttack : MonoBehaviour
     public void Awake()
     {
         bossAnimation = GetComponent<BossAnimation>();
+        bossMove = GetComponent<BossMovement>();
     }
     public void Setup(BossPhaseData phase, Transform firePoint)
     {
@@ -44,12 +46,26 @@ public class BossAttack : MonoBehaviour
         float distance = Vector2.Distance(player.position, transform.position + new Vector3(0, 1, 0));
         if (distance <= phaseData.meleeRange && Time.time >= lastAttackTime + attackCooldown)
         {
+           
             lastAttackTime = Time.time;
             bossAnimation.PlayAnimation("Attack", false);
+
+            bool isFacingPlayer = IsFacingPlayer(player);
             // Gây damage tại giữa animation (0.7s)
-            Invoke(nameof(ApplyMeleeDamage), 0.7f);
+            if (isFacingPlayer)
+            {
+                Invoke(nameof(ApplyMeleeDamage), 0.7f);
+            }
 
         }
+    }
+    private bool IsFacingPlayer(Transform player)
+    {
+        bool playerOnLeft = player.position.x < transform.position.x;
+        // Boss nhìn đúng hướng nếu:
+        // - Người chơi ở bên trái (playerOnLeft = true) và boss lật sang trái (isFlipped = true)
+        // - Người chơi ở bên phải (playerOnLeft = false) và boss lật sang phải (isFlipped = false)
+        return playerOnLeft == bossMove.isFlipped;
     }
     private void ApplyMeleeDamage()
     {
@@ -457,6 +473,7 @@ public class BossAttack : MonoBehaviour
             teleportEffect.SetActive(false);
         }
         transform.position = newPosition;
+        bossMove.MoveToPlayer(player);
         PerformMeleeAttack(player);
     }
 

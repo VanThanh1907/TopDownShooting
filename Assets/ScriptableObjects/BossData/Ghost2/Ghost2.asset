@@ -63,4 +63,4 @@ MonoBehaviour:
     summonZoneRadius: 2
     teleportEffectPrefab: {fileID: 0}
     patterns: 0000000002000000
-    specialSkills: 02000000
+    specialSkills: 
