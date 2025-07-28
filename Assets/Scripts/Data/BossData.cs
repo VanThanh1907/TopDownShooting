@@ -42,7 +42,9 @@ public class BossPhaseData
     public int minionCount = 4; // Số lượng quái con mỗi lần triệu hồi
     public float summonZoneDuration = 2f; // Thời gian hiệu ứng summon trước khi quái con xuất hiện
     public float summonZoneRadius = 2f; // Bán kính vùng summon
-    
+
+    //Teleport
+    public GameObject teleportEffectPrefab;
 
     public List<FirePattern> patterns; // Danh sách mẫu bắn
     public List<SpecialSkill> specialSkills; // Danh sách kỹ năng đặc biệt

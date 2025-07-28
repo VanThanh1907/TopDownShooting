@@ -54,7 +54,7 @@ public class BossController : MonoBehaviour
 
         switch (currentState)
         {
-            case BossState.Idle:
+            
             case BossState.MoveToPlayer:
                 bossAnimation.PlayAnimation("Walk", true);
                 movement.MoveToPlayer(player);
@@ -109,37 +109,22 @@ public class BossController : MonoBehaviour
         List<BossState> availableStates = new List<BossState>();
 
         // Kiểm tra các trạng thái khả dụng
-        if (currentPhase.meleeRange > 0 && attack != null && attack.CanPerformMeleeAttack(player))
-        {
-            availableStates.Add(BossState.AttackMelee);
-            Debug.Log("MeleeAttack is available");
-        }
-        else
-        {
-            // Add ranged attack as a fallback
-            availableStates.Add(BossState.AttackRanged);
-            Debug.Log("RangedAttack is available");
-        }
-
-        // Check for special skill availability
         if (attack != null && attack.HasSpecialSkill() && specialSkillTimer <= 0)
         {
             availableStates.Add(BossState.SpecialSkill);
-            Debug.Log("SpecialSkill is available");
         }
-
-        // Nếu không có trạng thái nào khả dụng, chuyển về Idle
-        if (availableStates.Count == 0)
+        else if (currentPhase.meleeRange > 0 && attack != null && attack.CanPerformMeleeAttack(player))
         {
-            Debug.LogWarning("No states available, switching to Idle");
-            ChangeState(BossState.Idle, Random.Range(1f, 2f));
-            return;
+            availableStates.Add(BossState.AttackMelee);
+        }
+        else
+        {
+            availableStates.Add(BossState.AttackRanged);
         }
 
         // Chọn ngẫu nhiên một trạng thái từ danh sách khả dụng
         BossState selectedState = availableStates[Random.Range(0, availableStates.Count)];
-        float duration = selectedState == BossState.SpecialSkill ? Random.Range(2f, 4f) : Random.Range(1.5f, 3f);
-        Debug.Log($"Selected state: {selectedState}, duration: {duration}");
+        float duration = selectedState == BossState.SpecialSkill ? Random.Range(3f, 4f) : Random.Range(1.5f, 3f);
 
         // Chuyển sang trạng thái được chọn
         ChangeState(selectedState, duration);

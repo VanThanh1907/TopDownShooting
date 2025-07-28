@@ -190,7 +190,7 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-   private void CreateFireZone(Transform player)
+    private void CreateFireZone(Transform player)
     {
         if (player == null || phaseData.fireZonePrefab == null)
         {
@@ -218,8 +218,8 @@ public class BossAttack : MonoBehaviour
             }
         }
     }
-    
-   private void CreateIceZone(Transform player)
+
+    private void CreateIceZone(Transform player)
     {
         if (player == null || phaseData.iceZonePrefab == null)
         {
@@ -284,7 +284,7 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-   private void CreatePoisonZone(Transform player)
+    private void CreatePoisonZone(Transform player)
     {
         if (player == null || phaseData.poisonZonePrefab == null)
         {
@@ -357,7 +357,7 @@ public class BossAttack : MonoBehaviour
         Debug.Log($"Created {poisonZoneCount} PoisonZones in a circle around player at {center}");
     }
 
-private void CreateSummonZone(Transform player)
+    private void CreateSummonZone(Transform player)
     {
         if (player == null || phaseData.summonZonePrefab == null || phaseData.minionPrefab == null)
         {
@@ -433,20 +433,32 @@ private void CreateSummonZone(Transform player)
 
     private IEnumerator Teleport(Transform player, float distanceToPlayer)
     {
-        if (player == null) yield break;
+        if (player == null || phaseData == null || phaseData.teleportEffectPrefab == null)
+        {
+            yield break;
+        }
         bossAnimation.PlayAnimation("Dead", false);
-
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2f);
 
         Vector2 randomOffset = Random.insideUnitCircle * distanceToPlayer;
         Vector3 newPosition = player.position + (Vector3)randomOffset;
+
+
+        GameObject teleportEffect = MyPoolManager.Instance.Get(phaseData.teleportEffectPrefab, newPosition);
+        if (teleportEffect != null)
+        {
+            ParticleSystem ps = teleportEffect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            teleportEffect.SetActive(false);
+        }
         transform.position = newPosition;
         PerformMeleeAttack(player);
-
     }
-
-
-
 
 
     private void OnDrawGizmosSelected()
