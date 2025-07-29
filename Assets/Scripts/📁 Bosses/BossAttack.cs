@@ -215,7 +215,7 @@ public class BossAttack : MonoBehaviour
 
         // Cấu hình vòng tròn lửa
         int fireZoneCount = 30; // Số lượng vùng lửa trong vòng tròn
-        float circleRadius = phaseData.fireZoneRadius * 2f; // Bán kính vòng tròn (lớn hơn bán kính mỗi vùng lửa)
+        float circleRadius = phaseData.fireZoneRadius * 2.5f; // Bán kính vòng tròn (lớn hơn bán kính mỗi vùng lửa)
         Vector3 center = player.position; // Tâm vòng tròn là vị trí người chơi
 
         for (int i = 0; i < fireZoneCount; i++)

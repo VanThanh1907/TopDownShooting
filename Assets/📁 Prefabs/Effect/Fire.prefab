@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1892402721165051469
 Transform:
   m_ObjectHideFlags: 0
@@ -4851,12 +4851,12 @@ GameObject:
   - component: {fileID: 35213869683588669}
   - component: {fileID: 1500590698797408270}
   m_Layer: 0
-  m_Name: fire1 (1)
+  m_Name: hit_fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7273363801714826816
 Transform:
   m_ObjectHideFlags: 0
@@ -5126,8 +5126,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.2
-      minScalar: 0.4
+      scalar: 0.2
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5504,7 +5504,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 21.89
+    angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5709,7 +5709,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9686,7 +9686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7844725398748414870
 Transform:
   m_ObjectHideFlags: 0
@@ -19445,6 +19445,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0066692084, y: 0.041528285}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.14348787

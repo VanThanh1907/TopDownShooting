@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 3548763219705872375}
   m_Layer: 8
   m_Name: Dragon_Poison
-  m_TagString: Enemy
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
