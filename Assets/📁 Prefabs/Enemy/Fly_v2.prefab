@@ -214,7 +214,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b20ce6628b6cfb4ab60e54788ff8106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItems: []
+  dropItems:
+  - prefab: {fileID: 7373522376944175745, guid: 2a4ad5f2796cc48488375dee5f6fd3af, type: 3}
+    chance: 0.1
+  - prefab: {fileID: 1852112169719748127, guid: e8dac8264c5c94e449c44901e4aeda73, type: 3}
+    chance: 0.1
+  - prefab: {fileID: 7897584734762968073, guid: 4c36ddfd2931fb84685bb78d3c42aed3, type: 3}
+    chance: 0.1
+  - prefab: {fileID: 28187716722784669, guid: 59ebbe31f68faba4db4a869de829b5b3, type: 3}
+    chance: 0.1
+  - prefab: {fileID: 1996240812778623074, guid: d9c77425186f7934aab0a4751007035a, type: 3}
+    chance: 0.1
+  - prefab: {fileID: 5132114170179952563, guid: 92094e202402a0d4ab4eaadb45ecb1c2, type: 3}
+    chance: 0.1
   spreadRadius: 2
 --- !u!61 &2507338825092218438
 BoxCollider2D:

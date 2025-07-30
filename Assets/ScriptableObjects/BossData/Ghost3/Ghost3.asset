@@ -57,7 +57,7 @@ MonoBehaviour:
     poisonZoneDuration: 0
     poisonZoneRadius: 0
     summonZonePrefab: {fileID: 1352571807994098172, guid: aabf4ba7a48601445935989ed7da141b, type: 3}
-    minionPrefab: {fileID: 0}
+    minionPrefab: {fileID: 515643402285783003, guid: 637ba622f12334743bf014960465ee90, type: 3}
     minionCount: 1
     summonZoneDuration: 1
     summonZoneRadius: 1

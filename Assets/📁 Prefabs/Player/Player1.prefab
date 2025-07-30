@@ -26360,6 +26360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1
+  currentHP: 0
   healthBarPrefab: {fileID: 5605162996321319377, guid: 74576c62bd9a83b49b56094fa74f08ec, type: 3}
   onDeath:
     m_PersistentCalls:

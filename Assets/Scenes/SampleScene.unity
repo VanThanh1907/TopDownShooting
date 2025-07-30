@@ -148,7 +148,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: maxHP
-      value: 10000
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: healthBarPrefab
