@@ -125,57 +125,63 @@ public class WaveManager : MonoBehaviour
         waveText.text = $"Wave {currentWave}";
     }
 
-    IEnumerator SpawnWaveWithBoss(int waveIndex)
-    {
-        yield return StartCoroutine(SpawnEnemies(waveIndex));
-        
-        int index = Random.Range(0, bossList.Length);
-        BossData data = bossList[index];
-        float difficultyMultiplier = 1f + (currentWave * 0.1f);
+   IEnumerator SpawnWaveWithBoss(int waveIndex)
+{
+    yield return StartCoroutine(SpawnEnemies(waveIndex));
+    
+    int index = Random.Range(0, bossList.Length);
+    BossData data = bossList[index];
+    float difficultyMultiplier = 1f + (currentWave * 0.01f);
 
-        GameObject boss = MyPoolManager.Instance.Get(data.bossPrefab, GetRandomSpawnPointOutsideScreen());
-        var health = boss.GetComponent<Health>();
-        if (health != null)
-        {
-            health.ResetState(health.maxHP * difficultyMultiplier);
-            health.onDeath.AddListener(() => activeBosses.Remove(boss));
-        }
-        activeBosses.Add(boss);
-        boss.GetComponent<BossController>().Setup(data);
+    GameObject boss = MyPoolManager.Instance.Get(data.bossPrefab, GetRandomSpawnPointOutsideScreen());
+    var health = boss.GetComponent<Health>();
+    if (health != null)
+    {
+        float initialMaxHP = health.maxHP; // Kiểm tra maxHP ban đầu
+        float currentHP = health.currentHP; // Kiểm tra HP hiện tại trước khi reset
+        float newHP = initialMaxHP * difficultyMultiplier;
+        health.ResetState(newHP);
+        health.onDeath.AddListener(() => activeBosses.Remove(boss));
+        Debug.Log($"Spawned boss {data.bossPrefab.name} - Initial MaxHP: {initialMaxHP}, Current HP before: {currentHP}, New HP: {newHP} (Multiplier: {difficultyMultiplier})");
     }
+    activeBosses.Add(boss);
+    boss.GetComponent<BossController>().Setup(data);
+}
 
-    IEnumerator SpawnEnemies(int waveIndex)
+IEnumerator SpawnEnemies(int waveIndex)
+{
+    float difficultyMultiplier = 1f + (currentWave * 0.01f);
+    Debug.Log($"Spawning enemies with difficultyMultiplier: {difficultyMultiplier}");
+
+    WaveConfig wave = waveConfigs[waveIndex];
+    foreach (EnemySpawnConfig config in wave.enemies)
     {
-        float difficultyMultiplier = 1f + (currentWave * 0.1f);
-        Debug.Log($"Spawning enemies with difficultyMultiplier: {difficultyMultiplier}");
-
-        WaveConfig wave = waveConfigs[waveIndex];
-        foreach (EnemySpawnConfig config in wave.enemies)
+        if (prefabLookup.TryGetValue(config.enemyPrefabName, out GameObject prefab))
         {
-            if (prefabLookup.TryGetValue(config.enemyPrefabName, out GameObject prefab))
+            for (int i = 0; i < config.spawnCount; i++)
             {
-                for (int i = 0; i < config.spawnCount; i++)
+                GameObject enemy = MyPoolManager.Instance.Get(prefab, GetRandomSpawnPointOutsideScreen());
+                var health = enemy.GetComponent<Health>();
+                if (health != null)
                 {
-                    GameObject enemy = MyPoolManager.Instance.Get(prefab, GetRandomSpawnPointOutsideScreen());
-                    var health = enemy.GetComponent<Health>();
-                    if (health != null)
-                    {
-                        float initialMaxHP = health.maxHP;
-                        health.ResetState(initialMaxHP * difficultyMultiplier);
-                        health.SetFullHP();
-                        health.onDeath.AddListener(() => activeEnemies.Remove(enemy));
-                    }
-                    activeEnemies.Add(enemy);
-                    yield return new WaitForSeconds(spawnDelay);
+                    float initialMaxHP = health.maxHP; // Kiểm tra maxHP ban đầu
+                    float currentHP = health.currentHP; // Kiểm tra HP hiện tại trước khi reset
+                    float newHP = initialMaxHP * difficultyMultiplier;
+                    health.ResetState(newHP);
+                    health.SetFullHP();
+                    health.onDeath.AddListener(() => activeEnemies.Remove(enemy));
+                    Debug.Log($"Spawned {config.enemyPrefabName} - Initial MaxHP: {initialMaxHP}, Current HP before: {currentHP}, New HP: {newHP} (Multiplier: {difficultyMultiplier})");
                 }
-            }
-            else
-            {
-                Debug.LogWarning($"Prefab {config.enemyPrefabName} không được tìm thấy trong prefabLookup! Danh sách prefab: {string.Join(", ", prefabLookup.Keys)}");
+                activeEnemies.Add(enemy);
+                yield return new WaitForSeconds(spawnDelay);
             }
         }
+        else
+        {
+            Debug.LogWarning($"Prefab {config.enemyPrefabName} không được tìm thấy trong prefabLookup! Danh sách prefab: {string.Join(", ", prefabLookup.Keys)}");
+        }
     }
-
+}
     Vector3 GetRandomSpawnPointOutsideScreen()
     {
         float camHeight = mainCamera.orthographicSize;

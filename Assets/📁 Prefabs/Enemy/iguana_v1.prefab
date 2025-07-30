@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1000
+  currentHP: 0
   healthBarPrefab: {fileID: 0}
   onDeath:
     m_PersistentCalls:

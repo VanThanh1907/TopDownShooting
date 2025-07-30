@@ -3,9 +3,362 @@
     {
       "waveNumber": 1,
       "enemies": [
-        
-        { "enemyPrefabName": "Zoombie", "spawnCount": 1 }
-
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 2,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 3,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 4 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 4,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 5 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 5,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 6 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 6,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 7 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 7,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 8 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 8,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 9 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 9,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 10 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 10,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 11 },
+        { "enemyPrefabName": "bat_v1", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 11,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 12 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 12,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 10 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 2 },
+        { "enemyPrefabName": "Fly_v1", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 13,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v1", "spawnCount": 8 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 3 },
+        { "enemyPrefabName": "Fly_v1", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 14,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v2", "spawnCount": 6 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 4 },
+        { "enemyPrefabName": "Fly_v1", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 15,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v2", "spawnCount": 7 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 5 },
+        { "enemyPrefabName": "Fly_v2", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 16,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v2", "spawnCount": 8 },
+        { "enemyPrefabName": "bat_v2", "spawnCount": 6 },
+        { "enemyPrefabName": "Fly_v2", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 17,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v2", "spawnCount": 9 },
+        { "enemyPrefabName": "bat_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "Fly_v2", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 18,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v2", "spawnCount": 10 },
+        { "enemyPrefabName": "bat_v3", "spawnCount": 2 },
+        { "enemyPrefabName": "Fly_v2", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 19,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v2", "spawnCount": 11 },
+        { "enemyPrefabName": "bat_v3", "spawnCount": 3 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 20,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "bat_v3", "spawnCount": 4 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 21,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "dinosaur_v1", "spawnCount": 2 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 22,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v1", "spawnCount": 3 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 23,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v1", "spawnCount": 4 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 24,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v2", "spawnCount": 2 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 6 }
+      ]
+    },
+    {
+      "waveNumber": 25,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v2", "spawnCount": 3 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 7 }
+      ]
+    },
+    {
+      "waveNumber": 26,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v2", "spawnCount": 4 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 8 }
+      ]
+    },
+    {
+      "waveNumber": 27,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "dinosaur_v2", "spawnCount": 3 },
+        { "enemyPrefabName": "Fly_v3", "spawnCount": 9 }
+      ]
+    },
+    {
+      "waveNumber": 28,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "dinosaur_v2", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 29,
+      "enemies": [
+        { "enemyPrefabName": "dinosaur_v3", "spawnCount": 2 },
+        { "enemyPrefabName": "dinosaur_v2", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 30,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v1", "spawnCount": 3 },
+        { "enemyPrefabName": "dinosaur_v3", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 31,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v1", "spawnCount": 4 },
+        { "enemyPrefabName": "dinosaur_v3", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 32,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v2", "spawnCount": 2 },
+        { "enemyPrefabName": "Shadow_v1", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 33,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v2", "spawnCount": 3 },
+        { "enemyPrefabName": "Shadow_v1", "spawnCount": 6 }
+      ]
+    },
+    {
+      "waveNumber": 34,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "Shadow_v2", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 35,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v3", "spawnCount": 2 },
+        { "enemyPrefabName": "Shadow_v2", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 36,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v4", "spawnCount": 1 },
+        { "enemyPrefabName": "Shadow_v3", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 37,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v4", "spawnCount": 1 },
+        { "enemyPrefabName": "Shadow_v3", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 38,
+      "enemies": [
+        { "enemyPrefabName": "Skeleton_v1", "spawnCount": 4 },
+        { "enemyPrefabName": "Shadow_v4", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 39,
+      "enemies": [
+        { "enemyPrefabName": "Skeleton_v1", "spawnCount": 5 },
+        { "enemyPrefabName": "Shadow_v4", "spawnCount": 1 }
+      ]
+    },
+    {
+      "waveNumber": 40,
+      "enemies": [
+        { "enemyPrefabName": "Skeleton_v2", "spawnCount": 3 },
+        { "enemyPrefabName": "Skeleton_v1", "spawnCount": 6 }
+      ]
+    },
+    {
+      "waveNumber": 41,
+      "enemies": [
+        { "enemyPrefabName": "Skeleton_v2", "spawnCount": 4 },
+        { "enemyPrefabName": "Skeleton_v1", "spawnCount": 7 }
+      ]
+    },
+    {
+      "waveNumber": 42,
+      "enemies": [
+        { "enemyPrefabName": "Tree_v1", "spawnCount": 2 },
+        { "enemyPrefabName": "Skeleton_v2", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 43,
+      "enemies": [
+        { "enemyPrefabName": "Tree_v1", "spawnCount": 3 },
+        { "enemyPrefabName": "Skeleton_v2", "spawnCount": 6 }
+      ]
+    },
+    {
+      "waveNumber": 44,
+      "enemies": [
+        { "enemyPrefabName": "Tree_v2", "spawnCount": 2 },
+        { "enemyPrefabName": "Tree_v1", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 45,
+      "enemies": [
+        { "enemyPrefabName": "Tree_v2", "spawnCount": 3 },
+        { "enemyPrefabName": "Tree_v1", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 46,
+      "enemies": [
+        { "enemyPrefabName": "Tree_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "Tree_v2", "spawnCount": 4 }
+      ]
+    },
+    {
+      "waveNumber": 47,
+      "enemies": [
+        { "enemyPrefabName": "Tree_v3", "spawnCount": 2 },
+        { "enemyPrefabName": "Tree_v2", "spawnCount": 5 }
+      ]
+    },
+    {
+      "waveNumber": 48,
+      "enemies": [
+        { "enemyPrefabName": "Zombie_v3", "spawnCount": 1 },
+        { "enemyPrefabName": "Tree_v3", "spawnCount": 2 }
+      ]
+    },
+    {
+      "waveNumber": 49,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v4", "spawnCount": 1 },
+        { "enemyPrefabName": "Zombie_v3", "spawnCount": 2 },
+        { "enemyPrefabName": "Tree_v3", "spawnCount": 3 }
+      ]
+    },
+    {
+      "waveNumber": 50,
+      "enemies": [
+        { "enemyPrefabName": "Shadow_v4", "spawnCount": 2 },
+        { "enemyPrefabName": "Zombie_v3", "spawnCount": 2 },
+        { "enemyPrefabName": "dinosaur_v3", "spawnCount": 1 }
       ]
     }
   ]

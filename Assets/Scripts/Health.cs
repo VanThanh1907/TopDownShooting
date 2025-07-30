@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     public float maxHP = 100f;
-    private float currentHP;
+    public float currentHP;
     public GameObject healthBarPrefab;
     private HealthBarUI healthBarUI;
     public float CurrentPercent => currentHP / maxHP;

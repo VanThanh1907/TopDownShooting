@@ -125,7 +125,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: Idle
+  _animationName: Walk
   loop: 1
   timeScale: 1
 --- !u!50 &669261692272646872
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItems: []
+  spreadRadius: 2
 --- !u!114 &3812880142240221342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 3000
+  currentHP: 0
   healthBarPrefab: {fileID: 0}
   onDeath:
     m_PersistentCalls:

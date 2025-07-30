@@ -125,7 +125,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: Idle
+  _animationName: Walk
   loop: 1
   timeScale: 1
 --- !u!114 &9198385833624858019
@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1000
+  currentHP: 0
   healthBarPrefab: {fileID: 0}
   onDeath:
     m_PersistentCalls:

@@ -51,7 +51,7 @@ public class BossAttack : MonoBehaviour
             bossAnimation.PlayAnimation("Attack", false);
 
             bool isFacingPlayer = IsFacingPlayer(player);
-            // Gây damage tại giữa animation (0.7s)
+            // Gây damage tại (0.7s)
             if (isFacingPlayer)
             {
                 Invoke(nameof(ApplyMeleeDamage), 0.7f);
