@@ -14,51 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 6421641846013699434, guid: 4def45a0323f0d24c8e821942d0bbe53, type: 3}
   phases:
-  - triggerAtPercent: 1
-    moveSpeed: 2
-    fireRate: 3
-    bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
+  - triggerAtPercent: 0
+    moveSpeed: 0
+    fireRate: 0
+    bulletPrefab: {fileID: 0}
     meleeRange: 0
     meleeDamage: 0
     fireZonePrefab: {fileID: 0}
-    fireZoneDamage: 1000
-    fireZoneDuration: 20
-    fireZoneRadius: 4
-    iceZonePrefab: {fileID: 8449353974220439396, guid: 6440500b264040b49a13c23490ce5c8b, type: 3}
-    iceZoneRadius: 1
-    iceZoneDuration: 20
-    poisonZonePrefab: {fileID: 1410384230752796200, guid: 648540efcb2f0fc438d29e0d8d92541a, type: 3}
-    poisonZoneDamage: 50
-    poisonZoneDuration: 20
-    poisonZoneRadius: 1
-    summonZonePrefab: {fileID: 1352571807994098172, guid: aabf4ba7a48601445935989ed7da141b, type: 3}
-    minionPrefab: {fileID: 8614612281205811774, guid: e3af7cf1df03d27478f0a91559fec2c8, type: 3}
-    minionCount: 1
-    summonZoneDuration: 2
-    summonZoneRadius: 1
-    patterns: 00000000
-    specialSkills: 04000000
-  - triggerAtPercent: 0.2
-    moveSpeed: 2
-    fireRate: 3
-    bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
-    meleeRange: 0
-    meleeDamage: 0
-    fireZonePrefab: {fileID: 0}
-    fireZoneDamage: 10
-    fireZoneDuration: 5
-    fireZoneRadius: 3
+    fireZoneDamage: 0
+    fireZoneDuration: 0
+    fireZoneRadius: 0
     iceZonePrefab: {fileID: 0}
     iceZoneRadius: 0
     iceZoneDuration: 0
-    poisonZonePrefab: {fileID: 0}
+    poisonZonePrefab: {fileID: 8262138819920655539, guid: 894dc07cab482ab42b948319ad59a9d2, type: 3}
     poisonZoneDamage: 0
     poisonZoneDuration: 0
     poisonZoneRadius: 0
     summonZonePrefab: {fileID: 0}
     minionPrefab: {fileID: 0}
-    minionCount: 4
-    summonZoneDuration: 2
-    summonZoneRadius: 2
-    patterns: 000000000200000004000000
+    minionCount: 0
+    summonZoneDuration: 0
+    summonZoneRadius: 0
+    teleportEffectPrefab: {fileID: 0}
+    patterns: 
     specialSkills: 02000000

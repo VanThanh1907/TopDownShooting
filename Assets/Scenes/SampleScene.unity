@@ -151,6 +151,10 @@ PrefabInstance:
       value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
+      propertyPath: currentHP
+      value: 100000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: healthBarPrefab
       value: 
       objectReference: {fileID: 5605162996321319377, guid: f737722d90abda6479342ddc16bcfd4a, type: 3}
@@ -822,7 +826,7 @@ PrefabInstance:
       objectReference: {fileID: 103021314}
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossEveryXWave
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossList.Array.size
@@ -835,11 +839,11 @@ PrefabInstance:
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossList.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: b0bd509b2b21b1041ac66fb0a0df251d, type: 2}
+      objectReference: {fileID: 11400000, guid: 8581115a9f6af6a4196cd2486586cb68, type: 2}
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossList.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 8581115a9f6af6a4196cd2486586cb68, type: 2}
+      objectReference: {fileID: 11400000, guid: b0bd509b2b21b1041ac66fb0a0df251d, type: 2}
     - target: {fileID: 2105604085893679641, guid: c0864f0c78b54c4439ca10728a85f951, type: 3}
       propertyPath: bossList.Array.data[3]
       value: 

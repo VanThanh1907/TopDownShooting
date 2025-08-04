@@ -16,19 +16,19 @@ public class BossPhaseData
     public float moveSpeed; // Tốc độ di chuyển
     public float fireRate; // Tốc độ bắn đạn
     public GameObject bulletPrefab; // Prefab đạn
-    
+
     public float meleeRange; // Tầm đánh cận chiến
     public float meleeDamage; // Sát thương cận chiến
 
     //FireZone
-    public GameObject fireZonePrefab; 
-    public float fireZoneDamage ; // Sát thương mỗi giây khi chạm vòng lửa
-    public float fireZoneDuration ; // Thời gian tồn tại của vòng lửa
-    public float fireZoneRadius ; // Bán kính Lửa
+    public GameObject fireZonePrefab;
+    public float fireZoneDamage; // Sát thương mỗi giây khi chạm vòng lửa
+    public float fireZoneDuration; // Thời gian tồn tại của vòng lửa
+    public float fireZoneRadius; // Bán kính Lửa
     //IceZone
-    public GameObject iceZonePrefab; 
+    public GameObject iceZonePrefab;
     public float iceZoneRadius; // Bán kính băng
-    public float iceZoneDuration ; // Thơi gian băng tồn tại
+    public float iceZoneDuration; // Thơi gian băng tồn tại
 
     // PoisonZone
     public GameObject poisonZonePrefab;
@@ -51,11 +51,26 @@ public class BossPhaseData
 
     public enum FirePattern
     {
+        // TargetPlayer,
+        // CircleSpread,
+        // Spiral,
+        // ShootDoubleSpiral,
+        // ShootBurstAtPlayer
         TargetPlayer,
         CircleSpread,
         Spiral,
         ShootDoubleSpiral,
-        ShootBurstAtPlayer
+        ShootBurstAtPlayer,
+        WavePattern,
+        BoomerangShot,
+        RadialPulse,
+        TrackingShot,
+        ScatterShot,
+        LaserSweep,
+        OrbitalShot,
+        BarrageRain,
+        PinwheelSpin,
+        ChargeShot
     }
 
     public enum SpecialSkill

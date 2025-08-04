@@ -46,7 +46,7 @@ public class BossAttack : MonoBehaviour
         float distance = Vector2.Distance(player.position, transform.position + new Vector3(0, 1, 0));
         if (distance <= phaseData.meleeRange && Time.time >= lastAttackTime + attackCooldown)
         {
-           
+
             lastAttackTime = Time.time;
             bossAnimation.PlayAnimation("Attack", false);
 
@@ -120,7 +120,6 @@ public class BossAttack : MonoBehaviour
                 break;
         }
     }
-
     private void Fire(Transform player)
     {
         // Tái sử dụng logic bắn đạn từ script gốc
@@ -144,13 +143,46 @@ public class BossAttack : MonoBehaviour
             case BossPhaseData.FirePattern.ShootBurstAtPlayer:
                 ShootBurstAtPlayer(player);
                 break;
+            case BossPhaseData.FirePattern.WavePattern:
+                ShootWavePattern(player);
+                break;
+            case BossPhaseData.FirePattern.BoomerangShot:
+                ShootBoomerangShot(player);
+                break;
+            case BossPhaseData.FirePattern.RadialPulse:
+                ShootRadialPulse();
+                break;
+            case BossPhaseData.FirePattern.TrackingShot:
+                ShootTrackingShot(player);
+                break;
+            case BossPhaseData.FirePattern.ScatterShot:
+                ShootScatterShot();
+                break;
+            case BossPhaseData.FirePattern.LaserSweep:
+                ShootLaserSweep(player);
+                break;
+            case BossPhaseData.FirePattern.OrbitalShot:
+                ShootOrbitalShot();
+                break;
+            case BossPhaseData.FirePattern.BarrageRain:
+                ShootBarrageRain(player);
+                break;
+            case BossPhaseData.FirePattern.PinwheelSpin:
+                ShootPinwheelSpin();
+                break;
+            case BossPhaseData.FirePattern.ChargeShot:
+                ShootChargeShot(player);
+                break;
         }
     }
 
     private void ShootAtPlayer(Transform player)
     {
-        Vector2 dir = (player.position - firePoint.position).normalized;
+        Vector2 baseDir = (player.position - firePoint.position).normalized;
+        float spreadAngle = Random.Range(-15f, 15f);
+        Vector2 dir = Quaternion.Euler(0, 0, spreadAngle) * baseDir;
         SpawnBullet(dir);
+
     }
 
     private void ShootCircle()
@@ -196,7 +228,283 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-    private void SpawnBullet(Vector2 dir)
+    private void ShootWavePattern(Transform player)
+    {
+        if (player == null) return;
+        int waveCount = 3;
+        for (int wave = 0; wave < waveCount; wave++)
+        {
+            Vector2 baseDir = (player.position - firePoint.position).normalized;
+            float spreadAngle = UnityEngine.Random.Range(-5f, 5f) + (wave * 10f); // Lệch dần theo sóng
+            Vector2 dir = Quaternion.Euler(0, 0, spreadAngle) * baseDir;
+            SpawnBullet(dir);
+            StartCoroutine(DelayNextWave(wave * 0.3f)); // Đợi 0.3s giữa các sóng
+        }
+    }
+
+    private IEnumerator DelayNextWave(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+    }
+
+    // DariusPulse
+    private void ShootRadialPulse()
+    {
+        int pulseCount = 3;
+        for (int pulse = 0; pulse < pulseCount; pulse++)
+        {
+            int bulletCount = 8 + (pulse * 2); // Tăng số đạn mỗi pulse
+            float radius = 1f + (pulse * 0.5f); // Bán kính tăng dần
+            for (int i = 0; i < bulletCount; i++)
+            {
+                float angle = i * (360f / bulletCount);
+                Vector2 dir = Quaternion.Euler(0, 0, angle) * (Vector2.right * radius).normalized;
+                SpawnBullet(dir);
+            }
+            StartCoroutine(DelayNextPulse(pulse * 0.5f));
+        }
+    }
+
+    private IEnumerator DelayNextPulse(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+    }
+
+    //ShootTrackingShot
+    private void ShootTrackingShot(Transform player)
+    {
+        if (player == null) return;
+        Vector2 baseDir = (player.position - firePoint.position).normalized;
+        GameObject bullet = SpawnBullet(baseDir);
+        if (bullet != null)
+        {
+            StartCoroutine(TrackPlayer(bullet, player));
+        }
+    }
+
+    private IEnumerator TrackPlayer(GameObject bullet, Transform player)
+    {
+        BulletController bc = bullet.GetComponent<BulletController>();
+        float trackTime = 2f;
+        float elapsed = 0f;
+        while (elapsed < trackTime)
+        {
+            if (bc != null && player != null)
+            {
+                Vector2 targetDir = (player.position - bullet.transform.position).normalized;
+                bc.SetDirection(Vector2.Lerp(bc.GetDirection(), targetDir, 0.02f)); // Xoay nhẹ 2% mỗi khung hình
+            }
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+    // ShootBoomerangShot
+    private void ShootBoomerangShot(Transform player)
+    {
+        if (player == null) return;
+        Vector2 dir = (player.position - firePoint.position).normalized;
+        GameObject bullet = SpawnBullet(dir);
+        if (bullet != null)
+        {
+            StartCoroutine(BoomerangBehavior(bullet, 1.5f)); // Quay lại sau 1.5s
+        }
+    }
+
+    private IEnumerator BoomerangBehavior(GameObject bullet, float turnTime)
+    {
+        yield return new WaitForSeconds(turnTime);
+        BulletController bc = bullet.GetComponent<BulletController>();
+        if (bc != null)
+        {
+            bc.SetDirection((firePoint.position - bullet.transform.position).normalized);
+        }
+    }
+
+    //ShootScatterShot
+    private void ShootScatterShot()
+    {
+        int bulletCount = 12;
+        for (int i = 0; i < bulletCount; i++)
+        {
+            float angle = UnityEngine.Random.Range(-45f, 45f);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            SpawnBullet(dir);
+        }
+    }
+    //ShootLaserSweep
+    private void ShootLaserSweep(Transform player)
+    {
+        if (player == null) return;
+        StartCoroutine(LaserSweepCoroutine(player));
+    }
+
+    private IEnumerator LaserSweepCoroutine(Transform player)
+    {
+        float startAngle = -90f;
+        float endAngle = 90f;
+        float duration = 2.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            float angle = Mathf.Lerp(startAngle, endAngle, t);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            SpawnBullet(dir); // Giả sử bullet là laser beam ngắn
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+    //ShootOrbitalShot
+  private void ShootOrbitalShot()
+{
+    int bulletCount = 5;
+    for (int i = 0; i < bulletCount; i++)
+    {
+        float angle = i * (360f / bulletCount);
+        Vector2 dir = Quaternion.Euler(0, 0, angle) * (Vector2.right * 2f); // Bán kính 2 đơn vị
+        GameObject bullet = SpawnBullet(dir);
+        if (bullet != null)
+        {
+            StartCoroutine(OrbitAndExplode(bullet, 3f));
+        }
+    }
+}
+
+private IEnumerator OrbitAndExplode(GameObject bullet, float orbitTime)
+{
+    float elapsed = 0f;
+    Vector3 center = firePoint.position;
+
+    while (elapsed < orbitTime)
+    {
+        if (bullet == null || !bullet.activeSelf) // Kiểm tra nếu bullet bị hủy hoặc deactivated
+        {
+            yield break; // Thoát coroutine nếu bullet không còn hợp lệ
+        }
+
+        bullet.transform.RotateAround(center, Vector3.forward, 90f * Time.deltaTime);
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    // Phát nổ thành 8 mảnh chỉ khi bullet vẫn hợp lệ
+    if (bullet != null && bullet.activeSelf)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            float angle = i * 45f;
+            Vector2 explodeDir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            SpawnBullet(explodeDir);
+        }
+        bullet.SetActive(false); // Trả lại pool an toàn
+    }
+}
+    //ShootBarrageRain
+    private void ShootBarrageRain(Transform player)
+    {
+        if (player == null) return;
+        int bulletCount = 20;
+        for (int i = 0; i < bulletCount; i++)
+        {
+            Vector2 offset = UnityEngine.Random.insideUnitCircle * 5f; // Phân bố trong bán kính 5 đơn vị
+            Vector2 startPos = player.position + (Vector3)offset + Vector3.up * 10f; // Bắt đầu từ trên cao
+            GameObject bullet = MyPoolManager.Instance.Get(phaseData.bulletPrefab, startPos);
+            BulletController bc = bullet.GetComponent<BulletController>();
+            if (bc != null)
+            {
+                bc.SetDirection(Vector2.down); // Rơi thẳng xuống
+            }
+        }
+    }
+    //ShootPinwheelSpin
+    private void ShootPinwheelSpin()
+    {
+        int bladeCount = 6;
+        for (int i = 0; i < bladeCount; i++)
+        {
+            float angle = i * (360f / bladeCount);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            SpawnBullet(dir);
+        }
+        StartCoroutine(RotatePinwheel(30f, 0.3f)); // Xoay 30 độ mỗi 0.3s
+    }
+
+    private IEnumerator RotatePinwheel(float rotateAngle, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        float currentAngle = 0f;
+        while (currentAngle < 360f)
+        {
+            currentAngle += rotateAngle;
+            for (int i = 0; i < 6; i++)
+            {
+                float angle = (i * 60f + currentAngle) % 360f;
+                Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+                SpawnBullet(dir);
+            }
+            yield return new WaitForSeconds(delay);
+        }
+    }
+    //ShootChargeShot
+  private void ShootChargeShot(Transform player)
+{
+    if (player == null) return;
+    Vector2 dir = (player.position - firePoint.position).normalized;
+    GameObject chargeBullet = SpawnBullet(dir);
+    if (chargeBullet != null)
+    {
+        StartCoroutine(ChargeAndExplode(chargeBullet, player));
+    }
+}
+
+private IEnumerator ChargeAndExplode(GameObject bullet, Transform player)
+{
+    BulletController bc = bullet.GetComponent<BulletController>();
+    if (bc == null)
+    {
+        yield break; 
+    }
+
+    // Giảm tốc độ để tạo hiệu ứng tích tụ
+    bc.SetSpeed(bc.GetSpeed() * 0.5f);
+    float elapsed = 0f;
+    float chargeTime = 1f;
+
+    while (elapsed < chargeTime)
+    {
+        if (bullet == null || !bullet.activeSelf) 
+        {
+            yield break; 
+        }
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    // Phát nổ thành 8 mảnh chỉ khi bullet vẫn hợp lệ
+    if (bullet != null && bullet.activeSelf)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            float angle = i * 45f;
+            Vector2 explodeDir = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            SpawnBullet(explodeDir);
+        }
+        bullet.SetActive(false); // Trả lại pool an toàn
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+    public GameObject SpawnBullet(Vector2 dir)
     {
         GameObject bullet = MyPoolManager.Instance.Get(phaseData.bulletPrefab, firePoint.position);
         BulletController bc = bullet.GetComponent<BulletController>();
@@ -204,6 +512,7 @@ public class BossAttack : MonoBehaviour
         {
             bc.SetDirection(dir);
         }
+        return bullet;
     }
 
     private void CreateFireZone(Transform player)

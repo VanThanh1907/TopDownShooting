@@ -26,6 +26,26 @@ public class BulletController : MonoBehaviour
 
         rb.velocity = direction * speed;
     }
+   
+    public Vector2 GetDirection()
+    {
+        return direction;
+    }
+
+ 
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+        if (rb != null)
+        {
+            rb.velocity = direction * speed; 
+        }
+    }
 
     void Update()
     {
