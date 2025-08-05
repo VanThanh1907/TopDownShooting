@@ -20,11 +20,23 @@ MonoBehaviour:
     bulletPrefab: {fileID: 2812448503498501423, guid: 9228290404ae1e6459c184d06a361d32, type: 3}
     meleeRange: 0
     meleeDamage: 0
-    fireZonePrefab: {fileID: 7314518845203641595, guid: a52373af3e026cf42988d982401d4853, type: 3}
+    fireZonePrefab: {fileID: 9054073038226956547, guid: c706c2bbf1acfde4b9ea69563f8307a5, type: 3}
     fireZoneDamage: 1000
     fireZoneDuration: 20
     fireZoneRadius: 4
     iceZonePrefab: {fileID: 0}
+    iceZoneRadius: 0
+    iceZoneDuration: 0
+    poisonZonePrefab: {fileID: 0}
+    poisonZoneDamage: 0
+    poisonZoneDuration: 0
+    poisonZoneRadius: 0
+    summonZonePrefab: {fileID: 0}
+    minionPrefab: {fileID: 0}
+    minionCount: 4
+    summonZoneDuration: 2
+    summonZoneRadius: 2
+    teleportEffectPrefab: {fileID: 0}
     patterns: 00000000
     specialSkills: 00000000
   - triggerAtPercent: 0.2
@@ -38,5 +50,17 @@ MonoBehaviour:
     fireZoneDuration: 5
     fireZoneRadius: 3
     iceZonePrefab: {fileID: 0}
+    iceZoneRadius: 0
+    iceZoneDuration: 0
+    poisonZonePrefab: {fileID: 0}
+    poisonZoneDamage: 0
+    poisonZoneDuration: 0
+    poisonZoneRadius: 0
+    summonZonePrefab: {fileID: 0}
+    minionPrefab: {fileID: 0}
+    minionCount: 4
+    summonZoneDuration: 2
+    summonZoneRadius: 2
+    teleportEffectPrefab: {fileID: 0}
     patterns: 000000000200000004000000
     specialSkills: 02000000

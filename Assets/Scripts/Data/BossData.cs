@@ -51,23 +51,12 @@ public class BossPhaseData
 
     public enum FirePattern
     {
-        // TargetPlayer,
-        // CircleSpread,
-        // Spiral,
-        // ShootDoubleSpiral,
-        // ShootBurstAtPlayer
         TargetPlayer,
         CircleSpread,
-        Spiral,
-        ShootDoubleSpiral,
         ShootBurstAtPlayer,
-        WavePattern,
         BoomerangShot,
-        RadialPulse,
         TrackingShot,
-        ScatterShot,
-        LaserSweep,
-        OrbitalShot,
+        ShootExplode,
         BarrageRain,
         PinwheelSpin,
         ChargeShot
