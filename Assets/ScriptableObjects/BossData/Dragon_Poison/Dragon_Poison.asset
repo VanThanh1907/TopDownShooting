@@ -37,7 +37,7 @@ MonoBehaviour:
     summonZoneDuration: 0
     summonZoneRadius: 0
     teleportEffectPrefab: {fileID: 0}
-    patterns: 0b000000
+    patterns: 06000000
     specialSkills: 02000000
   - triggerAtPercent: 0.5
     moveSpeed: 3

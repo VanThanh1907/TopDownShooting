@@ -58,8 +58,6 @@ public class BossPhaseData
         TrackingShot,
         ShootExplode,
         BarrageRain,
-        PinwheelSpin,
-        ChargeShot
     }
 
     public enum SpecialSkill

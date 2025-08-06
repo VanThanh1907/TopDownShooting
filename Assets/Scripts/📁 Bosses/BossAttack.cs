@@ -62,9 +62,6 @@ public class BossAttack : MonoBehaviour
     private bool IsFacingPlayer(Transform player)
     {
         bool playerOnLeft = player.position.x < transform.position.x;
-        // Boss nhìn đúng hướng nếu:
-        // - Người chơi ở bên trái (playerOnLeft = true) và boss lật sang trái (isFlipped = true)
-        // - Người chơi ở bên phải (playerOnLeft = false) và boss lật sang phải (isFlipped = false)
         return playerOnLeft == bossMove.isFlipped;
     }
     private void ApplyMeleeDamage()
@@ -148,12 +145,6 @@ public class BossAttack : MonoBehaviour
                 break;
             case BossPhaseData.FirePattern.BarrageRain:
                 ShootBarrageRain(player);
-                break;
-            case BossPhaseData.FirePattern.PinwheelSpin:
-                ShootPinwheelSpin();
-                break;
-            case BossPhaseData.FirePattern.ChargeShot:
-                ShootChargeShot(player);
                 break;
         }
     }
@@ -307,8 +298,6 @@ public class BossAttack : MonoBehaviour
 
 
 
-
-
     //ShootBarrageRain
     private void ShootBarrageRain(Transform player)
     {
@@ -336,93 +325,6 @@ public class BossAttack : MonoBehaviour
             }
         }
     }
-
-
-
-    
-
-    //ShootPinwheelSpin
-    private void ShootPinwheelSpin()
-    {
-        int bladeCount = 6;
-        for (int i = 0; i < bladeCount; i++)
-        {
-            float angle = i * (360f / bladeCount);
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
-            SpawnBullet(dir);
-        }
-        StartCoroutine(RotatePinwheel(30f, 0.3f)); // Xoay 30 độ mỗi 0.3s
-    }
-
-    private IEnumerator RotatePinwheel(float rotateAngle, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        float currentAngle = 0f;
-        while (currentAngle < 360f)
-        {
-            currentAngle += rotateAngle;
-            for (int i = 0; i < 6; i++)
-            {
-                float angle = (i * 60f + currentAngle) % 360f;
-                Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.right;
-                SpawnBullet(dir);
-            }
-            yield return new WaitForSeconds(delay);
-        }
-    }
-    //ShootChargeShot
-    private void ShootChargeShot(Transform player)
-    {
-        if (player == null) return;
-        Vector2 dir = (player.position - firePoint.position).normalized;
-        GameObject chargeBullet = SpawnBullet(dir);
-        if (chargeBullet != null)
-        {
-            StartCoroutine(ChargeAndExplode(chargeBullet, player));
-        }
-    }
-
-    private IEnumerator ChargeAndExplode(GameObject bullet, Transform player)
-    {
-        BulletController bc = bullet.GetComponent<BulletController>();
-        if (bc == null)
-        {
-            yield break;
-        }
-
-        // Giảm tốc độ để tạo hiệu ứng tích tụ
-        bc.SetSpeed(bc.GetSpeed() * 0.5f);
-        float elapsed = 0f;
-        float chargeTime = 1f;
-
-        while (elapsed < chargeTime)
-        {
-            if (bullet == null || !bullet.activeSelf)
-            {
-                yield break;
-            }
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        // Phát nổ thành 8 mảnh chỉ khi bullet vẫn hợp lệ
-        if (bullet != null && bullet.activeSelf)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                float angle = i * 45f;
-                Vector2 explodeDir = Quaternion.Euler(0, 0, angle) * Vector2.right;
-                SpawnBullet(explodeDir);
-            }
-            bullet.SetActive(false); // Trả lại pool an toàn
-        }
-    }
-
-
-
-
-
-
 
 
 
