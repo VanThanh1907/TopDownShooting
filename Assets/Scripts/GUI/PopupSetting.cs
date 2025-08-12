@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class PopupSetting : MonoBehaviour
 {
     [SerializeField] private Button playButton;
 
