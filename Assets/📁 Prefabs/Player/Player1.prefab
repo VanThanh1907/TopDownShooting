@@ -26302,6 +26302,8 @@ MonoBehaviour:
   freezeEffectPrefab: {fileID: 0}
   runtimeWeaponData: {fileID: 0}
   isFlipped: 1
+  isSpeedUpActive: 0
+  isRateUpActive: 0
 --- !u!61 &8975599659222016835
 BoxCollider2D:
   m_ObjectHideFlags: 0

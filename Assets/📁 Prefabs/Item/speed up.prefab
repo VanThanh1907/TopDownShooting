@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonusSpeed: 5
   duration: 60
+  effectIcon: {fileID: 21300000, guid: 5f2d50f104b278841b13f955853bb85d, type: 3}
   speedEffectPrefab: {fileID: 1343647572869336659, guid: 691316220bf107743b55dca1d47b52cc, type: 3}
   offset: {x: 0, y: 1, z: 0}
 --- !u!114 &3026712717851876907

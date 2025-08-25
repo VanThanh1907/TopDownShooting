@@ -342,11 +342,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: maxHP
-      value: 100
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: currentHP
-      value: 100
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 3642187111757773830, guid: 3e4f6daef919a5e48b247014614029e2, type: 3}
       propertyPath: healthBarPrefab
@@ -754,6 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupDie: {fileID: 161936035}
   playerHealth: {fileID: 393076552}
+  diePopupDelay: 4
 --- !u!1 &720673330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,6 +1067,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1581139241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1581139242}
+  - component: {fileID: 1581139245}
+  - component: {fileID: 1581139246}
+  - component: {fileID: 1581139247}
+  m_Layer: 5
+  m_Name: EffectUIParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1581139242
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581139241}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1678663260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -856, y: -479}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1581139245
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581139241}
+  m_CullTransparentMesh: 1
+--- !u!114 &1581139246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581139241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0dbffa780240443a03eb6359ffef62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectTimerUIPrefab: {fileID: 5952282241158789955, guid: 243abcfaf03dbf84495dc7e819ba3f4d, type: 3}
+  uiParent: {fileID: 1581139242}
+--- !u!114 &1581139247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581139241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!114 &1672553074 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5562362249170754341, guid: cdc71ef43c586bb4eab147e0ae2dfacf, type: 3}
@@ -1344,6 +1431,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6229547916198120479, guid: f76fc6847ba94f5429fbda73d6fe45ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 161936036}
+    - targetCorrespondingSourceObject: {fileID: 6229547916198120479, guid: f76fc6847ba94f5429fbda73d6fe45ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1581139242}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f76fc6847ba94f5429fbda73d6fe45ee, type: 3}
 --- !u!1001 &4929389091448783918

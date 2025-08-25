@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private bool isFrozen = false; // Trạng thái đóng băng
     public float freezeImmunityTimer = 0f; // Thời gian miễn nhiễm sau khi bị đóng băng
     private float freezeImmunityDuration = 2f;  // 2 giây miễn nhiễm
-   
+
 
     [Header("Weapon")]
     public WeaponData weaponData;
@@ -26,10 +26,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     Animator animator;
     private bool isStanding;
-
     private Health health;
-
     public bool isFlipped = true;
+    public Coroutine speedUpCoroutine;
+    public Coroutine rateUpCoroutine;
+    public bool isSpeedUpActive = false;
+    public bool isRateUpActive = false;
+
 
     void Awake()
     {
@@ -37,15 +40,15 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         runtimeWeaponData = Instantiate(weaponData);
         health = GetComponent<Health>();
-        
+
     }
 
     void Update()
     {
         if (health != null && health.IsDead()) return;
         if (isFrozen) return;
-       
-     // Giảm thời gian miễn nhiễm
+
+        // Giảm thời gian miễn nhiễm
         if (freezeImmunityTimer > 0)
         {
             freezeImmunityTimer -= Time.deltaTime;
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (health != null && health.IsDead() )
+        if (health != null && health.IsDead())
         {
             rb.velocity = Vector2.zero;
             return;
@@ -153,8 +156,8 @@ public class PlayerController : MonoBehaviour
 
     public void Freeze(float freezeDuration)
     {
-        if (freezeImmunityTimer > 0) return; 
-        isFrozen = true; 
+        if (freezeImmunityTimer > 0) return;
+        isFrozen = true;
         rb.velocity = Vector2.zero; // Đặt vận tốc về 0 ngay lập tức
         rb.constraints = RigidbodyConstraints2D.FreezePosition; // Khóa vị trí Rigidbody
         StartCoroutine(FreezeCoroutine(freezeDuration));
@@ -181,9 +184,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-      public bool CanBeFrozen()
+    public bool CanBeFrozen()
     {
-        return freezeImmunityTimer <= 0; 
+        return freezeImmunityTimer <= 0;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -195,7 +198,7 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject); // Xoá item sau khi nhặt
         }
     }
-    
-    
+
+
 
 }
