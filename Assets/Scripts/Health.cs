@@ -81,7 +81,7 @@ public class Health : MonoBehaviour
             if (dp != null)
             {
                 dp.Setup(dmg);
-                StartCoroutine(DisablePopupAfterDelay(popup, dp.duration)); // Trả popup về pool sau thời gian hiển thị
+                MyPoolManager.Instance.StartCoroutine(DisablePopupAfterDelay(popup, dp.duration)); // Trả popup về pool sau thời gian hiển thị
             }
         }
         if (animator != null)

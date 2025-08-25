@@ -37,9 +37,9 @@ MonoBehaviour:
     summonZoneDuration: 2
     summonZoneRadius: 2
     teleportEffectPrefab: {fileID: 0}
-    patterns: 04000000
-    specialSkills: 00000000
-  - triggerAtPercent: 0.5
+    patterns: 0000000002000000
+    specialSkills: 
+  - triggerAtPercent: 0.75
     moveSpeed: 3
     fireRate: 3
     bulletPrefab: {fileID: 7612644627297085755, guid: 7788330d0d944e34b837e342d9d0400b, type: 3}

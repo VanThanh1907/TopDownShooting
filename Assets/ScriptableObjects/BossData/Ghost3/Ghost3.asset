@@ -49,9 +49,9 @@ MonoBehaviour:
     fireZoneDamage: 0
     fireZoneDuration: 0
     fireZoneRadius: 0
-    iceZonePrefab: {fileID: 0}
-    iceZoneRadius: 0
-    iceZoneDuration: 0
+    iceZonePrefab: {fileID: 8449353974220439396, guid: 6440500b264040b49a13c23490ce5c8b, type: 3}
+    iceZoneRadius: 1
+    iceZoneDuration: 1
     poisonZonePrefab: {fileID: 0}
     poisonZoneDamage: 0
     poisonZoneDuration: 0
@@ -63,4 +63,4 @@ MonoBehaviour:
     summonZoneRadius: 1
     teleportEffectPrefab: {fileID: 8587519750290894407, guid: fa5bbed9ef269b44d849588ad4c665cd, type: 3}
     patterns: 00000000
-    specialSkills: 0300000004000000
+    specialSkills: 030000000400000001000000
