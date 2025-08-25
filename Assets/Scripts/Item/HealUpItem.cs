@@ -19,6 +19,7 @@ public class HealUpItem : ItemBase
 
             if (healEffectPrefab != null)
             {
+                Debug.LogWarning("Spawn healEffectPrefab");
                 GameObject fx = GameObject.Instantiate(healEffectPrefab, player.transform.position, Quaternion.identity, player.transform);
                 fx.transform.localPosition = offset;
                 GameObject.Destroy(fx, 1.5f);
